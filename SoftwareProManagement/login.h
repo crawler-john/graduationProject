@@ -8,6 +8,7 @@
 #include <QPoint>
 #include "mainwindow.h"
 #include "setsqlserver.h"
+#include "dbmanager.h"
 
 class login : public QWidget
 {
@@ -39,8 +40,12 @@ private:
     //创建界面
     void createLogin();
 
+
+
 private:
+    QString hostAddress;
     QPoint dragPosition;
+    DBManager *DbManager;
 protected:
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
@@ -50,8 +55,12 @@ signals:
     void sigLoginIn();
     
 public slots:
-    void userLogin();
-    void setDBServer();
+    //用户登录
+    void SlotUserLogin();
+    //设置服务器
+    void SlotSetDBServer();
+    void SlotSetHostAddress(QString hostAddress);
+
 
     
 };

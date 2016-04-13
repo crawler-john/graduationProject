@@ -15,10 +15,13 @@ signals:
     
 public slots:
 
+
 protected:
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
     void paintEvent(QPaintEvent *);
+
+
 
 
 private:

@@ -1,6 +1,6 @@
 #include "dbmanager.h"
 
-DBManager::DBManager(QString HostAddress):m_dbFlag(false),m_hostAddress(HostAddress)
+DBManager::DBManager(QString HostAddress):m_hostAddress(HostAddress)
 {
     //get valid database Driver
     m_sqlDriver = QSqlDatabase::drivers();
@@ -9,9 +9,13 @@ DBManager::DBManager(QString HostAddress):m_dbFlag(false),m_hostAddress(HostAddr
 
     if(!m_db.isValid())
     {
-        m_dbFlag = false;
         return;
     }
+}
+
+void DBManager::setHostAddress(QString HostAddress)
+{
+    m_hostAddress = HostAddress;
 }
 
 bool DBManager::DBopen()
@@ -31,23 +35,37 @@ bool DBManager::DBopen()
     //connect and open database
     if(m_db.open())
     {
-        m_dbFlag = true;
         return true;
     }
     else
     {
-        m_dbFlag = false;
         return false;
     }
+
+
 }
 
-bool DBManager::DBclose()
+
+
+QString DBManager::DBSelectUserPassword(QString userID)
 {
-    if(m_dbFlag == true)
+    DBopen();
+    QString password = "";
+    QSqlQuery t_sql;
+    QString sqlCMD = "select password from userinfo where id = " + userID + ";" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
     {
-        m_db.close();
-        m_dbFlag = false;
-        return true;
+        qDebug() << "success";
+        while(t_sql.next()){
+            password =  t_sql.value(0).toString();
+        }
+    }else
+    {
+        password = "";
     }
-    return false;
+    m_db.close();
+    return password;
+
 }

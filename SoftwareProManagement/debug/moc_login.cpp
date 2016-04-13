@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_login_t {
-    QByteArrayData data[5];
-    char stringdata[41];
+    QByteArrayData data[7];
+    char stringdata[80];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,10 +32,14 @@ static const qt_meta_stringdata_login_t qt_meta_stringdata_login = {
 QT_MOC_LITERAL(0, 0, 5),
 QT_MOC_LITERAL(1, 6, 10),
 QT_MOC_LITERAL(2, 17, 0),
-QT_MOC_LITERAL(3, 18, 9),
-QT_MOC_LITERAL(4, 28, 11)
+QT_MOC_LITERAL(3, 18, 13),
+QT_MOC_LITERAL(4, 32, 15),
+QT_MOC_LITERAL(5, 48, 18),
+QT_MOC_LITERAL(6, 67, 11)
     },
-    "login\0sigLoginIn\0\0userLogin\0setDBServer\0"
+    "login\0sigLoginIn\0\0SlotUserLogin\0"
+    "SlotSetDBServer\0SlotSetHostAddress\0"
+    "hostAddress\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -45,7 +49,7 @@ static const uint qt_meta_data_login[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -53,11 +57,12 @@ static const uint qt_meta_data_login[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x05,
+       1,    0,   34,    2, 0x05,
 
  // slots: name, argc, parameters, tag, flags
-       3,    0,   30,    2, 0x0a,
-       4,    0,   31,    2, 0x0a,
+       3,    0,   35,    2, 0x0a,
+       4,    0,   36,    2, 0x0a,
+       5,    1,   37,    2, 0x0a,
 
  // signals: parameters
     QMetaType::Void,
@@ -65,6 +70,7 @@ static const uint qt_meta_data_login[] = {
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    6,
 
        0        // eod
 };
@@ -75,8 +81,9 @@ void login::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         login *_t = static_cast<login *>(_o);
         switch (_id) {
         case 0: _t->sigLoginIn(); break;
-        case 1: _t->userLogin(); break;
-        case 2: _t->setDBServer(); break;
+        case 1: _t->SlotUserLogin(); break;
+        case 2: _t->SlotSetDBServer(); break;
+        case 3: _t->SlotSetHostAddress((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -89,7 +96,6 @@ void login::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
             }
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject login::staticMetaObject = {
@@ -117,13 +123,13 @@ int login::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }

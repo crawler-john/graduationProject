@@ -6,7 +6,7 @@
 #include <QDebug>
 
 login::login(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent),hostAddress("127.0.0.1"),DbManager(new DBManager(hostAddress))
 {
     QPixmap pix;
     pix.load("img/Login1.png",0,Qt::AvoidDither|Qt::ThresholdDither|Qt::ThresholdAlphaDither);
@@ -24,7 +24,7 @@ void login::createLogin()
     btnLogin->setGeometry(173,284,148,32);
     btnLogin->setStyleSheet("background-image:url(img/btnLogin.png);");
     btnLogin->setFlat(true);
-    connect(btnLogin,SIGNAL(clicked()),this,SLOT(userLogin()));
+    connect(btnLogin,SIGNAL(clicked()),this,SLOT(SlotUserLogin()));
 
     lineEditAccount = new QLineEdit(this);
     lineEditAccount->setGeometry(174,199,146,31);
@@ -32,14 +32,14 @@ void login::createLogin()
     lineEditPassword = new QLineEdit(this);
     lineEditPassword->setEchoMode (QLineEdit::Password);
     lineEditPassword->setGeometry(174,238,146,31);
-    connect(lineEditPassword,SIGNAL(returnPressed()),this,SLOT(userLogin()));
+    connect(lineEditPassword,SIGNAL(returnPressed()),this,SLOT(SlotUserLogin()));
 
 
     btnSet = new QPushButton("",this);
     btnSet->setGeometry(348,0,25,25);
     btnSet->setStyleSheet("background-image:url(img/btnSet.png);");
     btnSet->setFlat(true);
-    connect(btnSet,SIGNAL(clicked()),this,SLOT(setDBServer()));
+    connect(btnSet,SIGNAL(clicked()),this,SLOT(SlotSetDBServer()));
 
     btnMinimize = new QPushButton("",this);
     btnMinimize->setGeometry(374,0,25,25);
@@ -59,25 +59,28 @@ void login::createLogin()
 
 
 //用户登录槽函数
-void login::userLogin()
+void login::SlotUserLogin()
 {
     ErrorInfo->setText("");
 
-    QString account = lineEditAccount->text();
-    QString password = lineEditPassword->text();
+    QString inputAccount = lineEditAccount->text();
+    QString inputPassword = lineEditPassword->text();
 
-    if(password.isEmpty())
-    {
-        ErrorInfo->setText("请输入密码！");
-        return;
-    }
-    if(account.isEmpty())
+    if(inputAccount.isEmpty())
     {
         ErrorInfo->setText("请输入账号！");
         return;
     }
+    if(inputPassword.isEmpty())
+    {
+        ErrorInfo->setText("请输入密码！");
+        return;
+    }
 
-    if(account == "1111" && password == "1111")
+    QString password = DbManager->DBSelectUserPassword(inputAccount);
+    qDebug() << password;
+
+    if(password == inputPassword)
     {
         sigLoginIn();
         qDebug()<<"1111111111";
@@ -91,11 +94,16 @@ void login::userLogin()
 
 }
 
-void login::setDBServer()
+void login::SlotSetDBServer()
 {
     dbServer = new SetSQLServer();
+
     dbServer->exec();
 
+}
+
+void login::SlotSetHostAddress(QString hostAddress)
+{
 }
 
 
