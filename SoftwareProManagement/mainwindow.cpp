@@ -1,22 +1,26 @@
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include <QMouseEvent>
-#include <QPainter>
-#include <QBitmap>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(DBManager *DbManager,QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
-    QPixmap pix;
-    pix.load("img/Login.png",0,Qt::AvoidDither|Qt::ThresholdDither|Qt::ThresholdAlphaDither);
-    resize(431,331);
-    setMask(QBitmap(pix.mask()));
+    ui->setupUi(this);
+    this->DbManager = DbManager;
     setWindowFlags(Qt::FramelessWindowHint);
+    connect(this,SIGNAL(SigSelectStackedWidget(int)),ui->stackedWidget,SLOT(setCurrentIndex(int)));
+    connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(SlotTreeWidgetClick(QTreeWidgetItem*,int)));
+    emit SigSelectStackedWidget(0);
+    ui->treeWidget->expandAll();
+
 }
 
 MainWindow::~MainWindow()
 {
-    
+    delete ui;
 }
+
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -36,9 +40,44 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void MainWindow::paintEvent(QPaintEvent *)
+void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item, int column)
 {
-    QPainter painter(this);
-    painter.drawPixmap(0,0,QPixmap("img/Login.png"));
+    QTreeWidgetItem *parent = item->parent();
+    if(NULL==parent) //注意：最顶端项是没有父节点的，双击这些项时注意(陷阱)
+        return;
+    int col = parent->indexOfChild(item); //item在父项中的节点行号(从0开始)
+    int parcol = ui->treeWidget->indexOfTopLevelItem(parent);
+    switch(parcol)
+    {
+    case 0:
+        emit SigSelectStackedWidget(col+1);
+        break;
+    case 1:
+        emit SigSelectStackedWidget(col+3);
+        break;
+    case 2:
+        emit SigSelectStackedWidget(col+10);
+        break;
+    default:
+        break;
+    }
 
+
+
+}
+//退出登录槽函数
+void MainWindow::on_BtnLoginOutSystem_clicked()
+{
+    qDebug() << "退出登录槽函数";
+}
+//重新登录槽函数
+void MainWindow::on_BtnReLogin_clicked()
+{
+    qDebug() << "重新登录槽函数";
+}
+
+void MainWindow::on_BtnClose_clicked()
+{
+    qDebug() << "退出登录槽函数";
+    close();
 }

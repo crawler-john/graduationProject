@@ -3,17 +3,22 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QBitmap>
+#include <QDomDocument>
+#include <QFile>
 #include <QDebug>
 
 login::login(QWidget *parent) :
-    QWidget(parent),hostAddress("127.0.0.1"),DbManager(new DBManager(hostAddress))
+    QWidget(parent),DbManager(new DBManager(hostAddress))
 {
     QPixmap pix;
-    pix.load("img/Login1.png",0,Qt::AvoidDither|Qt::ThresholdDither|Qt::ThresholdAlphaDither);
+    pix.load("img/Login.png",0,Qt::AvoidDither|Qt::ThresholdDither|Qt::ThresholdAlphaDither);
     resize(431,331);
     setMask(QBitmap(pix.mask()));
     setWindowFlags(Qt::FramelessWindowHint);
+    readConfig();
     createLogin();
+
+
 
 }
 
@@ -34,13 +39,6 @@ void login::createLogin()
     lineEditPassword->setGeometry(174,238,146,31);
     connect(lineEditPassword,SIGNAL(returnPressed()),this,SLOT(SlotUserLogin()));
 
-
-    btnSet = new QPushButton("",this);
-    btnSet->setGeometry(348,0,25,25);
-    btnSet->setStyleSheet("background-image:url(img/btnSet.png);");
-    btnSet->setFlat(true);
-    connect(btnSet,SIGNAL(clicked()),this,SLOT(SlotSetDBServer()));
-
     btnMinimize = new QPushButton("",this);
     btnMinimize->setGeometry(374,0,25,25);
     btnMinimize->setStyleSheet("background-image:url(img/btnMinimize.png);");
@@ -55,6 +53,42 @@ void login::createLogin()
 
     ErrorInfo = new QLabel("",this);
     ErrorInfo->setGeometry(330,199,146,31);
+}
+
+void login::readConfig()
+{
+    QDomDocument doc("mydocument");
+    QFile file("configure/configure.xml");
+    if (!file.open(QIODevice::ReadOnly))
+        return;
+    if (!doc.setContent(&file))
+    {
+        file.close();
+        return;
+    }
+    file.close();
+
+    // print out the element names of all elements that are direct children
+    // of the outermost element.
+    QDomElement docElem = doc.documentElement();
+
+    QDomNode n = docElem.firstChild();
+    while (!n.isNull())
+    {
+        QDomElement e = n.toElement(); // try to convert the node to an element.
+        if (!e.isNull())
+        {
+            qDebug() << e.tagName() ; // the node really is an element.
+            qDebug() << e.text() ;
+            if(e.tagName() == "ServerIpAddress")  // the node really is an element.
+            {
+                hostAddress = e.text();
+                DbManager->setHostAddress(hostAddress);
+            }
+
+        }
+        n = n.nextSibling();
+    }
 }
 
 
@@ -77,34 +111,29 @@ void login::SlotUserLogin()
         return;
     }
 
-    QString password = DbManager->DBSelectUserPassword(inputAccount);
-    qDebug() << password;
-
-    if(password == inputPassword)
+    QString password;
+    qDebug() << hostAddress;
+    DBManager::eDbStatus status = DbManager->DBSelectUserPassword(inputAccount,&password);
+    if(status != DBManager::DB_SUCCESS)
     {
-        sigLoginIn();
-        qDebug()<<"1111111111";
-        mainWin = new MainWindow();
-        this->hide();
-        mainWin->show();
+        qDebug() << "服务器异常";
+    }else
+    {
+        if(password == inputPassword)
+        {
+            mainWin = new MainWindow(DbManager);
+            this->hide();
+            mainWin->show();
+        }else{
+            ErrorInfo->setText("账号或密码有误！");
+        }
     }
 
 
-
-
 }
 
-void login::SlotSetDBServer()
-{
-    dbServer = new SetSQLServer();
 
-    dbServer->exec();
 
-}
-
-void login::SlotSetHostAddress(QString hostAddress)
-{
-}
 
 
 
@@ -133,7 +162,8 @@ void login::mouseMoveEvent(QMouseEvent *event)
 void login::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    painter.drawPixmap(0,0,QPixmap("img/Login1.png"));
+    painter.drawPixmap(0,0,QPixmap("img/Login.png"));
+
 
 }
 

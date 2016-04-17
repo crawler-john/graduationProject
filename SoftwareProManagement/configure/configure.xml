@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Start of xml document -->
+<config>
+    <!-- Database IP Address -->
+    <ServerIpAddress>127.0.0.1</ServerIpAddress>
+
+</config> <!-- End of xml document -->

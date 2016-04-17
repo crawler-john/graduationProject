@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT       += sql
+QT       += xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,15 +15,27 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     login.cpp \
-    setsqlserver.cpp \
-    dbmanager.cpp
+    dbmanager.cpp \
+    mainwindow.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     login.h \
-    setsqlserver.h \
-    dbmanager.h
+    dbmanager.h \
+    mainwindow.h
 
 OTHER_FILES += \
-    img/SoftwareProManagement.png
+    img/SoftwareProManagement.png \
+    img/YA~7BT50L)6_]9L{P2MT25D.png \
+    img/serversetDialog.png \
+    img/serversetDialo.png \
+    img/btnSet.png \
+    img/btnQuit.png \
+    img/btnMinimize.png \
+    img/btnLogin.png \
+    configure.xml \
+    configure/configure.xml \
+    configure/proManager.sql
+
+FORMS += \
+    mainwindow.ui

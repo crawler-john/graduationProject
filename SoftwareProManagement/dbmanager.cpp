@@ -6,11 +6,6 @@ DBManager::DBManager(QString HostAddress):m_hostAddress(HostAddress)
     m_sqlDriver = QSqlDatabase::drivers();
     //add mysql to connect
     m_db = QSqlDatabase::addDatabase("QMYSQL");
-
-    if(!m_db.isValid())
-    {
-        return;
-    }
 }
 
 void DBManager::setHostAddress(QString HostAddress)
@@ -18,8 +13,12 @@ void DBManager::setHostAddress(QString HostAddress)
     m_hostAddress = HostAddress;
 }
 
-bool DBManager::DBopen()
+DBManager::eDbStatus DBManager::DBopen()
 {
+    if(!m_db.isValid())
+    {
+        return DB_SERVERUNUSUAL;
+    }
     //set connect host
     m_db.setHostName(m_hostAddress);
 
@@ -35,37 +34,41 @@ bool DBManager::DBopen()
     //connect and open database
     if(m_db.open())
     {
-        return true;
+        return DB_SUCCESS;
     }
     else
     {
-        return false;
+        return DB_FAILED;
     }
 
 
 }
 
 
-
-QString DBManager::DBSelectUserPassword(QString userID)
+DBManager::eDbStatus  DBManager::DBSelectUserPassword(QString userID,QString *userPassword)
 {
-    DBopen();
-    QString password = "";
+    DBManager::eDbStatus status = DBopen();
+    if(status != DB_SUCCESS)
+    {
+        return status;
+    }
+
     QSqlQuery t_sql;
     QString sqlCMD = "select password from userinfo where id = " + userID + ";" ;
 
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
     {
-        qDebug() << "success";
         while(t_sql.next()){
-            password =  t_sql.value(0).toString();
+            *userPassword =  t_sql.value(0).toString();
         }
+        m_db.close();
+        return DB_SUCCESS;
     }else
     {
-        password = "";
+        return DB_FAILED;
     }
-    m_db.close();
-    return password;
+
+
 
 }
