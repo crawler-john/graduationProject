@@ -5,6 +5,7 @@
 #include <QBitmap>
 #include <QDomDocument>
 #include <QFile>
+#include <QMessageBox>
 #include <QDebug>
 
 login::login(QWidget *parent) :
@@ -17,9 +18,6 @@ login::login(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
     readConfig();
     createLogin();
-
-
-
 }
 
 void login::createLogin()
@@ -116,12 +114,13 @@ void login::SlotUserLogin()
     DBManager::eDbStatus status = DbManager->DBSelectUserPassword(inputAccount,&password);
     if(status != DBManager::DB_SUCCESS)
     {
-        qDebug() << "服务器异常";
+        qDebug() << status;
+        QMessageBox::critical(this,"警告","当前服务器异常，请联系管理员！");
     }else
     {
         if(password == inputPassword)
         {
-            mainWin = new MainWindow(DbManager);
+            mainWin = new MainWindow(DbManager,inputAccount);
             this->hide();
             mainWin->show();
         }else{

@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QStringList>
 #include <QList>
+#include "userinfo.h"
 
 
 class DBManager
@@ -23,7 +24,8 @@ public:
 
     //从数据库中获得账号密码
     eDbStatus DBSelectUserPassword(QString userID,QString *userPassword);
-
+    //获取用户信息
+    eDbStatus DBGetUserInfo(QString  userID,userInfo &userinfo);
 
 
 private:

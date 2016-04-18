@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QMouseEvent>
 
-MainWindow::MainWindow(DBManager *DbManager,QWidget *parent) :
+MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -13,6 +13,19 @@ MainWindow::MainWindow(DBManager *DbManager,QWidget *parent) :
     connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(SlotTreeWidgetClick(QTreeWidgetItem*,int)));
     emit SigSelectStackedWidget(0);
     ui->treeWidget->expandAll();
+
+    //获得登录信息
+    m_userinfo.setID(UserID);
+
+    getUserInfo(UserID);
+
+}
+void MainWindow::getUserInfo(QString  UserID)
+{
+    DbManager->DBGetUserInfo(UserID,this->m_userinfo);
+    ui->label_username->setText(m_userinfo.getName());
+    //设置权限相关的内容
+
 
 }
 
@@ -39,6 +52,8 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
         event->accept();
     }
 }
+
+
 
 void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item, int column)
 {

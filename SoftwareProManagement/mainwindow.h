@@ -5,6 +5,7 @@
 #include <dbmanager.h>
 #include <QPoint>
 #include <QTreeWidgetItem>
+#include "userinfo.h"
 namespace Ui {
 class MainWindow;
 }
@@ -14,7 +15,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     
 public:
-    explicit MainWindow(DBManager *DbManager,QWidget *parent = 0);
+    explicit MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent = 0);
     ~MainWindow();
 
 
@@ -23,10 +24,13 @@ public:
 private:
     DBManager *DbManager;
     QPoint dragPosition;
+    userInfo m_userinfo;
 private:
     Ui::MainWindow *ui;
+    void getUserInfo(QString  UserID);
 signals:
     void SigSelectStackedWidget(int);
+
 public slots:
     void SlotTreeWidgetClick(QTreeWidgetItem * item, int column);
 private slots:

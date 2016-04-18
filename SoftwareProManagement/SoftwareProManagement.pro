@@ -17,12 +17,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
     login.cpp \
     dbmanager.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    userinfo.cpp
 
 HEADERS  += \
     login.h \
     dbmanager.h \
-    mainwindow.h
+    mainwindow.h \
+    userinfo.h
 
 OTHER_FILES += \
     img/SoftwareProManagement.png \
