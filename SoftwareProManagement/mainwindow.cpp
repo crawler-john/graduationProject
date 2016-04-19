@@ -12,6 +12,7 @@ MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     connect(this,SIGNAL(SigSelectStackedWidget(int)),ui->stackedWidget,SLOT(setCurrentIndex(int)));
     connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(SlotTreeWidgetClick(QTreeWidgetItem*,int)));
     emit SigSelectStackedWidget(0);
+
     ui->treeWidget->expandAll();
 
     //获得登录信息
@@ -24,8 +25,38 @@ void MainWindow::getUserInfo(QString  UserID)
 {
     DbManager->DBGetUserInfo(UserID,this->m_userinfo);
     ui->label_username->setText(m_userinfo.getName());
+    //设置登录
+    DbManager->DBSetLoginFlag(m_userinfo.getID(),true);
     //设置权限相关的内容
-
+    if((!m_userinfo.getPerm_myProject() && !m_userinfo.getPerm_myTask()))
+    {
+        ui->treeWidget->topLevelItem(0)->setHidden(true);
+    }
+    ui->treeWidget->topLevelItem(0)->child(0)->setHidden(!m_userinfo.getPerm_myProject());
+    ui->treeWidget->topLevelItem(0)->child(1)->setHidden(!m_userinfo.getPerm_myTask());
+    if((!m_userinfo.getPerm_proInfoManage() && !m_userinfo.getPerm_StaffManage() && !m_userinfo.getPerm_CostManage()
+            && !m_userinfo.getPerm_RequireTaskManage() && !m_userinfo.getPerm_PlanManage() && !m_userinfo.getPerm_WeeklyReports()
+            &&!m_userinfo.getPerm_MonthlyReports()))
+    {
+        ui->treeWidget->topLevelItem(1)->setHidden(true);
+    }
+    ui->treeWidget->topLevelItem(1)->child(0)->setHidden(!m_userinfo.getPerm_proInfoManage());
+    ui->treeWidget->topLevelItem(1)->child(1)->setHidden(!m_userinfo.getPerm_StaffManage());
+    ui->treeWidget->topLevelItem(1)->child(2)->setHidden(!m_userinfo.getPerm_CostManage());
+    ui->treeWidget->topLevelItem(1)->child(3)->setHidden(!m_userinfo.getPerm_RequireTaskManage());
+    ui->treeWidget->topLevelItem(1)->child(4)->setHidden(!m_userinfo.getPerm_PlanManage());
+    ui->treeWidget->topLevelItem(1)->child(5)->setHidden(!m_userinfo.getPerm_WeeklyReports());
+    ui->treeWidget->topLevelItem(1)->child(6)->setHidden(!m_userinfo.getPerm_MonthlyReports());
+    if((!m_userinfo.getPerm_OrganManage() && !m_userinfo.getPerm_StaffManage() && !m_userinfo.getPerm_StaffManage()
+            && !m_userinfo.getPerm_LoginUser() && !m_userinfo.getPerm_PermManage()))
+    {
+        ui->treeWidget->topLevelItem(2)->setHidden(true);
+    }
+    ui->treeWidget->topLevelItem(2)->child(0)->setHidden(!m_userinfo.getPerm_OrganManage());
+    ui->treeWidget->topLevelItem(2)->child(1)->setHidden(!m_userinfo.getPerm_StaffManage());
+    ui->treeWidget->topLevelItem(2)->child(2)->setHidden(!m_userinfo.getPerm_RoleManage());
+    ui->treeWidget->topLevelItem(2)->child(3)->setHidden(!m_userinfo.getPerm_LoginUser());
+    ui->treeWidget->topLevelItem(2)->child(4)->setHidden(!m_userinfo.getPerm_PermManage());
 
 }
 
@@ -83,16 +114,20 @@ void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item, int column)
 //退出登录槽函数
 void MainWindow::on_BtnLoginOutSystem_clicked()
 {
+    DbManager->DBSetLoginFlag(m_userinfo.getID(),false);
     qDebug() << "退出登录槽函数";
+    close();
 }
 //重新登录槽函数
 void MainWindow::on_BtnReLogin_clicked()
 {
+    DbManager->DBSetLoginFlag(m_userinfo.getID(),false);
     qDebug() << "重新登录槽函数";
 }
 
 void MainWindow::on_BtnClose_clicked()
 {
+    DbManager->DBSetLoginFlag(m_userinfo.getID(),false);
     qDebug() << "退出登录槽函数";
     close();
 }

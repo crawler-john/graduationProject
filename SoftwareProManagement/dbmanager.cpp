@@ -103,7 +103,34 @@ DBManager::eDbStatus DBManager::DBGetUserInfo(QString  userID,userInfo &userinfo
         return DB_SUCCESS;
     }else
     {
+        m_db.close();
         return DB_FAILED;
     }
 
+}
+
+DBManager::eDbStatus DBManager::DBSetLoginFlag(QString userID, bool Loginflag)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "";
+    if(Loginflag)
+    {
+        sqlCMD = "update userinfo set Loginflag = '1' where id = \"" + userID + "\";" ;
+    }else
+    {
+        sqlCMD = "update userinfo set Loginflag = '0' where id = \"" + userID + "\";" ;
+    }
+
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
 }

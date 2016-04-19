@@ -29,6 +29,7 @@ private:
     Ui::MainWindow *ui;
     void getUserInfo(QString  UserID);
 signals:
+    //选择对应的stackedWidget
     void SigSelectStackedWidget(int);
 
 public slots:

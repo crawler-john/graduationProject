@@ -26,7 +26,7 @@ public:
     eDbStatus DBSelectUserPassword(QString userID,QString *userPassword);
     //获取用户信息
     eDbStatus DBGetUserInfo(QString  userID,userInfo &userinfo);
-
+    eDbStatus DBSetLoginFlag(QString userID,bool Loginflag);
 
 private:
     QStringList m_sqlDriver;

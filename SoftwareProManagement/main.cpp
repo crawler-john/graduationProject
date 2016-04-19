@@ -14,10 +14,10 @@ int main(int argc, char *argv[])
 //    splash.show();
 //    a.processEvents();
 
-    login w;
-    w.show();
-//    DBManager Dbmanager("127.0.0.1");
-//    MainWindow w(&Dbmanager);
+//    login w;
+//    w.show();
+    DBManager Dbmanager("127.0.0.1");
+    MainWindow w(&Dbmanager,"0001");
     w.show();
     
 //    splash.finish(&w);
