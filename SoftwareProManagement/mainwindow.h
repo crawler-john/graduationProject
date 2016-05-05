@@ -33,11 +33,12 @@ signals:
     void SigSelectStackedWidget(int);
 
 public slots:
-    void SlotTreeWidgetClick(QTreeWidgetItem * item, int column);
+    void SlotTreeWidgetClick(QTreeWidgetItem * item);
 private slots:
     void on_BtnLoginOutSystem_clicked();
     void on_BtnReLogin_clicked();
     void on_BtnClose_clicked();
+    void on_btnAddDaily_clicked();
 };
 
 #endif // MAINWINDOW_H

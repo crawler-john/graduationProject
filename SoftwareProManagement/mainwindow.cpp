@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMouseEvent>
-
+#include "daily.h"
 MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -10,7 +10,7 @@ MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     this->DbManager = DbManager;
     setWindowFlags(Qt::FramelessWindowHint);
     connect(this,SIGNAL(SigSelectStackedWidget(int)),ui->stackedWidget,SLOT(setCurrentIndex(int)));
-    connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(SlotTreeWidgetClick(QTreeWidgetItem*,int)));
+    connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(SlotTreeWidgetClick(QTreeWidgetItem*)));
     emit SigSelectStackedWidget(0);
 
     ui->treeWidget->expandAll();
@@ -86,7 +86,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 
 
 
-void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item, int column)
+void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item)
 {
     QTreeWidgetItem *parent = item->parent();
     if(NULL==parent) //注意：最顶端项是没有父节点的，双击这些项时注意(陷阱)
@@ -107,9 +107,6 @@ void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item, int column)
     default:
         break;
     }
-
-
-
 }
 //退出登录槽函数
 void MainWindow::on_BtnLoginOutSystem_clicked()
@@ -130,4 +127,11 @@ void MainWindow::on_BtnClose_clicked()
     DbManager->DBSetLoginFlag(m_userinfo.getID(),false);
     qDebug() << "退出登录槽函数";
     close();
+}
+
+void MainWindow::on_btnAddDaily_clicked()
+{
+    Daily *daily = new Daily;
+    daily->exec();
+    delete daily;
 }

@@ -266,7 +266,7 @@ background:transparent;
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>14</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QFrame" name="frame">
@@ -528,6 +528,19 @@ background:transparent;
        </property>
        <property name="text">
         <string>周报</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnAddDaily">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>30</y>
+         <width>75</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>添加周报</string>
        </property>
       </widget>
      </widget>

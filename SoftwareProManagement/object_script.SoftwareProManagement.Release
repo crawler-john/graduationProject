@@ -1,0 +1,14 @@
+INPUT(
+./release\main.o
+./release\login.o
+./release\dbmanager.o
+./release\mainwindow.o
+./release\userinfo.o
+./release\daily.o
+./release\monthly.o
+./release\qrc_images.o
+./release\moc_login.o
+./release\moc_mainwindow.o
+./release\moc_daily.o
+./release\moc_monthly.o
+);

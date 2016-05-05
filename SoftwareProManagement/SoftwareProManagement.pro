@@ -18,26 +18,31 @@ SOURCES += main.cpp\
     login.cpp \
     dbmanager.cpp \
     mainwindow.cpp \
-    userinfo.cpp
+    userinfo.cpp \
+    daily.cpp \
+    monthly.cpp
 
 HEADERS  += \
     login.h \
     dbmanager.h \
     mainwindow.h \
-    userinfo.h
+    userinfo.h \
+    daily.h \
+    monthly.h
 
 OTHER_FILES += \
-    img/SoftwareProManagement.png \
-    img/YA~7BT50L)6_]9L{P2MT25D.png \
-    img/serversetDialog.png \
-    img/serversetDialo.png \
-    img/btnSet.png \
-    img/btnQuit.png \
-    img/btnMinimize.png \
-    img/btnLogin.png \
     configure.xml \
     configure/configure.xml \
-    configure/proManager.sql
+    configure/proManager.sql \
+    my.rc
+
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    daily.ui \
+    monthly.ui
+
+RESOURCES += \
+    images.qrc
+
+

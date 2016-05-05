@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/btnLogin.png</file>
+        <file>img/btnMinimize.png</file>
+        <file>img/btnQuit.png</file>
+        <file>img/icon.ico</file>
+        <file>img/Login.png</file>
+        <file>img/mainwindow.jpg</file>
+        <file>img/SoftwareProManagement.png</file>
+        <file>img/welcome.png</file>
+        <file>img/welcomeOperation.png</file>
+    </qresource>
+</RCC>

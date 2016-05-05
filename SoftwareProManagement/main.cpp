@@ -8,6 +8,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setWindowIcon(QIcon("img/icon.ico"));
 //    QPixmap pixmap("img/SoftwareProManagement.png");
 //    QSplashScreen splash(pixmap);
 
@@ -17,7 +18,7 @@ int main(int argc, char *argv[])
 //    login w;
 //    w.show();
     DBManager Dbmanager("127.0.0.1");
-    MainWindow w(&Dbmanager,"0001");
+    MainWindow w(&Dbmanager,"admin");
     w.show();
     
 //    splash.finish(&w);
