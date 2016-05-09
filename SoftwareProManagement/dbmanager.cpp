@@ -76,7 +76,7 @@ DBManager::eDbStatus DBManager::DBGetUserInfo(QString  userID,userInfo &userinfo
 {
     DBopen();
     QSqlQuery t_sql;
-    QString sqlCMD = "select id,Name,perm_myProject,perm_myTask,perm_proInfoManage,perm_proStaffManage,perm_CostManage,perm_RequireTaskManage,perm_PlanManage,perm_WeeklyReports,perm_MonthlyReports,perm_OrganManage,perm_StaffManage,perm_RoleManage,perm_LoginUser,perm_PermManage from userinfo where id = \"" + userID + "\";" ;
+    QString sqlCMD = "select id,Name,perm_myProject,perm_myTask,perm_setInfo,perm_proInfoManage,perm_proStaffManage,perm_CostManage,perm_RequireTaskManage,perm_PlanManage,perm_WeeklyReports,perm_MonthlyReports,perm_OrganManage,perm_StaffManage,perm_RoleManage,perm_LoginUser,perm_PermManage from userinfo where id = \"" + userID + "\";" ;
 
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
@@ -86,18 +86,19 @@ DBManager::eDbStatus DBManager::DBGetUserInfo(QString  userID,userInfo &userinfo
             userinfo.setName(t_sql.value(1).toString());
             userinfo.setPerm_myProject(t_sql.value(2).toBool());
             userinfo.setPerm_myTask(t_sql.value(3).toBool());
-            userinfo.setPerm_proInfoManage(t_sql.value(4).toBool());
-            userinfo.setPerm_proStaffManage(t_sql.value(5).toBool());
-            userinfo.setPerm_CostManage(t_sql.value(6).toBool());
-            userinfo.setPerm_RequireTaskManage(t_sql.value(7).toBool());
-            userinfo.setPerm_PlanManage(t_sql.value(8).toBool());
-            userinfo.setPerm_WeeklyReports(t_sql.value(9).toBool());
-            userinfo.setPerm_MonthlyReports(t_sql.value(10).toBool());
-            userinfo.setPerm_OrganManage(t_sql.value(11).toBool());
-            userinfo.setPerm_StaffManage(t_sql.value(12).toBool());
-            userinfo.setPerm_RoleManage(t_sql.value(13).toBool());
-            userinfo.setPerm_LoginUser(t_sql.value(14).toBool());
-            userinfo.setPerm_PermManage(t_sql.value(15).toBool());
+            userinfo.setPerm_setInfo(t_sql.value(4).toBool());
+            userinfo.setPerm_proInfoManage(t_sql.value(5).toBool());
+            userinfo.setPerm_proStaffManage(t_sql.value(6).toBool());
+            userinfo.setPerm_CostManage(t_sql.value(7).toBool());
+            userinfo.setPerm_RequireTaskManage(t_sql.value(8).toBool());
+            userinfo.setPerm_PlanManage(t_sql.value(9).toBool());
+            userinfo.setPerm_WeeklyReports(t_sql.value(10).toBool());
+            userinfo.setPerm_MonthlyReports(t_sql.value(11).toBool());
+            userinfo.setPerm_OrganManage(t_sql.value(12).toBool());
+            userinfo.setPerm_StaffManage(t_sql.value(13).toBool());
+            userinfo.setPerm_RoleManage(t_sql.value(14).toBool());
+            userinfo.setPerm_LoginUser(t_sql.value(15).toBool());
+            userinfo.setPerm_PermManage(t_sql.value(16).toBool());
         }
         m_db.close();
         return DB_SUCCESS;

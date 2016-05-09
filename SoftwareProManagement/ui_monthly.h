@@ -16,6 +16,8 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QTextBrowser>
 
 QT_BEGIN_NAMESPACE
 
@@ -23,6 +25,8 @@ class Ui_Monthly
 {
 public:
     QDialogButtonBox *buttonBox;
+    QTextBrowser *textBrowser;
+    QLabel *label;
 
     void setupUi(QDialog *Monthly)
     {
@@ -38,6 +42,14 @@ public:
         buttonBox->setGeometry(QRect(40, 290, 341, 32));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        textBrowser = new QTextBrowser(Monthly);
+        textBrowser->setObjectName(QStringLiteral("textBrowser"));
+        textBrowser->setGeometry(QRect(110, 50, 256, 121));
+        label = new QLabel(Monthly);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(20, 80, 91, 71));
+        label->setStyleSheet(QString::fromUtf8("font: 75 14pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 85, 0);"));
 
         retranslateUi(Monthly);
         QObject::connect(buttonBox, SIGNAL(accepted()), Monthly, SLOT(accept()));
@@ -49,6 +61,7 @@ public:
     void retranslateUi(QDialog *Monthly)
     {
         Monthly->setWindowTitle(QApplication::translate("Monthly", "Dialog", 0));
+        label->setText(QApplication::translate("Monthly", "\344\270\273\350\246\201\345\206\205\345\256\271\357\274\232", 0));
     } // retranslateUi
 
 };

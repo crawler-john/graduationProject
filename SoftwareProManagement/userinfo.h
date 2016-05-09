@@ -15,6 +15,8 @@ public:
     void setPerm_myProject(bool perm_myProject);
     bool getPerm_myTask();
     void setPerm_myTask(bool perm_myTask);
+    bool getPerm_setInfo();
+    void setPerm_setInfo(bool perm_setInfo);
     bool getPerm_proInfoManage();
     void setPerm_proInfoManage(bool perm_proInfoManage);
     bool getPerm_proStaffManage();
@@ -45,6 +47,7 @@ private:
     QString Name;
     bool perm_myProject;
     bool perm_myTask;
+    bool perm_setInfo;
     bool perm_proInfoManage;
     bool perm_proStaffManage;
     bool perm_CostManage;

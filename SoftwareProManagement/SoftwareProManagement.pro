@@ -22,6 +22,8 @@ SOURCES += main.cpp\
     daily.cpp \
     monthly.cpp
 
+
+
 HEADERS  += \
     login.h \
     dbmanager.h \
@@ -29,6 +31,8 @@ HEADERS  += \
     userinfo.h \
     daily.h \
     monthly.h
+
+
 
 OTHER_FILES += \
     configure.xml \
@@ -40,7 +44,8 @@ OTHER_FILES += \
 FORMS += \
     mainwindow.ui \
     daily.ui \
-    monthly.ui
+    monthly.ui \
+
 
 RESOURCES += \
     images.qrc

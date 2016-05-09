@@ -44,6 +44,11 @@ void userInfo::setPerm_myTask(bool perm_myTask)
     this->perm_myTask = perm_myTask;
 }
 
+bool userInfo::getPerm_setInfo()
+{
+    return this->perm_setInfo;
+}
+
 bool userInfo::getPerm_proInfoManage()
 {
     return this->perm_proInfoManage;
@@ -162,4 +167,10 @@ bool userInfo::getPerm_PermManage()
 void userInfo::setPerm_PermManage(bool perm_PermManage)
 {
     this->perm_PermManage = perm_PermManage;
+}
+
+
+void userInfo::setPerm_setInfo(bool perm_setInfo)
+{
+    this->perm_setInfo = perm_setInfo;
 }

@@ -21,6 +21,7 @@ MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     getUserInfo(UserID);
 
 }
+//获取用户当前所拥有的权限并按照权限显示
 void MainWindow::getUserInfo(QString  UserID)
 {
     DbManager->DBGetUserInfo(UserID,this->m_userinfo);
@@ -28,12 +29,13 @@ void MainWindow::getUserInfo(QString  UserID)
     //设置登录
     DbManager->DBSetLoginFlag(m_userinfo.getID(),true);
     //设置权限相关的内容
-    if((!m_userinfo.getPerm_myProject() && !m_userinfo.getPerm_myTask()))
+    if((!m_userinfo.getPerm_myProject() && !m_userinfo.getPerm_myTask() && !m_userinfo.getPerm_setInfo()))
     {
         ui->treeWidget->topLevelItem(0)->setHidden(true);
     }
     ui->treeWidget->topLevelItem(0)->child(0)->setHidden(!m_userinfo.getPerm_myProject());
     ui->treeWidget->topLevelItem(0)->child(1)->setHidden(!m_userinfo.getPerm_myTask());
+    ui->treeWidget->topLevelItem(0)->child(2)->setHidden(!m_userinfo.getPerm_setInfo());
     if((!m_userinfo.getPerm_proInfoManage() && !m_userinfo.getPerm_StaffManage() && !m_userinfo.getPerm_CostManage()
             && !m_userinfo.getPerm_RequireTaskManage() && !m_userinfo.getPerm_PlanManage() && !m_userinfo.getPerm_WeeklyReports()
             &&!m_userinfo.getPerm_MonthlyReports()))
@@ -85,7 +87,6 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 }
 
 
-
 void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item)
 {
     QTreeWidgetItem *parent = item->parent();
@@ -99,10 +100,10 @@ void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item)
         emit SigSelectStackedWidget(col+1);
         break;
     case 1:
-        emit SigSelectStackedWidget(col+3);
+        emit SigSelectStackedWidget(col+4);
         break;
     case 2:
-        emit SigSelectStackedWidget(col+10);
+        emit SigSelectStackedWidget(col+11);
         break;
     default:
         break;
