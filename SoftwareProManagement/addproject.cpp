@@ -1,22 +1,21 @@
-#include "monthly.h"
-#include "ui_monthly.h"
+#include "addproject.h"
+#include "ui_addproject.h"
 #include <QMouseEvent>
 
-Monthly::Monthly(QWidget *parent) :
+AddProject::AddProject(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Monthly)
+    ui(new Ui::AddProject)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
-    connect(this,SIGNAL(rejected()),this,SLOT(close()));
 }
 
-Monthly::~Monthly()
+AddProject::~AddProject()
 {
     delete ui;
 }
 
-void Monthly::mousePressEvent(QMouseEvent *event)
+void AddProject::mousePressEvent(QMouseEvent *event)
 {
     if(event->button()==Qt::LeftButton)
     {
@@ -25,7 +24,7 @@ void Monthly::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void Monthly::mouseMoveEvent(QMouseEvent *event)
+void AddProject::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->buttons()&Qt::LeftButton)
     {

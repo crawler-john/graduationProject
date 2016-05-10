@@ -2,6 +2,10 @@
 #include "ui_mainwindow.h"
 #include <QMouseEvent>
 #include "daily.h"
+#include "addproject.h"
+#include "monthly.h"
+#include "adduser.h"
+
 MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -98,12 +102,56 @@ void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item)
     {
     case 0:
         emit SigSelectStackedWidget(col+1);
+        switch(col)
+        {
+            case 0:
+            break;
+            case 1:
+            break;
+            case 2:
+            //个人信息操作
+            PersonalInfoOperation();
+            break;
+        }
         break;
     case 1:
         emit SigSelectStackedWidget(col+4);
+        switch(col)
+        {
+            case 0:
+            break;
+            case 1:
+            break;
+            case 2:
+            break;
+            case 3:
+            break;
+            case 4:
+            break;
+            case 5:
+            break;
+            case 6:
+            break;
+            case 7:
+            break;
+
+        }
         break;
     case 2:
-        emit SigSelectStackedWidget(col+11);
+        emit SigSelectStackedWidget(col+12);
+        switch(col)
+        {
+            case 0:
+            break;
+            case 1:
+            break;
+            case 2:
+            break;
+            case 3:
+            break;
+            case 4:
+            break;
+        }
         break;
     default:
         break;
@@ -135,4 +183,41 @@ void MainWindow::on_btnAddDaily_clicked()
     Daily *daily = new Daily;
     daily->exec();
     delete daily;
+}
+
+void MainWindow::on_BtnAddPro_clicked()
+{
+    AddProject *addProject = new AddProject;
+    addProject->exec();
+    delete addProject;
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    Monthly *monthly = new Monthly;
+    monthly->exec();
+    delete monthly;
+}
+
+void MainWindow::on_BtnAddUser_clicked()
+{
+    AddUser *addUser = new AddUser;
+    addUser->exec();
+    delete addUser;
+}
+
+void MainWindow::PersonalInfoOperation()
+{
+    ui->infoAccount->setText(m_userinfo.getID());
+    ui->infoAddress->setText(m_userinfo.getAddress());
+    ui->infoBirthday->setText(m_userinfo.getBirthday().toString(Qt::ISODate));
+    ui->infoBirthPlace->setText(m_userinfo.getBirthPlace());
+    ui->infoEmail->setText(m_userinfo.getEmail());
+    ui->infoGraduation->setText(m_userinfo.getGraduation());
+    ui->infoName->setText(m_userinfo.getName());
+    ui->infoPhone->setText(m_userinfo.getPhone());
+    ui->infoPost->setText(m_userinfo.getPost());
+    ui->infoRemark->setText(m_userinfo.getRemark());
+    ui->infoSex->setText(m_userinfo.getSex());
+    ui->infoWorkyears->setNum(m_userinfo.getWorkYears());
 }

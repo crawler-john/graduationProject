@@ -39,6 +39,12 @@ private slots:
     void on_BtnReLogin_clicked();
     void on_BtnClose_clicked();
     void on_btnAddDaily_clicked();
+    void on_BtnAddPro_clicked();
+    void on_pushButton_clicked();
+    void on_BtnAddUser_clicked();
+
+private:
+    void PersonalInfoOperation();
 };
 
 #endif // MAINWINDOW_H

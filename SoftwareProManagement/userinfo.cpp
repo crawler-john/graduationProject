@@ -14,6 +14,16 @@ void userInfo::setID(QString ID)
     this->ID = ID;
 }
 
+QString userInfo::getPassword()
+{
+    return this->Password;
+}
+
+void userInfo::setPassword(QString Password)
+{
+    this->Password = Password;
+}
+
 QString userInfo::getName()
 {
     return this->Name;
@@ -22,6 +32,106 @@ QString userInfo::getName()
 void userInfo::setName(QString Name)
 {
     this->Name = Name;
+}
+
+QString userInfo::getPost()
+{
+    return this->Post;
+}
+
+void userInfo::setPost(QString Post)
+{
+    this->Post = Post;
+}
+
+QString userInfo::getSex()
+{
+    return this->Sex;
+}
+
+void userInfo::setSex(QString Sex)
+{
+    this->Sex = Sex;
+}
+
+QDate userInfo::getBirthday()
+{
+    return this->Birthday;
+}
+
+void userInfo::setBirthday(QDate Birthday)
+{
+    this->Birthday = Birthday;
+}
+
+QString userInfo::getBirthPlace()
+{
+    return this->BirthPlace;
+}
+
+void userInfo::setBirthPlace(QString BirthPlace)
+{
+    this->BirthPlace = BirthPlace;
+}
+
+QString userInfo::getGraduation()
+{
+    return this->Graduation;
+}
+
+void userInfo::setGraduation(QString Graduation)
+{
+    this->Graduation = Graduation;
+}
+
+QString userInfo::getEmail()
+{
+    return this->Email;
+}
+
+void userInfo::setEmail(QString Email)
+{
+    this->Email = Email;
+}
+
+QString userInfo::getPhone()
+{
+    return this->Phone;
+}
+
+void userInfo::setPhone(QString Phone)
+{
+    this->Phone = Phone;
+}
+
+QString userInfo::getAddress()
+{
+    return this->Address;
+}
+
+void userInfo::setAddress(QString Address)
+{
+    this->Address = Address;
+}
+
+QString userInfo::getRemark()
+{
+    return this->Remark;
+}
+
+void userInfo::setRemark(QString Remark)
+{
+    this->Remark = Remark;
+}
+
+int userInfo::getWorkYears()
+{
+    return this->WorkYears;
+}
+
+void userInfo::setWorkYears(int WorkYears)
+{
+    this->WorkYears = WorkYears;
 }
 
 bool userInfo::getPerm_myProject()

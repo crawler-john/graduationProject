@@ -33,3 +33,9 @@ void Daily::mouseMoveEvent(QMouseEvent *event)
         event->accept();
     }
 }
+
+void Daily::on_buttonBox_rejected()
+{
+    this->close();
+}
+

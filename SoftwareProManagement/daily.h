@@ -19,6 +19,9 @@ public:
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
     
+private slots:
+    void on_buttonBox_rejected();
+
 private:
     QPoint dragPosition;
     Ui::Daily *ui;

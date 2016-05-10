@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     userinfo.cpp \
     daily.cpp \
-    monthly.cpp
+    monthly.cpp \
+    addproject.cpp \
+    adduser.cpp
 
 
 
@@ -30,7 +32,9 @@ HEADERS  += \
     mainwindow.h \
     userinfo.h \
     daily.h \
-    monthly.h
+    monthly.h \
+    addproject.h \
+    adduser.h
 
 
 
@@ -45,6 +49,8 @@ FORMS += \
     mainwindow.ui \
     daily.ui \
     monthly.ui \
+    addproject.ui \
+    adduser.ui
 
 
 RESOURCES += \

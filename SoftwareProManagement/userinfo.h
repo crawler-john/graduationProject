@@ -1,6 +1,7 @@
 #ifndef USERINFO_H
 #define USERINFO_H
 #include <QString>
+#include <QDate>
 
 class userInfo
 {
@@ -9,8 +10,32 @@ public:
 
     QString getID();
     void setID(QString ID);
+    QString getPassword();
+    void setPassword(QString Password);
     QString getName();
     void setName(QString Name);
+    QString getPost();
+    void setPost(QString Post);
+    QString getSex();
+    void setSex(QString Sex);
+    QDate getBirthday();
+    void setBirthday(QDate Birthday);
+    QString getBirthPlace();
+    void setBirthPlace(QString BirthPlace);
+    QString getGraduation();
+    void setGraduation(QString Graduation);
+
+    QString getEmail();
+    void setEmail(QString Email);
+    QString getPhone();
+    void setPhone(QString Phone);
+    QString getAddress();
+    void setAddress(QString Address);
+    QString getRemark();
+    void setRemark(QString Remark);
+    int getWorkYears();
+    void setWorkYears(int WorkYears);
+
     bool getPerm_myProject();
     void setPerm_myProject(bool perm_myProject);
     bool getPerm_myTask();
@@ -44,7 +69,18 @@ public:
 
 private:
     QString ID;
+    QString Password;
     QString Name;
+    QString Post;
+    QString Sex;
+    QDate Birthday;
+    QString BirthPlace;
+    QString Graduation;
+    QString Email;
+    QString Phone;
+    QString Address;
+    QString Remark;
+    int WorkYears;
     bool perm_myProject;
     bool perm_myTask;
     bool perm_setInfo;

@@ -6,9 +6,13 @@ INPUT(
 ./release\userinfo.o
 ./release\daily.o
 ./release\monthly.o
+./release\addproject.o
+./release\adduser.o
 ./release\qrc_images.o
 ./release\moc_login.o
 ./release\moc_mainwindow.o
 ./release\moc_daily.o
 ./release\moc_monthly.o
+./release\moc_addproject.o
+./release\moc_adduser.o
 );

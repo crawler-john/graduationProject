@@ -1,26 +1,26 @@
-#ifndef MONTHLY_H
-#define MONTHLY_H
+#ifndef ADDUSER_H
+#define ADDUSER_H
 
 #include <QDialog>
 #include <QPoint>
 
 namespace Ui {
-class Monthly;
+class AddUser;
 }
 
-class Monthly : public QDialog
+class AddUser : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit Monthly(QWidget *parent = 0);
-    ~Monthly();
+    explicit AddUser(QWidget *parent = 0);
+    ~AddUser();
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
 
 private:
     QPoint dragPosition;
-    Ui::Monthly *ui;
+    Ui::AddUser *ui;
 };
 
-#endif // MONTHLY_H
+#endif // ADDUSER_H
