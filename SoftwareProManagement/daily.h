@@ -22,6 +22,12 @@ public:
 private slots:
     void on_buttonBox_rejected();
 
+    void on_BtnConfirm_clicked();
+
+signals:
+
+    void SigAddDaily(QString Content,QString Problem,QString Solution,QString Nextplan);
+
 private:
     QPoint dragPosition;
     Ui::Daily *ui;

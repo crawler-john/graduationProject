@@ -8,6 +8,11 @@ INPUT(
 ./release\monthly.o
 ./release\addproject.o
 ./release\adduser.o
+./release\alterpassword.o
+./release\alterphone.o
+./release\alteremail.o
+./release\alteraddress.o
+./release\dailyinfo.o
 ./release\qrc_images.o
 ./release\moc_login.o
 ./release\moc_mainwindow.o
@@ -15,4 +20,8 @@ INPUT(
 ./release\moc_monthly.o
 ./release\moc_addproject.o
 ./release\moc_adduser.o
+./release\moc_alterpassword.o
+./release\moc_alterphone.o
+./release\moc_alteremail.o
+./release\moc_alteraddress.o
 );

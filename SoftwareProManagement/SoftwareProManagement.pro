@@ -22,7 +22,12 @@ SOURCES += main.cpp\
     daily.cpp \
     monthly.cpp \
     addproject.cpp \
-    adduser.cpp
+    adduser.cpp \
+    alterpassword.cpp \
+    alterphone.cpp \
+    alteremail.cpp \
+    alteraddress.cpp \
+    dailyinfo.cpp
 
 
 
@@ -34,7 +39,12 @@ HEADERS  += \
     daily.h \
     monthly.h \
     addproject.h \
-    adduser.h
+    adduser.h \
+    alterpassword.h \
+    alterphone.h \
+    alteremail.h \
+    alteraddress.h \
+    dailyinfo.h
 
 
 
@@ -50,7 +60,11 @@ FORMS += \
     daily.ui \
     monthly.ui \
     addproject.ui \
-    adduser.ui
+    adduser.ui \
+    alterpassword.ui \
+    alterphone.ui \
+    alteremail.ui \
+    alteraddress.ui
 
 
 RESOURCES += \

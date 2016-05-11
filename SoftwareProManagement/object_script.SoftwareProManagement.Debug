@@ -8,6 +8,11 @@ INPUT(
 ./debug\monthly.o
 ./debug\addproject.o
 ./debug\adduser.o
+./debug\alterpassword.o
+./debug\alterphone.o
+./debug\alteremail.o
+./debug\alteraddress.o
+./debug\dailyinfo.o
 ./debug\qrc_images.o
 ./debug\moc_login.o
 ./debug\moc_mainwindow.o
@@ -15,4 +20,8 @@ INPUT(
 ./debug\moc_monthly.o
 ./debug\moc_addproject.o
 ./debug\moc_adduser.o
+./debug\moc_alterpassword.o
+./debug\moc_alterphone.o
+./debug\moc_alteremail.o
+./debug\moc_alteraddress.o
 );

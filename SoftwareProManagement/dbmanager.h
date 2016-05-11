@@ -7,6 +7,7 @@
 #include <QStringList>
 #include <QList>
 #include "userinfo.h"
+#include "dailyinfo.h"
 
 
 class DBManager
@@ -26,7 +27,25 @@ public:
     eDbStatus DBSelectUserPassword(QString userID,QString *userPassword);
     //获取用户信息
     eDbStatus DBGetUserInfo(QString  userID,userInfo &userinfo);
+    //更改登录标志
     eDbStatus DBSetLoginFlag(QString userID,bool Loginflag);
+    //修改密码
+    eDbStatus DBAlterPassword(QString userID,QString newPassword);
+    //修改邮箱
+    eDbStatus DBAlterEmail(QString userID,QString newEmail);
+    //修改地址
+    eDbStatus DBAlterAddress(QString userID,QString newAddress);
+    //修改电话
+    eDbStatus DBAlterPhone(QString userID,QString newPhone);
+
+    //获取周报信息
+    eDbStatus DBGetDailyList(QString userID,QList<DailyInfo*> &dailyList);
+    //查询周报信息
+    eDbStatus DBSelectDailyList(QString name,QDate start,QDate end,QList<DailyInfo*> &dailyList);
+
+
+    //获取所有的人员
+    eDbStatus DBGetStaff(QStringList &list);
 
 private:
     QStringList m_sqlDriver;

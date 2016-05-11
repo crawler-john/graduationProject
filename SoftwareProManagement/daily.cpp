@@ -8,6 +8,7 @@ Daily::Daily(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
+    connect(ui->BtnCancel,SIGNAL(clicked()),this,SLOT(close()));
 }
 
 Daily::~Daily()
@@ -39,3 +40,19 @@ void Daily::on_buttonBox_rejected()
     this->close();
 }
 
+
+void Daily::on_BtnConfirm_clicked()
+{
+    QString Content = ui->content->toPlainText().replace("\"","\\");
+    QString Problem = ui->problem->toPlainText().replace("\"","\\");
+    QString Solution = ui->solution->toPlainText().replace("\"","\\");
+    QString Nextplan = ui->plan->toPlainText().replace("\"","\\");
+    if(Content.isEmpty() || Problem.isEmpty() || Solution.isEmpty() || Nextplan.isEmpty())
+    {
+        ui->dailyInfo->setText("输入内容不能为空");
+    }else
+    {
+        emit SigAddDaily(Content,Problem,Solution,Nextplan);
+    }
+
+}
