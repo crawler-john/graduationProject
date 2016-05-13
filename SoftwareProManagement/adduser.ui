@@ -311,6 +311,16 @@ color:rgb(0, 0, 0);</string>
      <height>22</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>男</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>女</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLineEdit" name="lineEdit_3">
    <property name="geometry">
@@ -341,6 +351,31 @@ color:rgb(0, 0, 0);</string>
      <height>22</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>普通员工</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>项目经理</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>部门经理</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>管理员</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>软件项目管理员</string>
+    </property>
+   </item>
   </widget>
   <widget class="QSpinBox" name="spinBox">
    <property name="geometry">

@@ -201,6 +201,19 @@ public:
         label_12->setText(QApplication::translate("AddUser", "\345\234\260\345\235\200\357\274\232", 0));
         label_13->setText(QApplication::translate("AddUser", "\345\244\207\346\263\250\357\274\232", 0));
         label_14->setText(QApplication::translate("AddUser", "\345\267\245\344\275\234\345\271\264\351\231\220\357\274\232", 0));
+        comboBox->clear();
+        comboBox->insertItems(0, QStringList()
+         << QApplication::translate("AddUser", "\347\224\267", 0)
+         << QApplication::translate("AddUser", "\345\245\263", 0)
+        );
+        comboBox_2->clear();
+        comboBox_2->insertItems(0, QStringList()
+         << QApplication::translate("AddUser", "\346\231\256\351\200\232\345\221\230\345\267\245", 0)
+         << QApplication::translate("AddUser", "\351\241\271\347\233\256\347\273\217\347\220\206", 0)
+         << QApplication::translate("AddUser", "\351\203\250\351\227\250\347\273\217\347\220\206", 0)
+         << QApplication::translate("AddUser", "\347\256\241\347\220\206\345\221\230", 0)
+         << QApplication::translate("AddUser", "\350\275\257\344\273\266\351\241\271\347\233\256\347\256\241\347\220\206\345\221\230", 0)
+        );
     } // retranslateUi
 
 };

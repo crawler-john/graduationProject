@@ -220,8 +220,10 @@ void MainWindow::on_btnAddDaily_clicked()
 
 void MainWindow::on_BtnAddPro_clicked()
 {
-    AddProject *addProject = new AddProject;
+    AddProject *addProject = new AddProject(DbManager);
+    connect(addProject,SIGNAL(sigAddProInfoSuccess()),this,SLOT(slotAddProInfoSuccess()));
     addProject->exec();
+    disconnect(addProject,SIGNAL(sigAddProInfoSuccess()),this,SLOT(slotAddProInfoSuccess()));
     delete addProject;
 }
 
@@ -261,7 +263,10 @@ void MainWindow::PersonalInfoOperation()
 void MainWindow::ProInfoManageOperation()
 {
     ui->errorProInfoManager->clear();
-
+    if(m_userinfo.getPost() != "软件项目管理员")
+    {
+        ui->BtnAddPro->hide();
+    }
     QString head[6];
     head[0] = "项目名";
     head[1] = "项目创建时间";
@@ -575,7 +580,7 @@ void MainWindow::initialize()
     ui->MonthlyEndMonth->setValue(date.month());
     ui->MonthlyEndDay->setValue(date.day());
 
-
+    //初始化项目管理界面
     ui->createYear->setRange(2010,2050);
     ui->createMonth->setRange(1,12);
     ui->createDay->setRange(1,31);
@@ -595,6 +600,65 @@ void MainWindow::initialize()
     ui->realEndMonth->setRange(1,12);
     ui->realEndDay->setRange(1,31);
 
+    ui->createYear->clear();
+    ui->createMonth->clear();
+    ui->createDay->clear();
+    ui->planStartYear->clear();
+    ui->planStartMonth->clear();
+    ui->planStartDay->clear();
+    ui->planEndYear->clear();
+    ui->planEndMonth->clear();
+    ui->planEndDay->clear();
+    ui->realStartYear->clear();
+    ui->realStartMonth->clear();
+    ui->realStartDay->clear();
+    ui->realEndYear->clear();
+    ui->realEndMonth->clear();
+    ui->realEndDay->clear();
+    ui->proAddress->clear();
+
+    //初始化我的项目
+    ui->MyProName->clear();
+    ui->MyProManager->clear();
+    ui->MyProCost->clear();
+    ui->MyProClient->clear();
+    ui->MyProState->clear();
+    ui->MyCreateYear->setRange(2010,2050);
+    ui->MyCreateMonth->setRange(1,12);
+    ui->MyCreateDay->setRange(1,31);
+    ui->MyPlanStartYear->setRange(2010,2050);
+    ui->MyPlanStartMonth->setRange(1,12);
+    ui->MyPlanStartDay->setRange(1,31);
+
+    ui->MyPlanEndYear->setRange(2010,2050);
+    ui->MyPlanEndMonth->setRange(1,12);
+    ui->MyPlanEndDay->setRange(1,31);
+
+    ui->MyRealStartYear->setRange(2010,2050);
+    ui->MyRealStartMonth->setRange(1,12);
+    ui->MyRealStartDay->setRange(1,31);
+
+    ui->MyRealEndYear->setRange(2010,2050);
+    ui->MyRealEndMonth->setRange(1,12);
+    ui->MyRealEndDay->setRange(1,31);
+
+    ui->MyCreateYear->clear();
+    ui->MyCreateMonth->clear();
+    ui->MyCreateDay->clear();
+    ui->MyPlanStartYear->clear();
+    ui->MyPlanStartMonth->clear();
+    ui->MyPlanStartDay->clear();
+    ui->MyPlanEndYear->clear();
+    ui->MyPlanEndMonth->clear();
+    ui->MyPlanEndDay->clear();
+    ui->MyRealStartYear->clear();
+    ui->MyRealStartMonth->clear();
+    ui->MyRealStartDay->clear();
+    ui->MyRealEndYear->clear();
+    ui->MyRealEndMonth->clear();
+    ui->MyRealEndDay->clear();
+    ui->MyProAddress->clear();
+    ui->MyProDescribe->clear();
 }
 //修改密码按键点击槽函数
 void MainWindow::on_BtnAlterPassword_clicked()
@@ -806,6 +870,25 @@ void MainWindow::on_BtnMonthlySelection_clicked()
 
 void MainWindow::MyProOperation()
 {
+    ui->errorMyProInfo->clear();
+
+    QString head[6];
+    head[0] = "项目名";
+    head[1] = "项目创建时间";
+    head[2] = "优先级";
+    head[3] = "项目状态";
+    head[4] = "项目预支";
+    head[5] = "项目经理";
+    int headWidth[6] ={200,80,50,80,80,100};
+    //设置表格属性
+    setTableWeight(ui->tableMyPro,6,head,headWidth);
+
+    //获取数据
+    MyProInfoList.clear();
+
+    DbManager->DBGetMyProInfoList(m_userinfo.getID(),MyProInfoList);
+    //在表格中显示数据
+    addTableProInfoData(ui->tableMyPro,MyProInfoList);
 }
 
 void MainWindow::MyTaskOperation()
@@ -830,6 +913,10 @@ void MainWindow::on_tableProInfo_itemPressed(QTableWidgetItem *item)
     ui->proCost->setText(QString::number(proinfo->getMoney()));
     ui->proClient->setText(proinfo->getClient());
     ui->proState->setText(proinfo->getState());
+    ui->proAddress->setText(proinfo->getAddress());
+
+    ui->proPriority->setCurrentIndex(proinfo->getPriority());
+
     ui->proDescribe->setText(proinfo->getDescribe());
     ui->createYear->setValue(proinfo->getCreate().year());
     ui->createMonth->setValue(proinfo->getCreate().month());
@@ -854,5 +941,122 @@ void MainWindow::on_tableProInfo_itemPressed(QTableWidgetItem *item)
 
 void MainWindow::on_BtnProInfoManagerSelection_clicked()
 {
+    ui->proName->clear();
+    ui->proManager->clear();
+    ui->proCost->clear();
+    ui->proClient->clear();
+    ui->proState->clear();
+    ui->proDescribe->clear();
+    ui->createYear->clear();
+    ui->createMonth->clear();
+    ui->createDay->clear();
+    ui->planStartYear->clear();
+    ui->planStartMonth->clear();
+    ui->planStartDay->clear();
+    ui->planEndYear->clear();
+    ui->planEndMonth->clear();
+    ui->planEndDay->clear();
+    ui->realStartYear->clear();
+    ui->realStartMonth->clear();
+    ui->realStartDay->clear();
+    ui->realEndYear->clear();
+    ui->realEndMonth->clear();
+    ui->realEndDay->clear();
+    ui->proAddress->clear();
 
+
+    QDate start,end;
+    start.setDate(ui->ProInfoManagerStartYear->text().toInt(),ui->ProInfoManagerStartMonth->text().toInt(),ui->ProInfoManagerStartDay->text().toInt());
+    end.setDate(ui->ProInfoManagerEndYear->text().toInt(),ui->ProInfoManagerEndMonth->text().toInt(),ui->ProInfoManagerEndDay->text().toInt());
+
+    //进行查询 并映射到表格中去
+    ProInfoList.clear();
+
+    DbManager->DBSelectProInfoList(start,end,ProInfoList);
+    addTableProInfoData(ui->tableProInfo,ProInfoList);
+    ui->errorProInfoManager->setText("查询成功！");
+}
+
+void MainWindow::slotAddProInfoSuccess()
+{
+    ProInfoManageOperation();
+}
+
+void MainWindow::on_tableMyPro_itemPressed(QTableWidgetItem *item)
+{
+    QString proName = ui->tableMyPro->item(item->row(),0)->text();
+    ProInfo *proinfo = NULL;
+    QList<ProInfo *>::Iterator iter = MyProInfoList.begin();
+    for ( ; iter != MyProInfoList.end(); iter++)  {
+        if((*iter)->getName() == proName)
+        {
+            proinfo = *iter;
+            break;
+        }
+    }
+    ui->MyProName->setText(proinfo->getName());
+    ui->MyProManager->setText(proinfo->getManager());
+    ui->MyProCost->setText(QString::number(proinfo->getMoney()));
+    ui->MyProClient->setText(proinfo->getClient());
+    ui->MyProState->setText(proinfo->getState());
+    ui->MyProAddress->setText(proinfo->getAddress());
+
+    ui->MyProPriority->setCurrentIndex(proinfo->getPriority());
+
+    ui->MyProDescribe->setText(proinfo->getDescribe());
+    ui->MyCreateYear->setValue(proinfo->getCreate().year());
+    ui->MyCreateMonth->setValue(proinfo->getCreate().month());
+    ui->MyCreateDay->setValue(proinfo->getCreate().day());
+    ui->MyPlanStartYear->setValue(proinfo->getPlanStart().year());
+    ui->MyPlanStartMonth->setValue(proinfo->getPlanStart().month());
+    ui->MyPlanStartDay->setValue(proinfo->getPlanStart().day());
+
+    ui->MyPlanEndYear->setValue(proinfo->getPlanEnd().year());
+    ui->MyPlanEndMonth->setValue(proinfo->getPlanEnd().month());
+    ui->MyPlanEndDay->setValue(proinfo->getPlanEnd().day());
+
+    ui->MyRealStartYear->setValue(proinfo->getRealStart().year());
+    ui->MyRealStartMonth->setValue(proinfo->getRealStart().month());
+    ui->MyRealStartDay->setValue(proinfo->getRealStart().day());
+
+    ui->MyRealEndYear->setValue(proinfo->getRealEnd().year());
+    ui->MyRealEndMonth->setValue(proinfo->getRealEnd().month());
+    ui->MyRealEndDay->setValue(proinfo->getRealEnd().day());
+}
+
+void MainWindow::on_BtnMyProSelection_clicked()
+{
+    ui->MyProName->clear();
+    ui->MyProManager->clear();
+    ui->MyProCost->clear();
+    ui->MyProClient->clear();
+    ui->MyProState->clear();
+    ui->MyCreateYear->clear();
+    ui->MyCreateMonth->clear();
+    ui->MyCreateDay->clear();
+    ui->MyPlanStartYear->clear();
+    ui->MyPlanStartMonth->clear();
+    ui->MyPlanStartDay->clear();
+    ui->MyPlanEndYear->clear();
+    ui->MyPlanEndMonth->clear();
+    ui->MyPlanEndDay->clear();
+    ui->MyRealStartYear->clear();
+    ui->MyRealStartMonth->clear();
+    ui->MyRealStartDay->clear();
+    ui->MyRealEndYear->clear();
+    ui->MyRealEndMonth->clear();
+    ui->MyRealEndDay->clear();
+    ui->MyProAddress->clear();
+    ui->MyProDescribe->clear();
+
+    QDate start,end;
+    start.setDate(ui->MyProStartYear->text().toInt(),ui->MyProStartMonth->text().toInt(),ui->MyProStartDay->text().toInt());
+    end.setDate(ui->MyProEndYear->text().toInt(),ui->MyProEndMonth->text().toInt(),ui->MyProEndDay->text().toInt());
+
+    //进行查询 并映射到表格中去
+    MyProInfoList.clear();
+
+    DbManager->DBSelectMyProInfoList(m_userinfo.getID(), start,end,MyProInfoList);
+    addTableProInfoData(ui->tableMyPro,MyProInfoList);
+    ui->errorMyProInfo->setText("查询成功！");
 }

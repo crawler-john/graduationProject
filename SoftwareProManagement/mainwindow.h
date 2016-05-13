@@ -74,6 +74,14 @@ private slots:
 
     void on_BtnProInfoManagerSelection_clicked();
 
+
+    //
+    void slotAddProInfoSuccess();
+
+    void on_tableMyPro_itemPressed(QTableWidgetItem *item);
+
+    void on_BtnMyProSelection_clicked();
+
 private:
     //点击我的项目的操作
     void MyProOperation();
@@ -119,6 +127,7 @@ private:
 
 private:
     QList<ProInfo *> ProInfoList;
+    QList<ProInfo *> MyProInfoList;
 };
 
 #endif // MAINWINDOW_H

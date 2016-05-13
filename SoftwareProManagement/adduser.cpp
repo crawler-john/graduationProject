@@ -9,6 +9,9 @@ AddUser::AddUser(QWidget *parent) :
 
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
+
+
+
 }
 
 AddUser::~AddUser()

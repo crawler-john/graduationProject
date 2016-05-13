@@ -45,17 +45,27 @@ public:
     eDbStatus DBGetMonthlyList(QString userID,QList<DailyInfo*> &dailyList);
     //获取项目信息
     eDbStatus DBGetProInfoList(QList<ProInfo*> &ProInfoList);
+    //获取我的项目信息
+    eDbStatus DBGetMyProInfoList(QString userID,QList<ProInfo*> &ProInfoList);
 
 
     //查询周报信息
     eDbStatus DBSelectDailyList(QString name,QDate start,QDate end,QList<DailyInfo*> &dailyList);
     //查询月报信息
     eDbStatus DBSelectMonthlyList(QString name,QDate start,QDate end,QList<DailyInfo*> &dailyList);
+    //查询项目信息
+    eDbStatus DBSelectProInfoList(QDate start,QDate end,QList<ProInfo*> &ProInfoList);
+    //查询我的项目信息
+    eDbStatus DBSelectMyProInfoList(QString userID,QDate start,QDate end,QList<ProInfo*> &ProInfoList);
+
     //获取所有的人员
     eDbStatus DBGetStaff(QStringList &list);
+    //获取项目经理
+    eDbStatus DBGetManagers(QStringList &list);
 
     //为数据库添加周报或月报 flag:0 周报  flag：1月报
     eDbStatus DBInsertReport(DailyInfo dailyinfo, int flag);
+    eDbStatus DBInsertProject(ProInfo proinfo);
 
 private:
     QStringList m_sqlDriver;

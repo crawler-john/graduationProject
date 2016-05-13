@@ -321,6 +321,42 @@ DBManager::eDbStatus DBManager::DBGetProInfoList(QList<ProInfo *> &ProInfoList)
     }
 }
 
+DBManager::eDbStatus DBManager::DBGetMyProInfoList(QString userID, QList<ProInfo *> &ProInfoList)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT * from proinfo  where Id IN (SELECT proid from prostaff where userid = \""+userID+"\") order by timeCreate desc;" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            ProInfo *proinfo = new ProInfo;
+            proinfo->setID(t_sql.value(0).toInt());
+            proinfo->setName(t_sql.value(1).toString());
+            proinfo->setClient(t_sql.value(2).toString());
+            proinfo->setDescribe(t_sql.value(3).toString());
+            proinfo->setMoney(t_sql.value(4).toInt());
+            proinfo->setManager(t_sql.value(5).toString());
+            proinfo->setState(t_sql.value(6).toString());
+            proinfo->setAddress(t_sql.value(7).toString());
+            proinfo->setPlanStart(t_sql.value(8).toDate());
+            proinfo->setPlanEnd(t_sql.value(9).toDate());
+            proinfo->setRealStart(t_sql.value(10).toDate());
+            proinfo->setRealEnd(t_sql.value(11).toDate());
+            proinfo->setCreate(t_sql.value(12).toDate());
+            proinfo->setPriority(t_sql.value(13).toInt());
+            ProInfoList.push_back(proinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
 DBManager::eDbStatus DBManager::DBSelectDailyList(QString name, QDate start, QDate end, QList<DailyInfo *> &dailyList)
 {
     DBopen();
@@ -379,11 +415,103 @@ DBManager::eDbStatus DBManager::DBSelectMonthlyList(QString name, QDate start, Q
     }
 }
 
+DBManager::eDbStatus DBManager::DBSelectProInfoList(QDate start, QDate end, QList<ProInfo *> &ProInfoList)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select * from proinfo where timeCreate <=\"" +end.toString(Qt::ISODate)+  "\" and timeCreate >= \""+start.toString(Qt::ISODate)+"\" order by timeCreate DESC;" ;
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            ProInfo *proinfo = new ProInfo;
+            proinfo->setID(t_sql.value(0).toInt());
+            proinfo->setName(t_sql.value(1).toString());
+            proinfo->setClient(t_sql.value(2).toString());
+            proinfo->setDescribe(t_sql.value(3).toString());
+            proinfo->setMoney(t_sql.value(4).toInt());
+            proinfo->setManager(t_sql.value(5).toString());
+            proinfo->setState(t_sql.value(6).toString());
+            proinfo->setAddress(t_sql.value(7).toString());
+            proinfo->setPlanStart(t_sql.value(8).toDate());
+            proinfo->setPlanEnd(t_sql.value(9).toDate());
+            proinfo->setRealStart(t_sql.value(10).toDate());
+            proinfo->setRealEnd(t_sql.value(11).toDate());
+            proinfo->setCreate(t_sql.value(12).toDate());
+            proinfo->setPriority(t_sql.value(13).toInt());
+            ProInfoList.push_back(proinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBSelectMyProInfoList(QString userID,QDate start, QDate end, QList<ProInfo *> &ProInfoList)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT * from proinfo  where Id IN (SELECT proid from prostaff where userid = \""+userID+"\") and timeCreate <=\"" +end.toString(Qt::ISODate)+  "\" and timeCreate >= \""+start.toString(Qt::ISODate)+"\"  order by timeCreate desc;";
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            ProInfo *proinfo = new ProInfo;
+            proinfo->setID(t_sql.value(0).toInt());
+            proinfo->setName(t_sql.value(1).toString());
+            proinfo->setClient(t_sql.value(2).toString());
+            proinfo->setDescribe(t_sql.value(3).toString());
+            proinfo->setMoney(t_sql.value(4).toInt());
+            proinfo->setManager(t_sql.value(5).toString());
+            proinfo->setState(t_sql.value(6).toString());
+            proinfo->setAddress(t_sql.value(7).toString());
+            proinfo->setPlanStart(t_sql.value(8).toDate());
+            proinfo->setPlanEnd(t_sql.value(9).toDate());
+            proinfo->setRealStart(t_sql.value(10).toDate());
+            proinfo->setRealEnd(t_sql.value(11).toDate());
+            proinfo->setCreate(t_sql.value(12).toDate());
+            proinfo->setPriority(t_sql.value(13).toInt());
+            ProInfoList.push_back(proinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
 DBManager::eDbStatus DBManager::DBGetStaff(QStringList &list)
 {
     DBopen();
     QSqlQuery t_sql;
     QString sqlCMD = "SELECT name from userinfo;" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            list << t_sql.value(0).toString();
+
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBGetManagers(QStringList &list)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT name from userinfo where post = \"项目经理\";" ;
 
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
@@ -414,9 +542,26 @@ DBManager::eDbStatus DBManager::DBInsertReport(DailyInfo dailyinfo, int flag)
     {
         sqlCMD = "insert into monthly(UserID,Name,Date,Content,Problem,Solution,Nextplan) VALUES(\""+dailyinfo.getUserID()+"\",\"" + dailyinfo.getName() +"\",\""+dailyinfo.getDate().toString(Qt::ISODate) +"\",\""+dailyinfo.getContent()+"\",\""+dailyinfo.getProblem()+"\",\""+dailyinfo.getSolution()+"\",\""+dailyinfo.getNextPlan()+"\")";
     }
-    qDebug() << sqlCMD;
 
     flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertProject(ProInfo proinfo)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "insert into proinfo(proName,proClient,proMoney,proManager,proState,proAddress,timePlanStart,timePlanEnd,timeCreate,priority,proDescribe) values(\""+proinfo.getName()+"\",\""+proinfo.getClient()+"\","+QString::number(proinfo.getMoney())+",\""+proinfo.getManager()+"\",\""+proinfo.getState()+"\",\""+proinfo.getAddress()+"\",\""+proinfo.getPlanStart().toString(Qt::ISODate)+"\",\""+proinfo.getPlanEnd().toString(Qt::ISODate)+"\",\""+proinfo.getCreate().toString(Qt::ISODate)+"\",'"+QString::number(proinfo.getPriority())+"',\""+proinfo.getDescribe().replace("\"","\\")+"\")";
+    qDebug() << sqlCMD;
+    bool flag = t_sql.exec(sqlCMD);
     if(flag)
     {
         m_db.close();
