@@ -13,10 +13,6 @@ INPUT(
 ./debug\alteremail.o
 ./debug\alteraddress.o
 ./debug\dailyinfo.o
-./debug\addrequest.o
-./debug\addtask.o
-./debug\addprocess.o
-./debug\addprostaff.o
 ./debug\qrc_images.o
 ./debug\moc_login.o
 ./debug\moc_mainwindow.o
@@ -28,8 +24,4 @@ INPUT(
 ./debug\moc_alterphone.o
 ./debug\moc_alteremail.o
 ./debug\moc_alteraddress.o
-./debug\moc_addrequest.o
-./debug\moc_addtask.o
-./debug\moc_addprocess.o
-./debug\moc_addprostaff.o
 );

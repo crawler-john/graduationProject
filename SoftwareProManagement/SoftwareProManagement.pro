@@ -27,11 +27,7 @@ SOURCES += main.cpp\
     alterphone.cpp \
     alteremail.cpp \
     alteraddress.cpp \
-    dailyinfo.cpp \
-    addrequest.cpp \
-    addtask.cpp \
-    addprocess.cpp \
-    addprostaff.cpp
+    dailyinfo.cpp
 
 
 
@@ -48,11 +44,7 @@ HEADERS  += \
     alterphone.h \
     alteremail.h \
     alteraddress.h \
-    dailyinfo.h \
-    addrequest.h \
-    addtask.h \
-    addprocess.h \
-    addprostaff.h
+    dailyinfo.h
 
 
 
@@ -72,11 +64,7 @@ FORMS += \
     alterpassword.ui \
     alterphone.ui \
     alteremail.ui \
-    alteraddress.ui \
-    addrequest.ui \
-    addtask.ui \
-    addprocess.ui \
-    addprostaff.ui
+    alteraddress.ui
 
 
 RESOURCES += \
