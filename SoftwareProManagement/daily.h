@@ -20,7 +20,6 @@ public:
     void mouseMoveEvent(QMouseEvent *);
     
 private slots:
-    void on_buttonBox_rejected();
 
     void on_BtnConfirm_clicked();
 

@@ -18,6 +18,13 @@ public:
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
 
+private slots:
+    void on_BtnConfirm_clicked();
+signals:
+
+    void SigAddMonthly(QString Content,QString Problem,QString Solution,QString Nextplan);
+
+
 private:
     QPoint dragPosition;
     Ui::Monthly *ui;

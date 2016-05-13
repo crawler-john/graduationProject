@@ -229,7 +229,37 @@ DBManager::eDbStatus DBManager::DBGetDailyList(QString userID, QList<DailyInfo*>
 {
     DBopen();
     QSqlQuery t_sql;
-    QString sqlCMD = "select * from dialy where UserID =\"" + userID + "\" order by Date DESC;" ;
+    QString sqlCMD = "select * from daily where UserID =\"" + userID + "\" order by Date DESC;" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            DailyInfo *dailyInfo = new DailyInfo;
+            dailyInfo->setID(t_sql.value(0).toInt());
+            dailyInfo->setUserID(t_sql.value(1).toString());
+            dailyInfo->setName(t_sql.value(2).toString());
+            dailyInfo->setDate(t_sql.value(3).toDate());
+            dailyInfo->setContent(t_sql.value(4).toString());
+            dailyInfo->setProblem(t_sql.value(5).toString());
+            dailyInfo->setSolution(t_sql.value(6).toString());
+            dailyInfo->setNextPlan(t_sql.value(7).toString());
+            dailyList.push_back(dailyInfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBGetMonthlyList(QString userID, QList<DailyInfo *> &dailyList)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select * from monthly where UserID =\"" + userID + "\" order by Date DESC;" ;
 
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
@@ -259,7 +289,36 @@ DBManager::eDbStatus DBManager::DBSelectDailyList(QString name, QDate start, QDa
 {
     DBopen();
     QSqlQuery t_sql;
-    QString sqlCMD = "select * from dialy where name =\"" + name + "\" and Date <=\"" +end.toString(Qt::ISODate)+  "\" and Date >= \""+start.toString(Qt::ISODate)+"\" order by Date DESC;" ;
+    QString sqlCMD = "select * from daily where name =\"" + name + "\" and Date <=\"" +end.toString(Qt::ISODate)+  "\" and Date >= \""+start.toString(Qt::ISODate)+"\" order by Date DESC;" ;
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            DailyInfo *dailyInfo = new DailyInfo;
+            dailyInfo->setID(t_sql.value(0).toInt());
+            dailyInfo->setUserID(t_sql.value(1).toString());
+            dailyInfo->setName(t_sql.value(2).toString());
+            dailyInfo->setDate(t_sql.value(3).toDate());
+            dailyInfo->setContent(t_sql.value(4).toString());
+            dailyInfo->setProblem(t_sql.value(5).toString());
+            dailyInfo->setSolution(t_sql.value(6).toString());
+            dailyInfo->setNextPlan(t_sql.value(7).toString());
+            dailyList.push_back(dailyInfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBSelectMonthlyList(QString name, QDate start, QDate end, QList<DailyInfo *> &dailyList)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select * from Monthly where name =\"" + name + "\" and Date <=\"" +end.toString(Qt::ISODate)+  "\" and Date >= \""+start.toString(Qt::ISODate)+"\" order by Date DESC;" ;
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
     {
@@ -297,6 +356,33 @@ DBManager::eDbStatus DBManager::DBGetStaff(QStringList &list)
             list << t_sql.value(0).toString();
 
         }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertReport(DailyInfo dailyinfo, int flag)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "";
+
+    if(flag == 0)
+    {
+        sqlCMD = "insert into daily(UserID,Name,Date,Content,Problem,Solution,Nextplan) VALUES(\""+dailyinfo.getUserID()+"\",\"" + dailyinfo.getName() +"\",\""+dailyinfo.getDate().toString(Qt::ISODate) +"\",\""+dailyinfo.getContent()+"\",\""+dailyinfo.getProblem()+"\",\""+dailyinfo.getSolution()+"\",\""+dailyinfo.getNextPlan()+"\")";
+    }else if(flag == 1)
+    {
+        sqlCMD = "insert into monthly(UserID,Name,Date,Content,Problem,Solution,Nextplan) VALUES(\""+dailyinfo.getUserID()+"\",\"" + dailyinfo.getName() +"\",\""+dailyinfo.getDate().toString(Qt::ISODate) +"\",\""+dailyinfo.getContent()+"\",\""+dailyinfo.getProblem()+"\",\""+dailyinfo.getSolution()+"\",\""+dailyinfo.getNextPlan()+"\")";
+    }
+    qDebug() << sqlCMD;
+
+    flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
         m_db.close();
         return DB_SUCCESS;
     }else

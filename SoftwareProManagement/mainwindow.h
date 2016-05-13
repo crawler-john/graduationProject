@@ -59,21 +59,25 @@ private slots:
     void disposeAlterEmail(QString newEmail);
     void disposeAlterPhone(QString newPhone);
     void SlotAddDaily(QString Content,QString Problem,QString Solution,QString Nextplan);
-
+    void SlotAddMonthly(QString Content,QString Problem,QString Solution,QString Nextplan);
 
     void on_tableDaily_itemPressed(QTableWidgetItem *item);
+    void on_tableMonthly_itemPressed(QTableWidgetItem *item);
+
+
 
     void on_BtnDailySelection_clicked();
+    void on_BtnMonthlySelection_clicked();
 
 private:
     //点击各个标签的操作
     void PersonalInfoOperation();
     void DailyOperation();
-
+    void MonthlyOperation();
 
     //设置表格
     void setTableWeight(QTableWidget *table,int row,QString head[20],int width[20]);
-    void addTableDailyData(QTableWidget *table,QList<DailyInfo *> &List);
+    void addTableData(QTableWidget *table,QList<DailyInfo *> &List);
 
 
 

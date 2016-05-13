@@ -40,12 +40,17 @@ public:
 
     //获取周报信息
     eDbStatus DBGetDailyList(QString userID,QList<DailyInfo*> &dailyList);
+    //获取月报信息
+    eDbStatus DBGetMonthlyList(QString userID,QList<DailyInfo*> &dailyList);
     //查询周报信息
     eDbStatus DBSelectDailyList(QString name,QDate start,QDate end,QList<DailyInfo*> &dailyList);
-
-
+    //查询月报信息
+    eDbStatus DBSelectMonthlyList(QString name,QDate start,QDate end,QList<DailyInfo*> &dailyList);
     //获取所有的人员
     eDbStatus DBGetStaff(QStringList &list);
+
+    //为数据库添加周报或月报 flag:0 周报  flag：1月报
+    eDbStatus DBInsertReport(DailyInfo dailyinfo, int flag);
 
 private:
     QStringList m_sqlDriver;

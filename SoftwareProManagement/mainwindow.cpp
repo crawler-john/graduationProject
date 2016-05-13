@@ -62,8 +62,8 @@ void MainWindow::getUserInfo(QString  UserID)
     {
         ui->treeWidget->topLevelItem(2)->setHidden(true);
     }
-    ui->treeWidget->topLevelItem(2)->child(0)->setHidden(!m_userinfo.getPerm_OrganManage());
-    ui->treeWidget->topLevelItem(2)->child(1)->setHidden(!m_userinfo.getPerm_StaffManage());
+    ui->treeWidget->topLevelItem(2)->child(0)->setHidden(true);
+    ui->treeWidget->topLevelItem(2)->child(1)->setHidden(true);
     ui->treeWidget->topLevelItem(2)->child(2)->setHidden(!m_userinfo.getPerm_RoleManage());
     ui->treeWidget->topLevelItem(2)->child(3)->setHidden(!m_userinfo.getPerm_LoginUser());
     ui->treeWidget->topLevelItem(2)->child(4)->setHidden(!m_userinfo.getPerm_PermManage());
@@ -137,7 +137,9 @@ void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item)
             case 6:
             DailyOperation();
             break;
+
             case 7:
+            MonthlyOperation();
             break;
 
         }
@@ -186,7 +188,9 @@ void MainWindow::on_BtnClose_clicked()
 void MainWindow::on_btnAddDaily_clicked()
 {
     Daily *daily = new Daily;
+    connect(daily,SIGNAL(SigAddDaily(QString,QString,QString,QString)),this,SLOT(SlotAddDaily(QString,QString,QString,QString)));
     daily->exec();
+    disconnect(daily,SIGNAL(SigAddDaily(QString,QString,QString,QString)),this,SLOT(SlotAddDaily(QString,QString,QString,QString)));
     delete daily;
 }
 
@@ -200,7 +204,9 @@ void MainWindow::on_BtnAddPro_clicked()
 void MainWindow::on_pushButton_clicked()
 {
     Monthly *monthly = new Monthly;
+    connect(monthly,SIGNAL(SigAddMonthly(QString,QString,QString,QString)),this,SLOT(SlotAddMonthly(QString,QString,QString,QString)));
     monthly->exec();
+    disconnect(monthly,SIGNAL(SigAddMonthly(QString,QString,QString,QString)),this,SLOT(SlotAddMonthly(QString,QString,QString,QString)));
     delete monthly;
 }
 //点击添加新用户
@@ -254,12 +260,41 @@ void MainWindow::DailyOperation()
     //获取数据
     QList<DailyInfo *> List;
     DbManager->DBGetDailyList(m_userinfo.getID(),List);
-
     //在表格中显示数据
-    addTableDailyData(ui->tableDaily,List);
+    addTableData(ui->tableDaily,List);
 
 
 
+}
+
+void MainWindow::MonthlyOperation()
+{
+    qDebug() << "11111111";
+    if(m_userinfo.getPost() != "普通员工")
+    {
+        QStringList List;
+        DbManager->DBGetStaff(List);
+        ui->boxDaily->addItems(List);
+    }
+    else
+    {
+        ui->boxMonthly->hide();
+    }
+    QString head[6];
+    head[0] = "姓名";
+    head[1] = "日期";
+    head[2] = "内容";
+    head[3] = "问题";
+    head[4] = "解决方法";
+    head[5] = "下周计划";
+    int headWidth[6] ={50,80,140,120,120,130};
+    //设置表格属性
+    setTableWeight(ui->tableMonthly,6,head,headWidth);
+    //获取数据
+    QList<DailyInfo *> List;
+    DbManager->DBGetMonthlyList(m_userinfo.getID(),List);
+    //在表格中显示数据
+    addTableData(ui->tableMonthly,List);
 }
 
 void MainWindow::setTableWeight(QTableWidget *table, int row, QString head[20],int width[20])
@@ -296,7 +331,7 @@ void MainWindow::setTableWeight(QTableWidget *table, int row, QString head[20],i
 
 }
 
-void MainWindow::addTableDailyData(QTableWidget *table,QList<DailyInfo *> &List)
+void MainWindow::addTableData(QTableWidget *table,QList<DailyInfo *> &List)
 {
     table->setRowCount(0);
     table->clearContents();
@@ -532,7 +567,34 @@ void MainWindow::disposeAlterPhone(QString newPhone)
 //添加周报
 void MainWindow::SlotAddDaily(QString Content, QString Problem, QString Solution, QString Nextplan)
 {
+    DailyInfo daillyInfo;
+    daillyInfo.setUserID(m_userinfo.getID());
+    daillyInfo.setName(m_userinfo.getName());
+    daillyInfo.setDate(QDate::currentDate());
+    daillyInfo.setContent(Content);
+    daillyInfo.setProblem(Problem);
+    daillyInfo.setSolution(Solution);
+    daillyInfo.setNextPlan(Nextplan);
+    DbManager->DBInsertReport(daillyInfo,0);
+    QList<DailyInfo *> List;
+    DbManager->DBGetDailyList(m_userinfo.getID(),List);
+    addTableData(ui->tableDaily,List);
+}
 
+void MainWindow::SlotAddMonthly(QString Content, QString Problem, QString Solution, QString Nextplan)
+{
+    DailyInfo daillyInfo;
+    daillyInfo.setUserID(m_userinfo.getID());
+    daillyInfo.setName(m_userinfo.getName());
+    daillyInfo.setDate(QDate::currentDate());
+    daillyInfo.setContent(Content);
+    daillyInfo.setProblem(Problem);
+    daillyInfo.setSolution(Solution);
+    daillyInfo.setNextPlan(Nextplan);
+    DbManager->DBInsertReport(daillyInfo,1);
+    QList<DailyInfo *> List;
+    DbManager->DBGetMonthlyList(m_userinfo.getID(),List);
+    addTableData(ui->tableMonthly,List);
 }
 
 void MainWindow::on_tableDaily_itemPressed(QTableWidgetItem *item)
@@ -559,7 +621,7 @@ void MainWindow::on_BtnDailySelection_clicked()
     QString Name;
     start.setDate(ui->DailyStartYear->text().toInt(),ui->DailyStartMonth->text().toInt(),ui->DailyStartDay->text().toInt());
     end.setDate(ui->DailyEndYear->text().toInt(),ui->DailyEndMonth->text().toInt(),ui->DailyEndDay->text().toInt());
-    if(ui->comboBox->isHidden())
+    if(m_userinfo.getPost() == "普通员工")
     {
         Name = this->m_userinfo.getName();
     }else
@@ -570,6 +632,45 @@ void MainWindow::on_BtnDailySelection_clicked()
     //进行查询 并映射到表格中去
     QList<DailyInfo *> List;
     DbManager->DBSelectDailyList(Name,start,end,List);
-    addTableDailyData(ui->tableDaily,List);
+    addTableData(ui->tableDaily,List);
     ui->errorDaily->setText("查询成功！");
+}
+
+void MainWindow::on_tableMonthly_itemPressed(QTableWidgetItem *item)
+{
+    ui->MonthlyName->setText(ui->tableMonthly->item(item->row(),0)->text());
+    ui->MonthlyDate->setText(ui->tableMonthly->item(item->row(),1)->text());
+    ui->MonthlyContent->setText(ui->tableMonthly->item(item->row(),2)->text());
+    ui->MonthlyProblem->setText(ui->tableMonthly->item(item->row(),3)->text());
+    ui->MonthlySolution->setText(ui->tableMonthly->item(item->row(),4)->text());
+    ui->MonthlyNextplan->setText(ui->tableMonthly->item(item->row(),5)->text());
+}
+
+void MainWindow::on_BtnMonthlySelection_clicked()
+{
+    ui->MonthlyName->clear();
+    ui->MonthlyDate->clear();
+    ui->MonthlyContent->clear();
+    ui->MonthlyProblem->clear();
+    ui->MonthlySolution->clear();
+    ui->MonthlyNextplan->clear();
+    ui->errorMonthly->clear();
+
+    QDate start,end;
+    QString Name;
+    start.setDate(ui->MonthlyStartYear->text().toInt(),ui->MonthlyStartMonth->text().toInt(),ui->MonthlyStartDay->text().toInt());
+    end.setDate(ui->MonthlyEndYear->text().toInt(),ui->MonthlyEndMonth->text().toInt(),ui->MonthlyEndDay->text().toInt());
+    if(m_userinfo.getPost() == "普通员工")
+    {
+        Name = this->m_userinfo.getName();
+    }else
+    {
+        Name = ui->boxDaily->currentText();
+    }
+
+    //进行查询 并映射到表格中去
+    QList<DailyInfo *> List;
+    DbManager->DBSelectMonthlyList(Name,start,end,List);
+    addTableData(ui->tableMonthly,List);
+    ui->errorMonthly->setText("查询成功！");
 }

@@ -35,10 +35,7 @@ void Daily::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void Daily::on_buttonBox_rejected()
-{
-    this->close();
-}
+
 
 
 void Daily::on_BtnConfirm_clicked()
@@ -53,6 +50,7 @@ void Daily::on_BtnConfirm_clicked()
     }else
     {
         emit SigAddDaily(Content,Problem,Solution,Nextplan);
+        ui->dailyInfo->setText("添加周报成功！");
     }
 
 }
