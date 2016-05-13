@@ -40,18 +40,18 @@ public:
     {
         if (Daily->objectName().isEmpty())
             Daily->setObjectName(QStringLiteral("Daily"));
-        Daily->resize(362, 337);
+        Daily->resize(400, 337);
         Daily->setStyleSheet(QLatin1String("QDialog#Daily{\n"
 "	background-image:url(img/daily.jpg);\n"
 "}"));
         label = new QLabel(Daily);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(10, 70, 121, 31));
+        label->setGeometry(QRect(20, 70, 121, 31));
         label->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
-"color:rgb(0, 85, 0);"));
+";"));
         content = new QTextEdit(Daily);
         content->setObjectName(QStringLiteral("content"));
-        content->setGeometry(QRect(130, 60, 221, 61));
+        content->setGeometry(QRect(150, 60, 221, 61));
         content->setStyleSheet(QLatin1String("QTextEdit#content{\n"
 "	background-color:rgb(235,199,255);\n"
 "}  \n"
@@ -59,50 +59,50 @@ public:
 ""));
         label_2 = new QLabel(Daily);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(10, 130, 121, 31));
+        label_2->setGeometry(QRect(20, 130, 121, 31));
         label_2->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
-"color:rgb(0, 85, 0);"));
+""));
         problem = new QTextEdit(Daily);
         problem->setObjectName(QStringLiteral("problem"));
-        problem->setGeometry(QRect(130, 130, 221, 41));
+        problem->setGeometry(QRect(150, 130, 221, 41));
         problem->setStyleSheet(QLatin1String("QTextEdit#problem{\n"
 "	background-color:rgb(235,199,255);\n"
 "}  "));
         label_3 = new QLabel(Daily);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(10, 180, 121, 31));
+        label_3->setGeometry(QRect(20, 180, 121, 31));
         label_3->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
-"color:rgb(0, 85, 0);"));
+""));
         solution = new QTextEdit(Daily);
         solution->setObjectName(QStringLiteral("solution"));
-        solution->setGeometry(QRect(130, 180, 221, 41));
+        solution->setGeometry(QRect(150, 180, 221, 41));
         solution->setStyleSheet(QLatin1String("QTextEdit#solution{\n"
 "	\n"
 "	background-color:rgb(235,199,255);\n"
 "}  "));
         label_4 = new QLabel(Daily);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(10, 230, 121, 31));
+        label_4->setGeometry(QRect(20, 230, 121, 31));
         label_4->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
-"color:rgb(0, 85, 0);"));
+""));
         plan = new QTextEdit(Daily);
         plan->setObjectName(QStringLiteral("plan"));
-        plan->setGeometry(QRect(130, 230, 221, 41));
+        plan->setGeometry(QRect(150, 230, 221, 41));
         plan->setStyleSheet(QLatin1String("QTextEdit#plan{\n"
 "	\n"
 "	background-color:rgb(235,199,255);\n"
 "}  "));
         dailyInfo = new QLabel(Daily);
         dailyInfo->setObjectName(QStringLiteral("dailyInfo"));
-        dailyInfo->setGeometry(QRect(20, 295, 161, 21));
+        dailyInfo->setGeometry(QRect(30, 295, 161, 21));
         dailyInfo->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
 "color:rgb(255, 0, 0);"));
         BtnCancel = new QPushButton(Daily);
         BtnCancel->setObjectName(QStringLiteral("BtnCancel"));
-        BtnCancel->setGeometry(QRect(290, 300, 61, 23));
+        BtnCancel->setGeometry(QRect(300, 300, 61, 23));
         BtnConfirm = new QPushButton(Daily);
         BtnConfirm->setObjectName(QStringLiteral("BtnConfirm"));
-        BtnConfirm->setGeometry(QRect(220, 300, 61, 23));
+        BtnConfirm->setGeometry(QRect(230, 300, 61, 23));
 
         retranslateUi(Daily);
 

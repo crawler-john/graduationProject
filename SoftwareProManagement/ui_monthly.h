@@ -49,7 +49,7 @@ public:
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(30, 70, 121, 31));
         label->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
-"color:rgb(0, 85, 0);"));
+""));
         problem = new QTextEdit(Monthly);
         problem->setObjectName(QStringLiteral("problem"));
         problem->setGeometry(QRect(150, 130, 221, 41));
@@ -75,17 +75,17 @@ public:
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setGeometry(QRect(30, 230, 121, 31));
         label_4->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
-"color:rgb(0, 85, 0);"));
+""));
         label_3 = new QLabel(Monthly);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(30, 180, 121, 31));
         label_3->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
-"color:rgb(0, 85, 0);"));
+""));
         label_2 = new QLabel(Monthly);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(30, 130, 121, 31));
         label_2->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
-"color:rgb(0, 85, 0);"));
+""));
         plan = new QTextEdit(Monthly);
         plan->setObjectName(QStringLiteral("plan"));
         plan->setGeometry(QRect(150, 230, 221, 41));

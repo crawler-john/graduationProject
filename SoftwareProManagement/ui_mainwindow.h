@@ -25,6 +25,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QWidget>
 
@@ -48,7 +49,6 @@ public:
     QWidget *page_14;
     QGroupBox *groupBox;
     QLabel *label_2;
-    QTableWidget *tableWidget_2;
     QSpinBox *MyProEndYear;
     QSpinBox *MyProStartYear;
     QLabel *label_29;
@@ -62,6 +62,7 @@ public:
     QLabel *label_31;
     QLabel *label_32;
     QLabel *label_28;
+    QTableWidget *tableMyPro;
     QWidget *page_15;
     QGroupBox *groupBox_3;
     QLabel *label_3;
@@ -78,6 +79,7 @@ public:
     QLabel *label_25;
     QLabel *label_26;
     QPushButton *BtnMyTaskSelection;
+    QTableWidget *tableMyTask;
     QWidget *page_16;
     QGroupBox *groupBox_10;
     QLabel *label_14;
@@ -111,7 +113,6 @@ public:
     QLabel *infoAlter;
     QWidget *page_4;
     QGroupBox *groupBox_4;
-    QLabel *label_4;
     QSpinBox *ProInfoManagerStartYear;
     QLabel *label_43;
     QSpinBox *ProInfoManagerEndYear;
@@ -126,18 +127,66 @@ public:
     QLabel *label_44;
     QSpinBox *ProInfoManagerEndDay;
     QPushButton *BtnAddPro;
+    QTableWidget *tableProInfo;
+    QGroupBox *groupBox_20;
+    QSpinBox *planStartYear;
+    QLabel *label_21;
+    QComboBox *proManager;
+    QLabel *label_59;
+    QLabel *label_4;
+    QSpinBox *realEndYear;
+    QSpinBox *realEndDay;
+    QLabel *label_61;
+    QLineEdit *proCost;
+    QSpinBox *createMonth;
+    QLabel *label_62;
+    QLabel *label_95;
+    QLineEdit *proClient;
+    QLabel *label_96;
+    QLabel *label_63;
+    QLabel *label_97;
+    QSpinBox *realEndMonth;
+    QSpinBox *createDay;
+    QSpinBox *planEndYear;
+    QLabel *label_64;
+    QLabel *label_98;
+    QLabel *label_99;
+    QLabel *label_100;
+    QLabel *label_101;
+    QLabel *label_102;
+    QLabel *label_103;
+    QLabel *label_104;
+    QSpinBox *realStartMonth;
+    QSpinBox *planEndMonth;
+    QSpinBox *planStartDay;
+    QLabel *label_106;
+    QSpinBox *createtYear;
+    QLabel *label_108;
+    QSpinBox *realStartYear;
+    QSpinBox *planStartMonth;
+    QLabel *label_109;
+    QLineEdit *proName;
+    QLabel *label_110;
+    QSpinBox *realStartDay;
+    QTextEdit *proDescribe;
+    QSpinBox *planEndDay;
+    QComboBox *proState;
     QWidget *page_5;
     QGroupBox *groupBox_5;
-    QLabel *label_5;
     QPushButton *BtnProStaffManagerSelection;
     QLabel *label_55;
     QComboBox *comboBox;
+    QTableWidget *tableProStaff;
+    QGroupBox *groupBox_21;
+    QLabel *MonthlyName_2;
+    QLabel *MonthlyDate_2;
     QWidget *page_2;
     QGroupBox *groupBox_6;
     QLabel *label_6;
     QLabel *label_56;
     QComboBox *comboBox_2;
     QPushButton *BtnCostManagerSelection;
+    QTableWidget *tableProCost;
     QWidget *page_6;
     QGroupBox *groupBox_7;
     QLabel *label_7;
@@ -154,6 +203,7 @@ public:
     QSpinBox *RequestManagerEndDay;
     QLabel *label_69;
     QLabel *label_70;
+    QTableWidget *tableProRequest;
     QWidget *page_17;
     QGroupBox *groupBox_17;
     QLabel *label_19;
@@ -170,6 +220,7 @@ public:
     QSpinBox *TaskManagerEndDay;
     QLabel *label_94;
     QLabel *label_107;
+    QTableWidget *tableProTask;
     QWidget *page_7;
     QGroupBox *groupBox_8;
     QLabel *label_8;
@@ -186,6 +237,7 @@ public:
     QSpinBox *ProcessManagerEndDay;
     QLabel *label_75;
     QLabel *label_76;
+    QTableWidget *tableProProcess;
     QWidget *page_3;
     QGroupBox *groupBox_9;
     QPushButton *btnAddDaily;
@@ -265,16 +317,19 @@ public:
     QPushButton *BtnRoleManagerSelection;
     QLabel *label_105;
     QPushButton *BtnAddUser;
+    QTableWidget *tablaRole;
     QWidget *page_12;
     QGroupBox *groupBox_15;
     QLabel *label_18;
     QLabel *label_111;
+    QTableWidget *tableLogin;
     QWidget *page_13;
     QGroupBox *groupBox_16;
     QLabel *label_15;
     QPushButton *BtnPermManagerSelection;
     QLabel *label_117;
     QLineEdit *lineEdit;
+    QTableWidget *tablePerm;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -447,10 +502,7 @@ public:
         groupBox->setGeometry(QRect(0, 0, 661, 451));
         label_2 = new QLabel(groupBox);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(30, 370, 54, 12));
-        tableWidget_2 = new QTableWidget(groupBox);
-        tableWidget_2->setObjectName(QStringLiteral("tableWidget_2"));
-        tableWidget_2->setGeometry(QRect(5, 70, 641, 281));
+        label_2->setGeometry(QRect(10, 80, 54, 12));
         MyProEndYear = new QSpinBox(groupBox);
         MyProEndYear->setObjectName(QStringLiteral("MyProEndYear"));
         MyProEndYear->setGeometry(QRect(266, 16, 61, 22));
@@ -495,6 +547,9 @@ public:
         label_28 = new QLabel(groupBox);
         label_28->setObjectName(QStringLiteral("label_28"));
         label_28->setGeometry(QRect(190, 20, 16, 16));
+        tableMyPro = new QTableWidget(groupBox);
+        tableMyPro->setObjectName(QStringLiteral("tableMyPro"));
+        tableMyPro->setGeometry(QRect(10, 300, 641, 141));
         stackedWidget->addWidget(page_14);
         page_15 = new QWidget();
         page_15->setObjectName(QStringLiteral("page_15"));
@@ -503,7 +558,7 @@ public:
         groupBox_3->setGeometry(QRect(0, 0, 661, 451));
         label_3 = new QLabel(groupBox_3);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(30, 410, 54, 12));
+        label_3->setGeometry(QRect(70, 110, 54, 12));
         label_16 = new QLabel(groupBox_3);
         label_16->setObjectName(QStringLiteral("label_16"));
         label_16->setGeometry(QRect(18, 20, 54, 12));
@@ -548,6 +603,9 @@ public:
         BtnMyTaskSelection->setStyleSheet(QLatin1String("border: 1px solid green;\n"
 "border-radius:10px;\n"
 ""));
+        tableMyTask = new QTableWidget(groupBox_3);
+        tableMyTask->setObjectName(QStringLiteral("tableMyTask"));
+        tableMyTask->setGeometry(QRect(10, 300, 641, 141));
         stackedWidget->addWidget(page_15);
         page_16 = new QWidget();
         page_16->setObjectName(QStringLiteral("page_16"));
@@ -697,9 +755,6 @@ public:
         groupBox_4 = new QGroupBox(page_4);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         groupBox_4->setGeometry(QRect(0, 0, 661, 451));
-        label_4 = new QLabel(groupBox_4);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(30, 170, 271, 16));
         ProInfoManagerStartYear = new QSpinBox(groupBox_4);
         ProInfoManagerStartYear->setObjectName(QStringLiteral("ProInfoManagerStartYear"));
         ProInfoManagerStartYear->setGeometry(QRect(82, 16, 61, 22));
@@ -750,15 +805,166 @@ public:
         BtnAddPro->setStyleSheet(QLatin1String("border: 1px solid green;\n"
 "border-radius:10px;\n"
 ""));
+        tableProInfo = new QTableWidget(groupBox_4);
+        tableProInfo->setObjectName(QStringLiteral("tableProInfo"));
+        tableProInfo->setGeometry(QRect(10, 320, 641, 121));
+        groupBox_20 = new QGroupBox(groupBox_4);
+        groupBox_20->setObjectName(QStringLiteral("groupBox_20"));
+        groupBox_20->setGeometry(QRect(10, 70, 641, 241));
+        planStartYear = new QSpinBox(groupBox_20);
+        planStartYear->setObjectName(QStringLiteral("planStartYear"));
+        planStartYear->setGeometry(QRect(159, 120, 61, 22));
+        label_21 = new QLabel(groupBox_20);
+        label_21->setObjectName(QStringLiteral("label_21"));
+        label_21->setGeometry(QRect(260, 52, 71, 16));
+        label_21->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        proManager = new QComboBox(groupBox_20);
+        proManager->setObjectName(QStringLiteral("proManager"));
+        proManager->setGeometry(QRect(330, 20, 111, 22));
+        label_59 = new QLabel(groupBox_20);
+        label_59->setObjectName(QStringLiteral("label_59"));
+        label_59->setGeometry(QRect(320, 150, 141, 16));
+        label_59->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        label_4 = new QLabel(groupBox_20);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(14, 22, 71, 16));
+        label_4->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        realEndYear = new QSpinBox(groupBox_20);
+        realEndYear->setObjectName(QStringLiteral("realEndYear"));
+        realEndYear->setGeometry(QRect(465, 150, 61, 22));
+        realEndDay = new QSpinBox(groupBox_20);
+        realEndDay->setObjectName(QStringLiteral("realEndDay"));
+        realEndDay->setGeometry(QRect(580, 150, 42, 22));
+        label_61 = new QLabel(groupBox_20);
+        label_61->setObjectName(QStringLiteral("label_61"));
+        label_61->setGeometry(QRect(260, 22, 71, 16));
+        label_61->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        proCost = new QLineEdit(groupBox_20);
+        proCost->setObjectName(QStringLiteral("proCost"));
+        proCost->setGeometry(QRect(530, 20, 91, 20));
+        createMonth = new QSpinBox(groupBox_20);
+        createMonth->setObjectName(QStringLiteral("createMonth"));
+        createMonth->setGeometry(QRect(224, 80, 42, 22));
+        label_62 = new QLabel(groupBox_20);
+        label_62->setObjectName(QStringLiteral("label_62"));
+        label_62->setGeometry(QRect(14, 52, 71, 16));
+        label_62->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        label_95 = new QLabel(groupBox_20);
+        label_95->setObjectName(QStringLiteral("label_95"));
+        label_95->setGeometry(QRect(219, 124, 16, 16));
+        proClient = new QLineEdit(groupBox_20);
+        proClient->setObjectName(QStringLiteral("proClient"));
+        proClient->setGeometry(QRect(84, 52, 171, 20));
+        label_96 = new QLabel(groupBox_20);
+        label_96->setObjectName(QStringLiteral("label_96"));
+        label_96->setGeometry(QRect(267, 154, 16, 16));
+        label_63 = new QLabel(groupBox_20);
+        label_63->setObjectName(QStringLiteral("label_63"));
+        label_63->setGeometry(QRect(14, 120, 141, 16));
+        label_63->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        label_97 = new QLabel(groupBox_20);
+        label_97->setObjectName(QStringLiteral("label_97"));
+        label_97->setGeometry(QRect(573, 154, 16, 16));
+        realEndMonth = new QSpinBox(groupBox_20);
+        realEndMonth->setObjectName(QStringLiteral("realEndMonth"));
+        realEndMonth->setGeometry(QRect(530, 150, 42, 22));
+        createDay = new QSpinBox(groupBox_20);
+        createDay->setObjectName(QStringLiteral("createDay"));
+        createDay->setGeometry(QRect(274, 80, 42, 22));
+        planEndYear = new QSpinBox(groupBox_20);
+        planEndYear->setObjectName(QStringLiteral("planEndYear"));
+        planEndYear->setGeometry(QRect(465, 120, 61, 22));
+        label_64 = new QLabel(groupBox_20);
+        label_64->setObjectName(QStringLiteral("label_64"));
+        label_64->setGeometry(QRect(320, 120, 141, 16));
+        label_64->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        label_98 = new QLabel(groupBox_20);
+        label_98->setObjectName(QStringLiteral("label_98"));
+        label_98->setGeometry(QRect(267, 124, 16, 16));
+        label_99 = new QLabel(groupBox_20);
+        label_99->setObjectName(QStringLiteral("label_99"));
+        label_99->setGeometry(QRect(460, 20, 71, 16));
+        label_99->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        label_100 = new QLabel(groupBox_20);
+        label_100->setObjectName(QStringLiteral("label_100"));
+        label_100->setGeometry(QRect(14, 180, 71, 16));
+        label_100->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        label_101 = new QLabel(groupBox_20);
+        label_101->setObjectName(QStringLiteral("label_101"));
+        label_101->setGeometry(QRect(525, 154, 16, 16));
+        label_102 = new QLabel(groupBox_20);
+        label_102->setObjectName(QStringLiteral("label_102"));
+        label_102->setGeometry(QRect(14, 150, 141, 16));
+        label_102->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        label_103 = new QLabel(groupBox_20);
+        label_103->setObjectName(QStringLiteral("label_103"));
+        label_103->setGeometry(QRect(14, 84, 141, 16));
+        label_103->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        label_104 = new QLabel(groupBox_20);
+        label_104->setObjectName(QStringLiteral("label_104"));
+        label_104->setGeometry(QRect(525, 124, 16, 16));
+        realStartMonth = new QSpinBox(groupBox_20);
+        realStartMonth->setObjectName(QStringLiteral("realStartMonth"));
+        realStartMonth->setGeometry(QRect(224, 150, 42, 22));
+        planEndMonth = new QSpinBox(groupBox_20);
+        planEndMonth->setObjectName(QStringLiteral("planEndMonth"));
+        planEndMonth->setGeometry(QRect(530, 120, 42, 22));
+        planStartDay = new QSpinBox(groupBox_20);
+        planStartDay->setObjectName(QStringLiteral("planStartDay"));
+        planStartDay->setGeometry(QRect(274, 120, 42, 22));
+        label_106 = new QLabel(groupBox_20);
+        label_106->setObjectName(QStringLiteral("label_106"));
+        label_106->setGeometry(QRect(219, 154, 16, 16));
+        createtYear = new QSpinBox(groupBox_20);
+        createtYear->setObjectName(QStringLiteral("createtYear"));
+        createtYear->setGeometry(QRect(159, 80, 61, 22));
+        label_108 = new QLabel(groupBox_20);
+        label_108->setObjectName(QStringLiteral("label_108"));
+        label_108->setGeometry(QRect(573, 124, 16, 16));
+        realStartYear = new QSpinBox(groupBox_20);
+        realStartYear->setObjectName(QStringLiteral("realStartYear"));
+        realStartYear->setGeometry(QRect(159, 150, 61, 22));
+        planStartMonth = new QSpinBox(groupBox_20);
+        planStartMonth->setObjectName(QStringLiteral("planStartMonth"));
+        planStartMonth->setGeometry(QRect(224, 120, 42, 22));
+        label_109 = new QLabel(groupBox_20);
+        label_109->setObjectName(QStringLiteral("label_109"));
+        label_109->setGeometry(QRect(267, 84, 16, 16));
+        proName = new QLineEdit(groupBox_20);
+        proName->setObjectName(QStringLiteral("proName"));
+        proName->setGeometry(QRect(84, 21, 171, 20));
+        label_110 = new QLabel(groupBox_20);
+        label_110->setObjectName(QStringLiteral("label_110"));
+        label_110->setGeometry(QRect(219, 84, 16, 16));
+        realStartDay = new QSpinBox(groupBox_20);
+        realStartDay->setObjectName(QStringLiteral("realStartDay"));
+        realStartDay->setGeometry(QRect(274, 150, 42, 22));
+        proDescribe = new QTextEdit(groupBox_20);
+        proDescribe->setObjectName(QStringLiteral("proDescribe"));
+        proDescribe->setGeometry(QRect(90, 180, 541, 51));
+        planEndDay = new QSpinBox(groupBox_20);
+        planEndDay->setObjectName(QStringLiteral("planEndDay"));
+        planEndDay->setGeometry(QRect(580, 120, 42, 22));
+        proState = new QComboBox(groupBox_20);
+        proState->setObjectName(QStringLiteral("proState"));
+        proState->setGeometry(QRect(330, 50, 111, 22));
         stackedWidget->addWidget(page_4);
         page_5 = new QWidget();
         page_5->setObjectName(QStringLiteral("page_5"));
         groupBox_5 = new QGroupBox(page_5);
         groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
         groupBox_5->setGeometry(QRect(0, 0, 661, 451));
-        label_5 = new QLabel(groupBox_5);
-        label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(10, 120, 271, 16));
         BtnProStaffManagerSelection = new QPushButton(groupBox_5);
         BtnProStaffManagerSelection->setObjectName(QStringLiteral("BtnProStaffManagerSelection"));
         BtnProStaffManagerSelection->setGeometry(QRect(220, 15, 41, 23));
@@ -772,6 +978,18 @@ public:
         comboBox = new QComboBox(groupBox_5);
         comboBox->setObjectName(QStringLiteral("comboBox"));
         comboBox->setGeometry(QRect(80, 17, 131, 22));
+        tableProStaff = new QTableWidget(groupBox_5);
+        tableProStaff->setObjectName(QStringLiteral("tableProStaff"));
+        tableProStaff->setGeometry(QRect(10, 260, 641, 181));
+        groupBox_21 = new QGroupBox(groupBox_5);
+        groupBox_21->setObjectName(QStringLiteral("groupBox_21"));
+        groupBox_21->setGeometry(QRect(10, 50, 641, 191));
+        MonthlyName_2 = new QLabel(groupBox_21);
+        MonthlyName_2->setObjectName(QStringLiteral("MonthlyName_2"));
+        MonthlyName_2->setGeometry(QRect(63, 19, 81, 20));
+        MonthlyDate_2 = new QLabel(groupBox_21);
+        MonthlyDate_2->setObjectName(QStringLiteral("MonthlyDate_2"));
+        MonthlyDate_2->setGeometry(QRect(213, 18, 91, 20));
         stackedWidget->addWidget(page_5);
         page_2 = new QWidget();
         page_2->setObjectName(QStringLiteral("page_2"));
@@ -794,6 +1012,9 @@ public:
         BtnCostManagerSelection->setStyleSheet(QLatin1String("border: 1px solid green;\n"
 "border-radius:10px;\n"
 ""));
+        tableProCost = new QTableWidget(groupBox_6);
+        tableProCost->setObjectName(QStringLiteral("tableProCost"));
+        tableProCost->setGeometry(QRect(10, 300, 641, 141));
         stackedWidget->addWidget(page_2);
         page_6 = new QWidget();
         page_6->setObjectName(QStringLiteral("page_6"));
@@ -847,6 +1068,9 @@ public:
         label_70->setObjectName(QStringLiteral("label_70"));
         label_70->setGeometry(QRect(245, 20, 21, 16));
         label_70->setStyleSheet(QStringLiteral(""));
+        tableProRequest = new QTableWidget(groupBox_7);
+        tableProRequest->setObjectName(QStringLiteral("tableProRequest"));
+        tableProRequest->setGeometry(QRect(10, 300, 641, 141));
         stackedWidget->addWidget(page_6);
         page_17 = new QWidget();
         page_17->setObjectName(QStringLiteral("page_17"));
@@ -900,6 +1124,9 @@ public:
         label_107->setObjectName(QStringLiteral("label_107"));
         label_107->setGeometry(QRect(245, 20, 21, 16));
         label_107->setStyleSheet(QStringLiteral(""));
+        tableProTask = new QTableWidget(groupBox_17);
+        tableProTask->setObjectName(QStringLiteral("tableProTask"));
+        tableProTask->setGeometry(QRect(10, 300, 641, 141));
         stackedWidget->addWidget(page_17);
         page_7 = new QWidget();
         page_7->setObjectName(QStringLiteral("page_7"));
@@ -953,6 +1180,9 @@ public:
         label_76->setObjectName(QStringLiteral("label_76"));
         label_76->setGeometry(QRect(245, 20, 21, 16));
         label_76->setStyleSheet(QStringLiteral(""));
+        tableProProcess = new QTableWidget(groupBox_8);
+        tableProProcess->setObjectName(QStringLiteral("tableProProcess"));
+        tableProProcess->setGeometry(QRect(10, 300, 641, 141));
         stackedWidget->addWidget(page_7);
         page_3 = new QWidget();
         page_3->setObjectName(QStringLiteral("page_3"));
@@ -1013,7 +1243,7 @@ public:
         boxDaily->setGeometry(QRect(430, 15, 131, 22));
         tableDaily = new QTableWidget(groupBox_9);
         tableDaily->setObjectName(QStringLiteral("tableDaily"));
-        tableDaily->setGeometry(QRect(10, 290, 641, 141));
+        tableDaily->setGeometry(QRect(10, 270, 641, 161));
         groupBox_18 = new QGroupBox(groupBox_9);
         groupBox_18->setObjectName(QStringLiteral("groupBox_18"));
         groupBox_18->setGeometry(QRect(10, 70, 641, 191));
@@ -1118,7 +1348,7 @@ public:
 "border-radius:10px;"));
         tableMonthly = new QTableWidget(groupBox_11);
         tableMonthly->setObjectName(QStringLiteral("tableMonthly"));
-        tableMonthly->setGeometry(QRect(10, 290, 641, 141));
+        tableMonthly->setGeometry(QRect(10, 270, 641, 161));
         groupBox_19 = new QGroupBox(groupBox_11);
         groupBox_19->setObjectName(QStringLiteral("groupBox_19"));
         groupBox_19->setGeometry(QRect(10, 70, 641, 191));
@@ -1219,6 +1449,9 @@ public:
         BtnAddUser->setStyleSheet(QLatin1String("border: 1px solid green;\n"
 "border-radius:10px;\n"
 ""));
+        tablaRole = new QTableWidget(groupBox_14);
+        tablaRole->setObjectName(QStringLiteral("tablaRole"));
+        tablaRole->setGeometry(QRect(10, 290, 641, 141));
         stackedWidget->addWidget(page_11);
         page_12 = new QWidget();
         page_12->setObjectName(QStringLiteral("page_12"));
@@ -1232,21 +1465,19 @@ public:
         label_111->setObjectName(QStringLiteral("label_111"));
         label_111->setGeometry(QRect(18, 20, 54, 12));
         label_111->setStyleSheet(QStringLiteral(""));
+        tableLogin = new QTableWidget(groupBox_15);
+        tableLogin->setObjectName(QStringLiteral("tableLogin"));
+        tableLogin->setGeometry(QRect(10, 300, 641, 141));
         stackedWidget->addWidget(page_12);
         page_13 = new QWidget();
         page_13->setObjectName(QStringLiteral("page_13"));
         groupBox_16 = new QGroupBox(page_13);
         groupBox_16->setObjectName(QStringLiteral("groupBox_16"));
         groupBox_16->setGeometry(QRect(0, 0, 661, 451));
-        groupBox_16->setStyleSheet(QLatin1String("QTableWidget\n"
-"{\n"
-"background: rgb(56,56,56);\n"
-"alternate-background-color:rgb(48,51,55);\n"
-"selection-background-color:qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgb(56,56,56),stop:1 rgb(66,66,66));\n"
-"}"));
+        groupBox_16->setStyleSheet(QStringLiteral(""));
         label_15 = new QLabel(groupBox_16);
         label_15->setObjectName(QStringLiteral("label_15"));
-        label_15->setGeometry(QRect(110, 380, 91, 16));
+        label_15->setGeometry(QRect(40, 70, 91, 16));
         BtnPermManagerSelection = new QPushButton(groupBox_16);
         BtnPermManagerSelection->setObjectName(QStringLiteral("BtnPermManagerSelection"));
         BtnPermManagerSelection->setGeometry(QRect(206, 15, 41, 23));
@@ -1260,12 +1491,15 @@ public:
         lineEdit = new QLineEdit(groupBox_16);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setGeometry(QRect(81, 17, 113, 20));
+        tablePerm = new QTableWidget(groupBox_16);
+        tablePerm->setObjectName(QStringLiteral("tablePerm"));
+        tablePerm->setGeometry(QRect(10, 300, 641, 141));
         stackedWidget->addWidget(page_13);
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(11);
+        stackedWidget->setCurrentIndex(5);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1374,7 +1608,6 @@ public:
         BtnAlterAddress->setText(QApplication::translate("MainWindow", "\344\277\256\346\224\271\345\234\260\345\235\200", 0));
         infoAlter->setText(QString());
         groupBox_4->setTitle(QApplication::translate("MainWindow", "\351\241\271\347\233\256\344\277\241\346\201\257\347\256\241\347\220\206", 0));
-        label_4->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\344\277\241\346\201\257\347\256\241\347\220\206", 0));
         label_43->setText(QApplication::translate("MainWindow", "-", 0));
         label_40->setText(QApplication::translate("MainWindow", "\345\210\260", 0));
         BtnProInfoManagerSelection->setText(QApplication::translate("MainWindow", "\346\237\245\350\257\242", 0));
@@ -1383,10 +1616,34 @@ public:
         label_45->setText(QApplication::translate("MainWindow", "-", 0));
         label_44->setText(QApplication::translate("MainWindow", "-", 0));
         BtnAddPro->setText(QApplication::translate("MainWindow", "\346\267\273\345\212\240\351\241\271\347\233\256", 0));
+        groupBox_20->setTitle(QApplication::translate("MainWindow", "\351\200\211\344\270\255\351\241\271\347\233\256\344\277\241\346\201\257", 0));
+        label_21->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\347\212\266\346\200\201\357\274\232", 0));
+        label_59->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\345\256\236\351\231\205\347\273\223\346\235\237\346\227\266\351\227\264\357\274\232", 0));
+        label_4->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\345\220\215\357\274\232", 0));
+        label_61->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\347\273\217\347\220\206\357\274\232", 0));
+        label_62->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\345\256\242\346\210\267\357\274\232", 0));
+        label_95->setText(QApplication::translate("MainWindow", "-", 0));
+        label_96->setText(QApplication::translate("MainWindow", "-", 0));
+        label_63->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\350\256\241\345\210\222\345\274\200\345\247\213\346\227\266\351\227\264\357\274\232", 0));
+        label_97->setText(QApplication::translate("MainWindow", "-", 0));
+        label_64->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\350\256\241\345\210\222\347\273\223\346\235\237\346\227\266\351\227\264\357\274\232", 0));
+        label_98->setText(QApplication::translate("MainWindow", "-", 0));
+        label_99->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\347\273\217\350\264\271\357\274\232", 0));
+        label_100->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\346\217\217\350\277\260\357\274\232", 0));
+        label_101->setText(QApplication::translate("MainWindow", "-", 0));
+        label_102->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\345\256\236\351\231\205\345\274\200\345\247\213\346\227\266\351\227\264\357\274\232", 0));
+        label_103->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\345\210\233\345\273\272\346\227\266\351\227\264\357\274\232", 0));
+        label_104->setText(QApplication::translate("MainWindow", "-", 0));
+        label_106->setText(QApplication::translate("MainWindow", "-", 0));
+        label_108->setText(QApplication::translate("MainWindow", "-", 0));
+        label_109->setText(QApplication::translate("MainWindow", "-", 0));
+        label_110->setText(QApplication::translate("MainWindow", "-", 0));
         groupBox_5->setTitle(QApplication::translate("MainWindow", "\351\241\271\347\233\256\344\272\272\345\221\230\347\256\241\347\220\206", 0));
-        label_5->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\344\272\272\345\221\230\347\256\241\347\220\206", 0));
         BtnProStaffManagerSelection->setText(QApplication::translate("MainWindow", "\346\237\245\350\257\242", 0));
         label_55->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\345\220\215\347\247\260\357\274\232", 0));
+        groupBox_21->setTitle(QApplication::translate("MainWindow", "\351\200\211\344\270\255\344\272\272\345\221\230", 0));
+        MonthlyName_2->setText(QString());
+        MonthlyDate_2->setText(QString());
         groupBox_6->setTitle(QApplication::translate("MainWindow", "\346\210\220\346\234\254\347\256\241\347\220\206", 0));
         label_6->setText(QApplication::translate("MainWindow", "\346\210\220\346\234\254\347\256\241\347\220\206", 0));
         label_56->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\345\220\215\347\247\260\357\274\232", 0));

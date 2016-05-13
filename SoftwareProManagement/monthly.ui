@@ -30,7 +30,7 @@
    </property>
    <property name="styleSheet">
     <string notr="true">font: 75 12pt &quot;黑体&quot;;
-color:rgb(0, 85, 0);</string>
+</string>
    </property>
    <property name="text">
     <string>本月完成内容：</string>
@@ -95,7 +95,7 @@ color:rgb(0, 85, 0);</string>
    </property>
    <property name="styleSheet">
     <string notr="true">font: 75 12pt &quot;黑体&quot;;
-color:rgb(0, 85, 0);</string>
+</string>
    </property>
    <property name="text">
     <string>下  周  计  划:</string>
@@ -112,7 +112,7 @@ color:rgb(0, 85, 0);</string>
    </property>
    <property name="styleSheet">
     <string notr="true">font: 75 12pt &quot;黑体&quot;;
-color:rgb(0, 85, 0);</string>
+</string>
    </property>
    <property name="text">
     <string>问题解决方案:</string>
@@ -129,7 +129,7 @@ color:rgb(0, 85, 0);</string>
    </property>
    <property name="styleSheet">
     <string notr="true">font: 75 12pt &quot;黑体&quot;;
-color:rgb(0, 85, 0);</string>
+</string>
    </property>
    <property name="text">
     <string>存在问题及原因:</string>
