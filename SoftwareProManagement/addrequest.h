@@ -14,8 +14,11 @@ class addRequest : public QDialog
 public:
     explicit addRequest(QWidget *parent = 0);
     ~addRequest();
-    
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
 private:
+    QPoint dragPosition;
     Ui::addRequest *ui;
 };
 

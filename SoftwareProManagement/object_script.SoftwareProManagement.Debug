@@ -17,6 +17,7 @@ INPUT(
 ./debug\addtask.o
 ./debug\addprocess.o
 ./debug\addprostaff.o
+./debug\proinfo.o
 ./debug\qrc_images.o
 ./debug\moc_login.o
 ./debug\moc_mainwindow.o

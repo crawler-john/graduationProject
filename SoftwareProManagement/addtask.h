@@ -14,8 +14,11 @@ class addTask : public QDialog
 public:
     explicit addTask(QWidget *parent = 0);
     ~addTask();
-    
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
 private:
+    QPoint dragPosition;
     Ui::addTask *ui;
 };
 

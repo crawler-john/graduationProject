@@ -14,8 +14,11 @@ class addProcess : public QDialog
 public:
     explicit addProcess(QWidget *parent = 0);
     ~addProcess();
-    
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
 private:
+    QPoint dragPosition;
     Ui::addProcess *ui;
 };
 

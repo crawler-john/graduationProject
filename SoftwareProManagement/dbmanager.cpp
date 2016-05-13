@@ -285,6 +285,42 @@ DBManager::eDbStatus DBManager::DBGetMonthlyList(QString userID, QList<DailyInfo
     }
 }
 
+DBManager::eDbStatus DBManager::DBGetProInfoList(QList<ProInfo *> &ProInfoList)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT * from proinfo order by timeCreate desc;" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            ProInfo *proinfo = new ProInfo;
+            proinfo->setID(t_sql.value(0).toInt());
+            proinfo->setName(t_sql.value(1).toString());
+            proinfo->setClient(t_sql.value(2).toString());
+            proinfo->setDescribe(t_sql.value(3).toString());
+            proinfo->setMoney(t_sql.value(4).toInt());
+            proinfo->setManager(t_sql.value(5).toString());
+            proinfo->setState(t_sql.value(6).toString());
+            proinfo->setAddress(t_sql.value(7).toString());
+            proinfo->setPlanStart(t_sql.value(8).toDate());
+            proinfo->setPlanEnd(t_sql.value(9).toDate());
+            proinfo->setRealStart(t_sql.value(10).toDate());
+            proinfo->setRealEnd(t_sql.value(11).toDate());
+            proinfo->setCreate(t_sql.value(12).toDate());
+            proinfo->setPriority(t_sql.value(13).toInt());
+            ProInfoList.push_back(proinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
 DBManager::eDbStatus DBManager::DBSelectDailyList(QString name, QDate start, QDate end, QList<DailyInfo *> &dailyList)
 {
     DBopen();

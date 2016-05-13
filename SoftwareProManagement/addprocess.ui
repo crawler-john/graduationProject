@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>379</width>
-    <height>398</height>
+    <height>394</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -130,7 +130,7 @@ color:rgb(0, 0, 0);</string>
     <string>-</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="proClient">
+  <widget class="QLineEdit" name="processName">
    <property name="geometry">
     <rect>
      <x>94</x>
@@ -505,7 +505,7 @@ color:rgb(255, 0, 0);</string>
     </rect>
    </property>
   </widget>
-  <widget class="QComboBox" name="proManager_2">
+  <widget class="QComboBox" name="proName">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -532,7 +532,7 @@ color:rgb(0, 0, 0);</string>
     <string>进度管理的任务名：</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="proManager_3">
+  <widget class="QComboBox" name="processTaskName">
    <property name="geometry">
     <rect>
      <x>160</x>

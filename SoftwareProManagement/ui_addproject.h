@@ -47,7 +47,7 @@ public:
     QComboBox *proState;
     QLineEdit *proCost;
     QSpinBox *createMonth;
-    QSpinBox *createtYear;
+    QSpinBox *createYear;
     QSpinBox *createDay;
     QLabel *label_89;
     QLabel *label_90;
@@ -173,9 +173,9 @@ public:
         createMonth = new QSpinBox(AddProject);
         createMonth->setObjectName(QStringLiteral("createMonth"));
         createMonth->setGeometry(QRect(240, 146, 42, 22));
-        createtYear = new QSpinBox(AddProject);
-        createtYear->setObjectName(QStringLiteral("createtYear"));
-        createtYear->setGeometry(QRect(175, 146, 61, 22));
+        createYear = new QSpinBox(AddProject);
+        createYear->setObjectName(QStringLiteral("createYear"));
+        createYear->setGeometry(QRect(175, 146, 61, 22));
         createDay = new QSpinBox(AddProject);
         createDay->setObjectName(QStringLiteral("createDay"));
         createDay->setGeometry(QRect(290, 146, 42, 22));

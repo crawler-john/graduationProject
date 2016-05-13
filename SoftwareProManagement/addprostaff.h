@@ -14,8 +14,11 @@ class addProStaff : public QDialog
 public:
     explicit addProStaff(QWidget *parent = 0);
     ~addProStaff();
-    
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
 private:
+    QPoint dragPosition;
     Ui::addProStaff *ui;
 };
 

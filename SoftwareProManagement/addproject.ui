@@ -316,7 +316,7 @@ color:rgb(0, 0, 0);</string>
     </rect>
    </property>
   </widget>
-  <widget class="QSpinBox" name="createtYear">
+  <widget class="QSpinBox" name="createYear">
    <property name="geometry">
     <rect>
      <x>175</x>

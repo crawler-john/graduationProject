@@ -14,8 +14,8 @@ class AddProject : public QDialog
 public:
     explicit AddProject(QWidget *parent = 0);
     ~AddProject();
-    void mousePressEvent(QMouseEvent *);
-    void mouseMoveEvent(QMouseEvent *);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
 
 private:
     QPoint dragPosition;

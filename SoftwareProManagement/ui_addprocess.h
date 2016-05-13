@@ -35,7 +35,7 @@ public:
     QSpinBox *createMonth;
     QLabel *label_2;
     QLabel *label_91;
-    QLineEdit *proClient;
+    QLineEdit *processName;
     QLabel *label_95;
     QLabel *label_7;
     QLabel *label_97;
@@ -65,15 +65,15 @@ public:
     QSpinBox *realStartDay;
     QTextEdit *proDescribe;
     QSpinBox *planEndDay;
-    QComboBox *proManager_2;
+    QComboBox *proName;
     QLabel *label_4;
-    QComboBox *proManager_3;
+    QComboBox *processTaskName;
 
     void setupUi(QDialog *addProcess)
     {
         if (addProcess->objectName().isEmpty())
             addProcess->setObjectName(QStringLiteral("addProcess"));
-        addProcess->resize(379, 398);
+        addProcess->resize(379, 394);
         addProcess->setStyleSheet(QLatin1String("QDialog#addProcess{\n"
 "	background-image:url(img/addProcess.jpg);\n"
 "}\n"
@@ -115,9 +115,9 @@ public:
         label_91 = new QLabel(addProcess);
         label_91->setObjectName(QStringLiteral("label_91"));
         label_91->setGeometry(QRect(229, 170, 16, 16));
-        proClient = new QLineEdit(addProcess);
-        proClient->setObjectName(QStringLiteral("proClient"));
-        proClient->setGeometry(QRect(94, 40, 91, 20));
+        processName = new QLineEdit(addProcess);
+        processName->setObjectName(QStringLiteral("processName"));
+        processName->setGeometry(QRect(94, 40, 91, 20));
         label_95 = new QLabel(addProcess);
         label_95->setObjectName(QStringLiteral("label_95"));
         label_95->setGeometry(QRect(277, 230, 16, 16));
@@ -217,17 +217,17 @@ public:
         planEndDay = new QSpinBox(addProcess);
         planEndDay->setObjectName(QStringLiteral("planEndDay"));
         planEndDay->setGeometry(QRect(284, 196, 42, 22));
-        proManager_2 = new QComboBox(addProcess);
-        proManager_2->setObjectName(QStringLiteral("proManager_2"));
-        proManager_2->setGeometry(QRect(90, 68, 261, 22));
+        proName = new QComboBox(addProcess);
+        proName->setObjectName(QStringLiteral("proName"));
+        proName->setGeometry(QRect(90, 68, 261, 22));
         label_4 = new QLabel(addProcess);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setGeometry(QRect(24, 102, 141, 16));
         label_4->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "color:rgb(0, 0, 0);"));
-        proManager_3 = new QComboBox(addProcess);
-        proManager_3->setObjectName(QStringLiteral("proManager_3"));
-        proManager_3->setGeometry(QRect(160, 100, 191, 22));
+        processTaskName = new QComboBox(addProcess);
+        processTaskName->setObjectName(QStringLiteral("processTaskName"));
+        processTaskName->setGeometry(QRect(160, 100, 191, 22));
 
         retranslateUi(addProcess);
 

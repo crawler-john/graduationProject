@@ -17,6 +17,7 @@ INPUT(
 ./release\addtask.o
 ./release\addprocess.o
 ./release\addprostaff.o
+./release\proinfo.o
 ./release\qrc_images.o
 ./release\moc_login.o
 ./release\moc_mainwindow.o

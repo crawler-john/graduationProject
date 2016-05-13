@@ -8,6 +8,7 @@
 #include <QList>
 #include "userinfo.h"
 #include "dailyinfo.h"
+#include "proinfo.h"
 
 
 class DBManager
@@ -42,6 +43,10 @@ public:
     eDbStatus DBGetDailyList(QString userID,QList<DailyInfo*> &dailyList);
     //获取月报信息
     eDbStatus DBGetMonthlyList(QString userID,QList<DailyInfo*> &dailyList);
+    //获取项目信息
+    eDbStatus DBGetProInfoList(QList<ProInfo*> &ProInfoList);
+
+
     //查询周报信息
     eDbStatus DBSelectDailyList(QString name,QDate start,QDate end,QList<DailyInfo*> &dailyList);
     //查询月报信息

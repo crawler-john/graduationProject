@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     addrequest.cpp \
     addtask.cpp \
     addprocess.cpp \
-    addprostaff.cpp
+    addprostaff.cpp \
+    proinfo.cpp
 
 
 
@@ -52,7 +53,8 @@ HEADERS  += \
     addrequest.h \
     addtask.h \
     addprocess.h \
-    addprostaff.h
+    addprostaff.h \
+    proinfo.h
 
 
 

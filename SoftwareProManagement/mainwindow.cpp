@@ -9,6 +9,7 @@
 #include "alteraddress.h"
 #include "alteremail.h"
 #include "alterphone.h"
+#include "proinfo.h"
 
 MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     QMainWindow(parent),
@@ -45,8 +46,8 @@ void MainWindow::getUserInfo(QString  UserID)
     ui->treeWidget->topLevelItem(0)->child(1)->setHidden(!m_userinfo.getPerm_myTask());
     ui->treeWidget->topLevelItem(0)->child(2)->setHidden(!m_userinfo.getPerm_setInfo());
     if((!m_userinfo.getPerm_proInfoManage() && !m_userinfo.getPerm_StaffManage() && !m_userinfo.getPerm_CostManage()
-            && !m_userinfo.getPerm_RequireTaskManage() && !m_userinfo.getPerm_PlanManage() && !m_userinfo.getPerm_WeeklyReports()
-            &&!m_userinfo.getPerm_MonthlyReports()))
+        && !m_userinfo.getPerm_RequireTaskManage() && !m_userinfo.getPerm_PlanManage() && !m_userinfo.getPerm_WeeklyReports()
+        &&!m_userinfo.getPerm_MonthlyReports()))
     {
         ui->treeWidget->topLevelItem(1)->setHidden(true);
     }
@@ -58,7 +59,7 @@ void MainWindow::getUserInfo(QString  UserID)
     ui->treeWidget->topLevelItem(1)->child(5)->setHidden(!m_userinfo.getPerm_WeeklyReports());
     ui->treeWidget->topLevelItem(1)->child(6)->setHidden(!m_userinfo.getPerm_MonthlyReports());
     if((!m_userinfo.getPerm_OrganManage() && !m_userinfo.getPerm_StaffManage() && !m_userinfo.getPerm_StaffManage()
-            && !m_userinfo.getPerm_LoginUser() && !m_userinfo.getPerm_PermManage()))
+        && !m_userinfo.getPerm_LoginUser() && !m_userinfo.getPerm_PermManage()))
     {
         ui->treeWidget->topLevelItem(2)->setHidden(true);
     }
@@ -108,11 +109,15 @@ void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item)
         emit SigSelectStackedWidget(col+1);
         switch(col)
         {
-            case 0:
+        case 0:
+            //我的项目操作
+            MyProOperation();
             break;
-            case 1:
+        case 1:
+            //我的任务操作
+            MyTaskOperation();
             break;
-            case 2:
+        case 2:
             //个人信息操作
             PersonalInfoOperation();
             break;
@@ -122,23 +127,36 @@ void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item)
         emit SigSelectStackedWidget(col+4);
         switch(col)
         {
-            case 0:
+        case 0:
+            //项目信息管理操作
+            ProInfoManageOperation();
             break;
-            case 1:
+        case 1:
+            //项目人员管理操作
+            ProStaffManageOperation();
             break;
-            case 2:
+        case 2:
+            //项目成本管理操作
+            ProCostManageOperation();
             break;
-            case 3:
+        case 3:
+            //项目需求管理操作
+            ProRequestManageOperation();
             break;
-            case 4:
+        case 4:
+            //项目任务管理操作
+            ProTaskManageOperation();
             break;
-            case 5:
+        case 5:
+            //项目进度管理操作
             break;
-            case 6:
+        case 6:
+            //周报操作
             DailyOperation();
             break;
 
-            case 7:
+        case 7:
+            //月报操作
             MonthlyOperation();
             break;
 
@@ -148,15 +166,21 @@ void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item)
         emit SigSelectStackedWidget(col+12);
         switch(col)
         {
-            case 0:
+        case 0:
             break;
-            case 1:
+        case 1:
             break;
-            case 2:
+        case 2:
+            //角色管理操作
+            RoleManageOperation();
             break;
-            case 3:
+        case 3:
+            //登入用户管理
+            LoginUserManageOperation();
             break;
-            case 4:
+        case 4:
+            //权限管理
+            PermManageOperation();
             break;
         }
         break;
@@ -234,6 +258,49 @@ void MainWindow::PersonalInfoOperation()
     ui->infoWorkyears->setNum(m_userinfo.getWorkYears());
 }
 
+void MainWindow::ProInfoManageOperation()
+{
+    ui->errorProInfoManager->clear();
+
+    QString head[6];
+    head[0] = "项目名";
+    head[1] = "项目创建时间";
+    head[2] = "优先级";
+    head[3] = "项目状态";
+    head[4] = "项目预支";
+    head[5] = "项目经理";
+    int headWidth[6] ={200,80,50,80,80,100};
+    //设置表格属性
+    setTableWeight(ui->tableProInfo,6,head,headWidth);
+
+    //获取数据
+    ProInfoList.clear();
+
+    DbManager->DBGetProInfoList(ProInfoList);
+    //在表格中显示数据
+    addTableProInfoData(ui->tableProInfo,ProInfoList);
+}
+
+void MainWindow::ProStaffManageOperation()
+{
+}
+
+void MainWindow::ProCostManageOperation()
+{
+}
+
+void MainWindow::ProRequestManageOperation()
+{
+}
+
+void MainWindow::ProTaskManageOperation()
+{
+}
+
+void MainWindow::ProProcessManageOperation()
+{
+}
+
 void MainWindow::DailyOperation()
 {
     ui->errorDaily->clear();
@@ -254,7 +321,7 @@ void MainWindow::DailyOperation()
     head[3] = "问题";
     head[4] = "解决方法";
     head[5] = "下周计划";
-    int headWidth[6] ={50,80,140,120,120,130};
+    int headWidth[6] ={50,80,130,120,120,120};
     //设置表格属性
     setTableWeight(ui->tableDaily,6,head,headWidth);
     //获取数据
@@ -269,7 +336,6 @@ void MainWindow::DailyOperation()
 
 void MainWindow::MonthlyOperation()
 {
-    qDebug() << "11111111";
     if(m_userinfo.getPost() != "普通员工")
     {
         QStringList List;
@@ -287,7 +353,7 @@ void MainWindow::MonthlyOperation()
     head[3] = "问题";
     head[4] = "解决方法";
     head[5] = "下周计划";
-    int headWidth[6] ={50,80,140,120,120,130};
+    int headWidth[6] ={50,80,130,120,120,120};
     //设置表格属性
     setTableWeight(ui->tableMonthly,6,head,headWidth);
     //获取数据
@@ -295,6 +361,18 @@ void MainWindow::MonthlyOperation()
     DbManager->DBGetMonthlyList(m_userinfo.getID(),List);
     //在表格中显示数据
     addTableData(ui->tableMonthly,List);
+}
+
+void MainWindow::RoleManageOperation()
+{
+}
+
+void MainWindow::LoginUserManageOperation()
+{
+}
+
+void MainWindow::PermManageOperation()
+{
 }
 
 void MainWindow::setTableWeight(QTableWidget *table, int row, QString head[20],int width[20])
@@ -314,7 +392,7 @@ void MainWindow::setTableWeight(QTableWidget *table, int row, QString head[20],i
     table->horizontalHeader()->setFont(font);
 
     table->horizontalHeader()->setStretchLastSection(true); //设置充满表宽度
-    table->verticalHeader()->setDefaultSectionSize(10); //设置行高
+    table->verticalHeader()->setDefaultSectionSize(15); //设置行高
     table->setFrameShape(QFrame::NoFrame); //设置无边框
     table->setShowGrid(false); //设置不显示格子线
     table->verticalHeader()->setVisible(false); //设置垂直头不可见
@@ -362,6 +440,37 @@ void MainWindow::addTableData(QTableWidget *table,QList<DailyInfo *> &List)
     }
 }
 
+void MainWindow::addTableProInfoData(QTableWidget *table, QList<ProInfo *> &List)
+{
+    table->setRowCount(0);
+    table->clearContents();
+
+    QList<ProInfo *>::Iterator iter = List.begin();
+    for ( ; iter != List.end(); iter++)  {
+        int row_count = table->rowCount(); //获取表单行数
+        table->insertRow(row_count); //插入新行
+        QTableWidgetItem *item = new QTableWidgetItem();
+        QTableWidgetItem *item1 = new QTableWidgetItem();
+        QTableWidgetItem *item2 = new QTableWidgetItem();
+        QTableWidgetItem *item3 = new QTableWidgetItem();
+        QTableWidgetItem *item4 = new QTableWidgetItem();
+        QTableWidgetItem *item5 = new QTableWidgetItem();
+
+        item->setText((*iter)->getName());
+        item1->setText((*iter)->getCreate().toString(Qt::ISODate));
+        item2->setText(QString::number((*iter)->getPriority()));
+        item3->setText((*iter)->getState());
+        item4->setText(QString::number((*iter)->getMoney()));
+        item5->setText((*iter)->getManager());
+        table->setItem(row_count, 0, item);
+        table->setItem(row_count, 1, item1);
+        table->setItem(row_count, 2, item2);
+        table->setItem(row_count, 3, item3);
+        table->setItem(row_count, 4, item4);
+        table->setItem(row_count, 5, item5);
+    }
+}
+
 void MainWindow::initialize()
 {
     QDate date = QDate::currentDate();
@@ -374,8 +483,8 @@ void MainWindow::initialize()
     ui->MyProEndDay->setRange(1,31);
 
     ui->MyProEndYear->setValue(date.year());
-ui->MyProEndMonth->setValue(date.month());
-ui->MyProEndDay->setValue(date.day());
+    ui->MyProEndMonth->setValue(date.month());
+    ui->MyProEndDay->setValue(date.day());
 
     ui->MyTaskStartYear->setRange(2010,2050);
     ui->MyTaskEndYear->setRange(2010,2050);
@@ -466,6 +575,26 @@ ui->MyProEndDay->setValue(date.day());
     ui->MonthlyEndMonth->setValue(date.month());
     ui->MonthlyEndDay->setValue(date.day());
 
+
+    ui->createYear->setRange(2010,2050);
+    ui->createMonth->setRange(1,12);
+    ui->createDay->setRange(1,31);
+    ui->planStartYear->setRange(2010,2050);
+    ui->planStartMonth->setRange(1,12);
+    ui->planStartDay->setRange(1,31);
+
+    ui->planEndYear->setRange(2010,2050);
+    ui->planEndMonth->setRange(1,12);
+    ui->planEndDay->setRange(1,31);
+
+    ui->realStartYear->setRange(2010,2050);
+    ui->realStartMonth->setRange(1,12);
+    ui->realStartDay->setRange(1,31);
+
+    ui->realEndYear->setRange(2010,2050);
+    ui->realEndMonth->setRange(1,12);
+    ui->realEndDay->setRange(1,31);
+
 }
 //修改密码按键点击槽函数
 void MainWindow::on_BtnAlterPassword_clicked()
@@ -530,7 +659,7 @@ void MainWindow::disposeAlterAddress(QString newAddress)
         m_userinfo.setAddress(newAddress);
     }else
     {
-         ui->infoAlter->setText("服务器异常");
+        ui->infoAlter->setText("服务器异常");
     }
 }
 
@@ -555,9 +684,9 @@ void MainWindow::disposeAlterPhone(QString newPhone)
     DBManager::eDbStatus status = DbManager->DBAlterPhone(m_userinfo.getID(),newPhone);
     if(status == DBManager::DB_SUCCESS)
     {
-         ui->infoAlter->setText("修改电话成功！");
-         ui->infoPhone->setText(newPhone);
-         m_userinfo.setPhone(newPhone);
+        ui->infoAlter->setText("修改电话成功！");
+        ui->infoPhone->setText(newPhone);
+        m_userinfo.setPhone(newPhone);
     }else
     {
         ui->infoAlter->setText("服务器异常");
@@ -673,4 +802,57 @@ void MainWindow::on_BtnMonthlySelection_clicked()
     DbManager->DBSelectMonthlyList(Name,start,end,List);
     addTableData(ui->tableMonthly,List);
     ui->errorMonthly->setText("查询成功！");
+}
+
+void MainWindow::MyProOperation()
+{
+}
+
+void MainWindow::MyTaskOperation()
+{
+}
+
+//表格点击操作
+void MainWindow::on_tableProInfo_itemPressed(QTableWidgetItem *item)
+{
+    QString proName = ui->tableProInfo->item(item->row(),0)->text();
+    ProInfo *proinfo = NULL;
+    QList<ProInfo *>::Iterator iter = ProInfoList.begin();
+    for ( ; iter != ProInfoList.end(); iter++)  {
+        if((*iter)->getName() == proName)
+        {
+            proinfo = *iter;
+            break;
+        }
+    }
+    ui->proName->setText(proinfo->getName());
+    ui->proManager->setText(proinfo->getManager());
+    ui->proCost->setText(QString::number(proinfo->getMoney()));
+    ui->proClient->setText(proinfo->getClient());
+    ui->proState->setText(proinfo->getState());
+    ui->proDescribe->setText(proinfo->getDescribe());
+    ui->createYear->setValue(proinfo->getCreate().year());
+    ui->createMonth->setValue(proinfo->getCreate().month());
+    ui->createDay->setValue(proinfo->getCreate().day());
+    ui->planStartYear->setValue(proinfo->getPlanStart().year());
+    ui->planStartMonth->setValue(proinfo->getPlanStart().month());
+    ui->planStartDay->setValue(proinfo->getPlanStart().day());
+
+    ui->planEndYear->setValue(proinfo->getPlanEnd().year());
+    ui->planEndMonth->setValue(proinfo->getPlanEnd().month());
+    ui->planEndDay->setValue(proinfo->getPlanEnd().day());
+
+    ui->realStartYear->setValue(proinfo->getRealStart().year());
+    ui->realStartMonth->setValue(proinfo->getRealStart().month());
+    ui->realStartDay->setValue(proinfo->getRealStart().day());
+
+    ui->realEndYear->setValue(proinfo->getRealEnd().year());
+    ui->realEndMonth->setValue(proinfo->getRealEnd().month());
+    ui->realEndDay->setValue(proinfo->getRealEnd().day());
+
+}
+
+void MainWindow::on_BtnProInfoManagerSelection_clicked()
+{
+
 }

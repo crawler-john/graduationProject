@@ -8,6 +8,7 @@
 #include "userinfo.h"
 #include <QTableWidget>
 #include "dailyinfo.h"
+#include "proinfo.h"
 namespace Ui {
 class MainWindow;
 }
@@ -69,19 +70,55 @@ private slots:
     void on_BtnDailySelection_clicked();
     void on_BtnMonthlySelection_clicked();
 
+    void on_tableProInfo_itemPressed(QTableWidgetItem *item);
+
+    void on_BtnProInfoManagerSelection_clicked();
+
 private:
+    //点击我的项目的操作
+    void MyProOperation();
+    //点击我的任务的操作
+    void MyTaskOperation();
     //点击各个标签的操作
     void PersonalInfoOperation();
+
+
+    //点击项目信息管理操作
+    void ProInfoManageOperation();
+    //点击项目人员管理的操作
+    void ProStaffManageOperation();
+    //点击成本管理的操作
+    void ProCostManageOperation();
+    //点击需求管理操作
+    void ProRequestManageOperation();
+    //点击任务管理操作
+    void ProTaskManageOperation();
+    //点击进度管理操作
+    void ProProcessManageOperation();
+    //点击周报操作
     void DailyOperation();
+    //点击月报操作
     void MonthlyOperation();
+
+    //点击角色管理操作
+    void RoleManageOperation();
+    //点击登入用户操作
+    void LoginUserManageOperation();
+    //点击权限管理操作
+    void PermManageOperation();
 
     //设置表格
     void setTableWeight(QTableWidget *table,int row,QString head[20],int width[20]);
+    //为表格添加周报月报数据
     void addTableData(QTableWidget *table,QList<DailyInfo *> &List);
-
-
+    //为表格添加项目信息
+    void addTableProInfoData(QTableWidget *table,QList<ProInfo *> &List);
 
     void initialize();
+
+
+private:
+    QList<ProInfo *> ProInfoList;
 };
 
 #endif // MAINWINDOW_H
