@@ -223,6 +223,8 @@ public:
     QLineEdit *proAddress;
     QLabel *label_15;
     QComboBox *proPriority;
+    QPushButton *BtnSetProRealStart;
+    QPushButton *BtnSetProRealEnd;
     QLabel *errorProInfoManager;
     QWidget *page_5;
     QGroupBox *groupBox_5;
@@ -383,18 +385,62 @@ public:
     QGroupBox *groupBox_14;
     QPushButton *BtnRoleManagerSelection;
     QPushButton *BtnAddUser;
-    QTableWidget *tablaRole;
-    QGroupBox *groupBox_26;
-    QLabel *MonthlyName_7;
-    QLabel *MonthlyDate_7;
+    QTableWidget *tableRole;
     QComboBox *comboBox_21;
     QLabel *label_314;
+    QGroupBox *groupBox_30;
+    QLabel *label_144;
+    QLabel *label_145;
+    QLabel *infoBirthday_3;
+    QLabel *infoGraduation_3;
+    QLabel *label_146;
+    QLabel *infoPhone_3;
+    QLabel *label_147;
+    QLabel *label_148;
+    QLabel *infoSex_3;
+    QLabel *infoAccount_3;
+    QLabel *label_149;
+    QLabel *infoAddress_3;
+    QLabel *label_150;
+    QLabel *infoEmail_3;
+    QLabel *label_151;
+    QLabel *label_152;
+    QLabel *label_153;
+    QLabel *infoPost_3;
+    QLabel *label_154;
+    QLabel *infoBirthPlace_3;
+    QLabel *infoName_3;
+    QLabel *infoWorkyears_3;
+    QLabel *infoRemark_3;
+    QLabel *label_155;
     QWidget *page_12;
     QGroupBox *groupBox_15;
     QTableWidget *tableLogin;
     QGroupBox *groupBox_27;
-    QLabel *MonthlyName_8;
-    QLabel *MonthlyDate_8;
+    QLabel *label_132;
+    QLabel *label_133;
+    QLabel *infoBirthday_2;
+    QLabel *infoGraduation_2;
+    QLabel *label_134;
+    QLabel *infoPhone_2;
+    QLabel *label_135;
+    QLabel *label_136;
+    QLabel *infoSex_2;
+    QLabel *infoAccount_2;
+    QLabel *label_137;
+    QLabel *infoAddress_2;
+    QLabel *label_138;
+    QLabel *infoEmail_2;
+    QLabel *label_139;
+    QLabel *label_140;
+    QLabel *label_141;
+    QLabel *infoPost_2;
+    QLabel *label_142;
+    QLabel *infoBirthPlace_2;
+    QLabel *infoName_2;
+    QLabel *infoWorkyears_2;
+    QLabel *infoRemark_2;
+    QLabel *label_143;
     QWidget *page_13;
     QGroupBox *groupBox_16;
     QPushButton *BtnPermManagerSelection;
@@ -620,7 +666,7 @@ public:
         label_28->setGeometry(QRect(190, 20, 16, 16));
         tableMyPro = new QTableWidget(groupBox);
         tableMyPro->setObjectName(QStringLiteral("tableMyPro"));
-        tableMyPro->setGeometry(QRect(10, 330, 641, 111));
+        tableMyPro->setGeometry(QRect(10, 320, 641, 121));
         groupBox_29 = new QGroupBox(groupBox);
         groupBox_29->setObjectName(QStringLiteral("groupBox_29"));
         groupBox_29->setGeometry(QRect(10, 40, 641, 271));
@@ -1067,10 +1113,10 @@ public:
 ""));
         tableProInfo = new QTableWidget(groupBox_4);
         tableProInfo->setObjectName(QStringLiteral("tableProInfo"));
-        tableProInfo->setGeometry(QRect(10, 320, 641, 121));
+        tableProInfo->setGeometry(QRect(10, 340, 641, 101));
         groupBox_20 = new QGroupBox(groupBox_4);
         groupBox_20->setObjectName(QStringLiteral("groupBox_20"));
-        groupBox_20->setGeometry(QRect(10, 40, 641, 271));
+        groupBox_20->setGeometry(QRect(10, 40, 641, 291));
         planStartYear = new QSpinBox(groupBox_20);
         planStartYear->setObjectName(QStringLiteral("planStartYear"));
         planStartYear->setGeometry(QRect(159, 120, 61, 22));
@@ -1146,7 +1192,7 @@ public:
 "color:rgb(0, 0, 0);"));
         label_100 = new QLabel(groupBox_20);
         label_100->setObjectName(QStringLiteral("label_100"));
-        label_100->setGeometry(QRect(14, 180, 71, 16));
+        label_100->setGeometry(QRect(14, 210, 71, 16));
         label_100->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "color:rgb(0, 0, 0);"));
         label_101 = new QLabel(groupBox_20);
@@ -1228,7 +1274,7 @@ public:
 "text-decoration: underline;"));
         proDescribe = new QTextBrowser(groupBox_20);
         proDescribe->setObjectName(QStringLiteral("proDescribe"));
-        proDescribe->setGeometry(QRect(90, 180, 541, 81));
+        proDescribe->setGeometry(QRect(90, 210, 541, 71));
         label_13 = new QLabel(groupBox_20);
         label_13->setObjectName(QStringLiteral("label_13"));
         label_13->setGeometry(QRect(300, 83, 71, 16));
@@ -1245,6 +1291,18 @@ public:
         proPriority = new QComboBox(groupBox_20);
         proPriority->setObjectName(QStringLiteral("proPriority"));
         proPriority->setGeometry(QRect(551, 50, 81, 22));
+        BtnSetProRealStart = new QPushButton(groupBox_20);
+        BtnSetProRealStart->setObjectName(QStringLiteral("BtnSetProRealStart"));
+        BtnSetProRealStart->setGeometry(QRect(210, 180, 111, 23));
+        BtnSetProRealStart->setStyleSheet(QLatin1String("border: 1px solid green;\n"
+"border-radius:10px;\n"
+""));
+        BtnSetProRealEnd = new QPushButton(groupBox_20);
+        BtnSetProRealEnd->setObjectName(QStringLiteral("BtnSetProRealEnd"));
+        BtnSetProRealEnd->setGeometry(QRect(510, 180, 121, 23));
+        BtnSetProRealEnd->setStyleSheet(QLatin1String("border: 1px solid green;\n"
+"border-radius:10px;\n"
+""));
         errorProInfoManager = new QLabel(groupBox_4);
         errorProInfoManager->setObjectName(QStringLiteral("errorProInfoManager"));
         errorProInfoManager->setGeometry(QRect(470, 15, 121, 21));
@@ -1796,18 +1854,9 @@ public:
         BtnAddUser->setStyleSheet(QLatin1String("border: 1px solid green;\n"
 "border-radius:10px;\n"
 ""));
-        tablaRole = new QTableWidget(groupBox_14);
-        tablaRole->setObjectName(QStringLiteral("tablaRole"));
-        tablaRole->setGeometry(QRect(10, 290, 641, 141));
-        groupBox_26 = new QGroupBox(groupBox_14);
-        groupBox_26->setObjectName(QStringLiteral("groupBox_26"));
-        groupBox_26->setGeometry(QRect(10, 50, 641, 211));
-        MonthlyName_7 = new QLabel(groupBox_26);
-        MonthlyName_7->setObjectName(QStringLiteral("MonthlyName_7"));
-        MonthlyName_7->setGeometry(QRect(63, 19, 81, 20));
-        MonthlyDate_7 = new QLabel(groupBox_26);
-        MonthlyDate_7->setObjectName(QStringLiteral("MonthlyDate_7"));
-        MonthlyDate_7->setGeometry(QRect(213, 18, 91, 20));
+        tableRole = new QTableWidget(groupBox_14);
+        tableRole->setObjectName(QStringLiteral("tableRole"));
+        tableRole->setGeometry(QRect(10, 290, 641, 141));
         comboBox_21 = new QComboBox(groupBox_14);
         comboBox_21->setObjectName(QStringLiteral("comboBox_21"));
         comboBox_21->setGeometry(QRect(82, 15, 291, 22));
@@ -1815,6 +1864,117 @@ public:
         label_314->setObjectName(QStringLiteral("label_314"));
         label_314->setGeometry(QRect(18, 20, 54, 12));
         label_314->setStyleSheet(QStringLiteral(""));
+        groupBox_30 = new QGroupBox(groupBox_14);
+        groupBox_30->setObjectName(QStringLiteral("groupBox_30"));
+        groupBox_30->setGeometry(QRect(10, 40, 641, 241));
+        label_144 = new QLabel(groupBox_30);
+        label_144->setObjectName(QStringLiteral("label_144"));
+        label_144->setGeometry(QRect(20, 49, 71, 16));
+        label_144->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        label_145 = new QLabel(groupBox_30);
+        label_145->setObjectName(QStringLiteral("label_145"));
+        label_145->setGeometry(QRect(20, 19, 71, 16));
+        label_145->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoBirthday_3 = new QLabel(groupBox_30);
+        infoBirthday_3->setObjectName(QStringLiteral("infoBirthday_3"));
+        infoBirthday_3->setGeometry(QRect(105, 79, 161, 16));
+        infoBirthday_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        infoGraduation_3 = new QLabel(groupBox_30);
+        infoGraduation_3->setObjectName(QStringLiteral("infoGraduation_3"));
+        infoGraduation_3->setGeometry(QRect(105, 109, 241, 16));
+        infoGraduation_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_146 = new QLabel(groupBox_30);
+        label_146->setObjectName(QStringLiteral("label_146"));
+        label_146->setGeometry(QRect(20, 139, 71, 16));
+        label_146->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoPhone_3 = new QLabel(groupBox_30);
+        infoPhone_3->setObjectName(QStringLiteral("infoPhone_3"));
+        infoPhone_3->setGeometry(QRect(105, 139, 171, 16));
+        infoPhone_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_147 = new QLabel(groupBox_30);
+        label_147->setObjectName(QStringLiteral("label_147"));
+        label_147->setGeometry(QRect(20, 169, 71, 16));
+        label_147->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        label_148 = new QLabel(groupBox_30);
+        label_148->setObjectName(QStringLiteral("label_148"));
+        label_148->setGeometry(QRect(355, 49, 71, 16));
+        label_148->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoSex_3 = new QLabel(groupBox_30);
+        infoSex_3->setObjectName(QStringLiteral("infoSex_3"));
+        infoSex_3->setGeometry(QRect(105, 49, 161, 16));
+        infoSex_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        infoAccount_3 = new QLabel(groupBox_30);
+        infoAccount_3->setObjectName(QStringLiteral("infoAccount_3"));
+        infoAccount_3->setGeometry(QRect(105, 19, 161, 16));
+        infoAccount_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_149 = new QLabel(groupBox_30);
+        label_149->setObjectName(QStringLiteral("label_149"));
+        label_149->setGeometry(QRect(355, 109, 71, 16));
+        label_149->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoAddress_3 = new QLabel(groupBox_30);
+        infoAddress_3->setObjectName(QStringLiteral("infoAddress_3"));
+        infoAddress_3->setGeometry(QRect(105, 169, 511, 16));
+        infoAddress_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_150 = new QLabel(groupBox_30);
+        label_150->setObjectName(QStringLiteral("label_150"));
+        label_150->setGeometry(QRect(20, 79, 71, 16));
+        label_150->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoEmail_3 = new QLabel(groupBox_30);
+        infoEmail_3->setObjectName(QStringLiteral("infoEmail_3"));
+        infoEmail_3->setGeometry(QRect(440, 109, 191, 16));
+        infoEmail_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_151 = new QLabel(groupBox_30);
+        label_151->setObjectName(QStringLiteral("label_151"));
+        label_151->setGeometry(QRect(355, 19, 71, 16));
+        label_151->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        label_152 = new QLabel(groupBox_30);
+        label_152->setObjectName(QStringLiteral("label_152"));
+        label_152->setGeometry(QRect(355, 79, 71, 16));
+        label_152->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        label_153 = new QLabel(groupBox_30);
+        label_153->setObjectName(QStringLiteral("label_153"));
+        label_153->setGeometry(QRect(355, 139, 71, 16));
+        label_153->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoPost_3 = new QLabel(groupBox_30);
+        infoPost_3->setObjectName(QStringLiteral("infoPost_3"));
+        infoPost_3->setGeometry(QRect(440, 49, 161, 16));
+        infoPost_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_154 = new QLabel(groupBox_30);
+        label_154->setObjectName(QStringLiteral("label_154"));
+        label_154->setGeometry(QRect(20, 200, 71, 16));
+        label_154->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoBirthPlace_3 = new QLabel(groupBox_30);
+        infoBirthPlace_3->setObjectName(QStringLiteral("infoBirthPlace_3"));
+        infoBirthPlace_3->setGeometry(QRect(440, 79, 161, 16));
+        infoBirthPlace_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        infoName_3 = new QLabel(groupBox_30);
+        infoName_3->setObjectName(QStringLiteral("infoName_3"));
+        infoName_3->setGeometry(QRect(440, 19, 161, 16));
+        infoName_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        infoWorkyears_3 = new QLabel(groupBox_30);
+        infoWorkyears_3->setObjectName(QStringLiteral("infoWorkyears_3"));
+        infoWorkyears_3->setGeometry(QRect(440, 139, 51, 16));
+        infoWorkyears_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+""));
+        infoRemark_3 = new QLabel(groupBox_30);
+        infoRemark_3->setObjectName(QStringLiteral("infoRemark_3"));
+        infoRemark_3->setGeometry(QRect(105, 200, 481, 21));
+        infoRemark_3->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_155 = new QLabel(groupBox_30);
+        label_155->setObjectName(QStringLiteral("label_155"));
+        label_155->setGeometry(QRect(20, 109, 71, 16));
+        label_155->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
         stackedWidget->addWidget(page_11);
         page_12 = new QWidget();
         page_12->setObjectName(QStringLiteral("page_12"));
@@ -1823,16 +1983,118 @@ public:
         groupBox_15->setGeometry(QRect(0, 0, 661, 451));
         tableLogin = new QTableWidget(groupBox_15);
         tableLogin->setObjectName(QStringLiteral("tableLogin"));
-        tableLogin->setGeometry(QRect(10, 240, 641, 201));
+        tableLogin->setGeometry(QRect(10, 280, 641, 161));
         groupBox_27 = new QGroupBox(groupBox_15);
         groupBox_27->setObjectName(QStringLiteral("groupBox_27"));
-        groupBox_27->setGeometry(QRect(10, 20, 641, 201));
-        MonthlyName_8 = new QLabel(groupBox_27);
-        MonthlyName_8->setObjectName(QStringLiteral("MonthlyName_8"));
-        MonthlyName_8->setGeometry(QRect(63, 19, 81, 20));
-        MonthlyDate_8 = new QLabel(groupBox_27);
-        MonthlyDate_8->setObjectName(QStringLiteral("MonthlyDate_8"));
-        MonthlyDate_8->setGeometry(QRect(213, 18, 91, 20));
+        groupBox_27->setGeometry(QRect(10, 20, 641, 241));
+        label_132 = new QLabel(groupBox_27);
+        label_132->setObjectName(QStringLiteral("label_132"));
+        label_132->setGeometry(QRect(20, 49, 71, 16));
+        label_132->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        label_133 = new QLabel(groupBox_27);
+        label_133->setObjectName(QStringLiteral("label_133"));
+        label_133->setGeometry(QRect(20, 19, 71, 16));
+        label_133->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoBirthday_2 = new QLabel(groupBox_27);
+        infoBirthday_2->setObjectName(QStringLiteral("infoBirthday_2"));
+        infoBirthday_2->setGeometry(QRect(105, 79, 161, 16));
+        infoBirthday_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        infoGraduation_2 = new QLabel(groupBox_27);
+        infoGraduation_2->setObjectName(QStringLiteral("infoGraduation_2"));
+        infoGraduation_2->setGeometry(QRect(105, 109, 241, 16));
+        infoGraduation_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_134 = new QLabel(groupBox_27);
+        label_134->setObjectName(QStringLiteral("label_134"));
+        label_134->setGeometry(QRect(20, 139, 71, 16));
+        label_134->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoPhone_2 = new QLabel(groupBox_27);
+        infoPhone_2->setObjectName(QStringLiteral("infoPhone_2"));
+        infoPhone_2->setGeometry(QRect(105, 139, 171, 16));
+        infoPhone_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_135 = new QLabel(groupBox_27);
+        label_135->setObjectName(QStringLiteral("label_135"));
+        label_135->setGeometry(QRect(20, 169, 71, 16));
+        label_135->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        label_136 = new QLabel(groupBox_27);
+        label_136->setObjectName(QStringLiteral("label_136"));
+        label_136->setGeometry(QRect(355, 49, 71, 16));
+        label_136->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoSex_2 = new QLabel(groupBox_27);
+        infoSex_2->setObjectName(QStringLiteral("infoSex_2"));
+        infoSex_2->setGeometry(QRect(105, 49, 161, 16));
+        infoSex_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        infoAccount_2 = new QLabel(groupBox_27);
+        infoAccount_2->setObjectName(QStringLiteral("infoAccount_2"));
+        infoAccount_2->setGeometry(QRect(105, 19, 161, 16));
+        infoAccount_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_137 = new QLabel(groupBox_27);
+        label_137->setObjectName(QStringLiteral("label_137"));
+        label_137->setGeometry(QRect(355, 109, 71, 16));
+        label_137->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoAddress_2 = new QLabel(groupBox_27);
+        infoAddress_2->setObjectName(QStringLiteral("infoAddress_2"));
+        infoAddress_2->setGeometry(QRect(105, 169, 511, 16));
+        infoAddress_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_138 = new QLabel(groupBox_27);
+        label_138->setObjectName(QStringLiteral("label_138"));
+        label_138->setGeometry(QRect(20, 79, 71, 16));
+        label_138->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoEmail_2 = new QLabel(groupBox_27);
+        infoEmail_2->setObjectName(QStringLiteral("infoEmail_2"));
+        infoEmail_2->setGeometry(QRect(440, 109, 191, 16));
+        infoEmail_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_139 = new QLabel(groupBox_27);
+        label_139->setObjectName(QStringLiteral("label_139"));
+        label_139->setGeometry(QRect(355, 19, 71, 16));
+        label_139->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        label_140 = new QLabel(groupBox_27);
+        label_140->setObjectName(QStringLiteral("label_140"));
+        label_140->setGeometry(QRect(355, 79, 71, 16));
+        label_140->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        label_141 = new QLabel(groupBox_27);
+        label_141->setObjectName(QStringLiteral("label_141"));
+        label_141->setGeometry(QRect(355, 139, 71, 16));
+        label_141->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoPost_2 = new QLabel(groupBox_27);
+        infoPost_2->setObjectName(QStringLiteral("infoPost_2"));
+        infoPost_2->setGeometry(QRect(440, 49, 161, 16));
+        infoPost_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_142 = new QLabel(groupBox_27);
+        label_142->setObjectName(QStringLiteral("label_142"));
+        label_142->setGeometry(QRect(20, 200, 71, 16));
+        label_142->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoBirthPlace_2 = new QLabel(groupBox_27);
+        infoBirthPlace_2->setObjectName(QStringLiteral("infoBirthPlace_2"));
+        infoBirthPlace_2->setGeometry(QRect(440, 79, 161, 16));
+        infoBirthPlace_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        infoName_2 = new QLabel(groupBox_27);
+        infoName_2->setObjectName(QStringLiteral("infoName_2"));
+        infoName_2->setGeometry(QRect(440, 19, 161, 16));
+        infoName_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        infoWorkyears_2 = new QLabel(groupBox_27);
+        infoWorkyears_2->setObjectName(QStringLiteral("infoWorkyears_2"));
+        infoWorkyears_2->setGeometry(QRect(440, 139, 51, 16));
+        infoWorkyears_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+""));
+        infoRemark_2 = new QLabel(groupBox_27);
+        infoRemark_2->setObjectName(QStringLiteral("infoRemark_2"));
+        infoRemark_2->setGeometry(QRect(105, 200, 481, 21));
+        infoRemark_2->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_143 = new QLabel(groupBox_27);
+        label_143->setObjectName(QStringLiteral("label_143"));
+        label_143->setGeometry(QRect(20, 109, 71, 16));
+        label_143->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
         stackedWidget->addWidget(page_12);
         page_13 = new QWidget();
         page_13->setObjectName(QStringLiteral("page_13"));
@@ -1870,7 +2132,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(14);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -2066,6 +2328,8 @@ public:
          << QApplication::translate("MainWindow", "\346\254\241\344\275\216\347\272\247", 0)
          << QApplication::translate("MainWindow", "\346\234\200\344\275\216\347\272\247", 0)
         );
+        BtnSetProRealStart->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256\345\256\236\351\231\205\345\274\200\345\247\213\346\227\266\351\227\264", 0));
+        BtnSetProRealEnd->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256\345\256\236\351\231\205\347\273\223\346\235\237\346\227\266\351\227\264", 0));
         errorProInfoManager->setText(QString());
         groupBox_5->setTitle(QApplication::translate("MainWindow", "\351\241\271\347\233\256\344\272\272\345\221\230\347\256\241\347\220\206", 0));
         BtnProStaffManagerSelection->setText(QApplication::translate("MainWindow", "\346\237\245\350\257\242", 0));
@@ -2163,14 +2427,58 @@ public:
         groupBox_14->setTitle(QApplication::translate("MainWindow", "\350\247\222\350\211\262\347\256\241\347\220\206", 0));
         BtnRoleManagerSelection->setText(QApplication::translate("MainWindow", "\346\237\245\350\257\242", 0));
         BtnAddUser->setText(QApplication::translate("MainWindow", "\346\267\273\345\212\240\346\226\260\347\232\204\344\272\272\345\221\230", 0));
-        groupBox_26->setTitle(QApplication::translate("MainWindow", "\346\211\200\351\200\211\344\270\255\347\224\250\346\210\267", 0));
-        MonthlyName_7->setText(QString());
-        MonthlyDate_7->setText(QString());
         label_314->setText(QApplication::translate("MainWindow", "\351\241\271  \347\233\256\357\274\232", 0));
+        groupBox_30->setTitle(QApplication::translate("MainWindow", "\346\211\200\351\200\211\344\270\255\347\232\204\347\224\250\346\210\267", 0));
+        label_144->setText(QApplication::translate("MainWindow", "\346\200\247    \345\210\253\357\274\232", 0));
+        label_145->setText(QApplication::translate("MainWindow", "\350\264\246    \345\217\267\357\274\232", 0));
+        infoBirthday_3->setText(QString());
+        infoGraduation_3->setText(QString());
+        label_146->setText(QApplication::translate("MainWindow", "\347\224\265    \350\257\235\357\274\232", 0));
+        infoPhone_3->setText(QString());
+        label_147->setText(QApplication::translate("MainWindow", "\345\234\260    \345\235\200\357\274\232", 0));
+        label_148->setText(QApplication::translate("MainWindow", "\350\201\214    \344\275\215\357\274\232", 0));
+        infoSex_3->setText(QString());
+        infoAccount_3->setText(QString());
+        label_149->setText(QApplication::translate("MainWindow", "\347\224\265\345\255\220\351\202\256\347\256\261\357\274\232", 0));
+        infoAddress_3->setText(QString());
+        label_150->setText(QApplication::translate("MainWindow", "\347\224\237    \346\227\245\357\274\232", 0));
+        infoEmail_3->setText(QString());
+        label_151->setText(QApplication::translate("MainWindow", "\345\247\223    \345\220\215\357\274\232", 0));
+        label_152->setText(QApplication::translate("MainWindow", "\345\207\272 \347\224\237 \345\234\260\357\274\232", 0));
+        label_153->setText(QApplication::translate("MainWindow", "\345\267\245\344\275\234\345\271\264\351\231\220\357\274\232", 0));
+        infoPost_3->setText(QString());
+        label_154->setText(QApplication::translate("MainWindow", "\345\244\207    \346\263\250\357\274\232", 0));
+        infoBirthPlace_3->setText(QString());
+        infoName_3->setText(QString());
+        infoWorkyears_3->setText(QString());
+        infoRemark_3->setText(QString());
+        label_155->setText(QApplication::translate("MainWindow", "\346\257\225\344\270\232\351\231\242\346\240\241\357\274\232", 0));
         groupBox_15->setTitle(QApplication::translate("MainWindow", "\347\231\273\345\275\225\347\224\250\346\210\267", 0));
         groupBox_27->setTitle(QApplication::translate("MainWindow", "\346\211\200\351\200\211\344\270\255\347\232\204\347\224\250\346\210\267", 0));
-        MonthlyName_8->setText(QString());
-        MonthlyDate_8->setText(QString());
+        label_132->setText(QApplication::translate("MainWindow", "\346\200\247    \345\210\253\357\274\232", 0));
+        label_133->setText(QApplication::translate("MainWindow", "\350\264\246    \345\217\267\357\274\232", 0));
+        infoBirthday_2->setText(QString());
+        infoGraduation_2->setText(QString());
+        label_134->setText(QApplication::translate("MainWindow", "\347\224\265    \350\257\235\357\274\232", 0));
+        infoPhone_2->setText(QString());
+        label_135->setText(QApplication::translate("MainWindow", "\345\234\260    \345\235\200\357\274\232", 0));
+        label_136->setText(QApplication::translate("MainWindow", "\350\201\214    \344\275\215\357\274\232", 0));
+        infoSex_2->setText(QString());
+        infoAccount_2->setText(QString());
+        label_137->setText(QApplication::translate("MainWindow", "\347\224\265\345\255\220\351\202\256\347\256\261\357\274\232", 0));
+        infoAddress_2->setText(QString());
+        label_138->setText(QApplication::translate("MainWindow", "\347\224\237    \346\227\245\357\274\232", 0));
+        infoEmail_2->setText(QString());
+        label_139->setText(QApplication::translate("MainWindow", "\345\247\223    \345\220\215\357\274\232", 0));
+        label_140->setText(QApplication::translate("MainWindow", "\345\207\272 \347\224\237 \345\234\260\357\274\232", 0));
+        label_141->setText(QApplication::translate("MainWindow", "\345\267\245\344\275\234\345\271\264\351\231\220\357\274\232", 0));
+        infoPost_2->setText(QString());
+        label_142->setText(QApplication::translate("MainWindow", "\345\244\207    \346\263\250\357\274\232", 0));
+        infoBirthPlace_2->setText(QString());
+        infoName_2->setText(QString());
+        infoWorkyears_2->setText(QString());
+        infoRemark_2->setText(QString());
+        label_143->setText(QApplication::translate("MainWindow", "\346\257\225\344\270\232\351\231\242\346\240\241\357\274\232", 0));
         groupBox_16->setTitle(QApplication::translate("MainWindow", "\346\235\203\351\231\220\347\256\241\347\220\206", 0));
         BtnPermManagerSelection->setText(QApplication::translate("MainWindow", "\346\237\245\350\257\242", 0));
         label_117->setText(QApplication::translate("MainWindow", "\351\200\232\350\277\207\345\247\223\345\220\215\346\237\245\350\257\242\357\274\232", 0));

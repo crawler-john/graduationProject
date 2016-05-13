@@ -75,12 +75,20 @@ private slots:
     void on_BtnProInfoManagerSelection_clicked();
 
 
-    //
+
     void slotAddProInfoSuccess();
 
     void on_tableMyPro_itemPressed(QTableWidgetItem *item);
 
     void on_BtnMyProSelection_clicked();
+
+    void on_BtnSetProRealStart_clicked();
+
+    void on_BtnSetProRealEnd_clicked();
+
+    void on_tableLogin_itemPressed(QTableWidgetItem *item);
+
+    void on_tableRole_itemPressed(QTableWidgetItem *item);
 
 private:
     //点击我的项目的操作
@@ -121,6 +129,9 @@ private:
     void addTableData(QTableWidget *table,QList<DailyInfo *> &List);
     //为表格添加项目信息
     void addTableProInfoData(QTableWidget *table,QList<ProInfo *> &List);
+    //为表格添加在线用户信息
+    void addTableLoginUserInfoData(QTableWidget *table,QList<userInfo *> &List);
+
 
     void initialize();
 
@@ -128,6 +139,8 @@ private:
 private:
     QList<ProInfo *> ProInfoList;
     QList<ProInfo *> MyProInfoList;
+    QList<userInfo *> LoginUserInfoList;
+    QList<userInfo *> AllUserInfoList;
 };
 
 #endif // MAINWINDOW_H

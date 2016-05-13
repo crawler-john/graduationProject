@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[42];
-    char stringdata[814];
+    QByteArrayData data[46];
+    char stringdata[923];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -70,7 +70,11 @@ QT_MOC_LITERAL(37, 670, 27),
 QT_MOC_LITERAL(38, 698, 37),
 QT_MOC_LITERAL(39, 736, 21),
 QT_MOC_LITERAL(40, 758, 25),
-QT_MOC_LITERAL(41, 784, 28)
+QT_MOC_LITERAL(41, 784, 28),
+QT_MOC_LITERAL(42, 813, 29),
+QT_MOC_LITERAL(43, 843, 27),
+QT_MOC_LITERAL(44, 871, 25),
+QT_MOC_LITERAL(45, 897, 24)
     },
     "MainWindow\0SigSelectStackedWidget\0\0"
     "SigAlterPassword\0SlotTreeWidgetClick\0"
@@ -96,6 +100,10 @@ QT_MOC_LITERAL(41, 784, 28)
     "on_BtnProInfoManagerSelection_clicked\0"
     "slotAddProInfoSuccess\0on_tableMyPro_itemPressed\0"
     "on_BtnMyProSelection_clicked\0"
+    "on_BtnSetProRealStart_clicked\0"
+    "on_BtnSetProRealEnd_clicked\0"
+    "on_tableLogin_itemPressed\0"
+    "on_tableRole_itemPressed\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -105,7 +113,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      29,   14, // methods
+      33,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -113,37 +121,41 @@ static const uint qt_meta_data_MainWindow[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  159,    2, 0x05,
-       3,    1,  162,    2, 0x05,
+       1,    1,  179,    2, 0x05,
+       3,    1,  182,    2, 0x05,
 
  // slots: name, argc, parameters, tag, flags
-       4,    1,  165,    2, 0x0a,
-       7,    0,  168,    2, 0x08,
-       8,    0,  169,    2, 0x08,
-       9,    0,  170,    2, 0x08,
-      10,    0,  171,    2, 0x08,
-      11,    0,  172,    2, 0x08,
-      12,    0,  173,    2, 0x08,
-      13,    0,  174,    2, 0x08,
-      14,    0,  175,    2, 0x08,
-      15,    0,  176,    2, 0x08,
-      16,    0,  177,    2, 0x08,
-      17,    0,  178,    2, 0x08,
-      18,    1,  179,    2, 0x08,
-      20,    1,  182,    2, 0x08,
-      22,    1,  185,    2, 0x08,
-      24,    1,  188,    2, 0x08,
-      26,    4,  191,    2, 0x08,
-      31,    4,  200,    2, 0x08,
-      32,    1,  209,    2, 0x08,
-      34,    1,  212,    2, 0x08,
-      35,    0,  215,    2, 0x08,
-      36,    0,  216,    2, 0x08,
-      37,    1,  217,    2, 0x08,
-      38,    0,  220,    2, 0x08,
-      39,    0,  221,    2, 0x08,
-      40,    1,  222,    2, 0x08,
-      41,    0,  225,    2, 0x08,
+       4,    1,  185,    2, 0x0a,
+       7,    0,  188,    2, 0x08,
+       8,    0,  189,    2, 0x08,
+       9,    0,  190,    2, 0x08,
+      10,    0,  191,    2, 0x08,
+      11,    0,  192,    2, 0x08,
+      12,    0,  193,    2, 0x08,
+      13,    0,  194,    2, 0x08,
+      14,    0,  195,    2, 0x08,
+      15,    0,  196,    2, 0x08,
+      16,    0,  197,    2, 0x08,
+      17,    0,  198,    2, 0x08,
+      18,    1,  199,    2, 0x08,
+      20,    1,  202,    2, 0x08,
+      22,    1,  205,    2, 0x08,
+      24,    1,  208,    2, 0x08,
+      26,    4,  211,    2, 0x08,
+      31,    4,  220,    2, 0x08,
+      32,    1,  229,    2, 0x08,
+      34,    1,  232,    2, 0x08,
+      35,    0,  235,    2, 0x08,
+      36,    0,  236,    2, 0x08,
+      37,    1,  237,    2, 0x08,
+      38,    0,  240,    2, 0x08,
+      39,    0,  241,    2, 0x08,
+      40,    1,  242,    2, 0x08,
+      41,    0,  245,    2, 0x08,
+      42,    0,  246,    2, 0x08,
+      43,    0,  247,    2, 0x08,
+      44,    1,  248,    2, 0x08,
+      45,    1,  251,    2, 0x08,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    2,
@@ -177,6 +189,10 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 33,    6,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 33,    6,
+    QMetaType::Void, 0x80000000 | 33,    6,
 
        0        // eod
 };
@@ -215,6 +231,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 26: _t->slotAddProInfoSuccess(); break;
         case 27: _t->on_tableMyPro_itemPressed((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
         case 28: _t->on_BtnMyProSelection_clicked(); break;
+        case 29: _t->on_BtnSetProRealStart_clicked(); break;
+        case 30: _t->on_BtnSetProRealEnd_clicked(); break;
+        case 31: _t->on_tableLogin_itemPressed((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 32: _t->on_tableRole_itemPressed((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -260,13 +280,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 29)
+        if (_id < 33)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 29;
+        _id -= 33;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 29)
+        if (_id < 33)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 29;
+        _id -= 33;
     }
     return _id;
 }

@@ -57,6 +57,8 @@ public:
     eDbStatus DBSelectProInfoList(QDate start,QDate end,QList<ProInfo*> &ProInfoList);
     //查询我的项目信息
     eDbStatus DBSelectMyProInfoList(QString userID,QDate start,QDate end,QList<ProInfo*> &ProInfoList);
+    //获取在线用户或全部用户 Flag:0 登入用户  Flag：1 全部用户
+    eDbStatus DBGetLoginUserInfo(QList<userInfo *> &UserInfoList,int Flag);
 
     //获取所有的人员
     eDbStatus DBGetStaff(QStringList &list);
@@ -66,6 +68,9 @@ public:
     //为数据库添加周报或月报 flag:0 周报  flag：1月报
     eDbStatus DBInsertReport(DailyInfo dailyinfo, int flag);
     eDbStatus DBInsertProject(ProInfo proinfo);
+
+    //更新实际开始结束时间 flag:0 开始时间  flag：1 结束时间
+    eDbStatus DBUpdateRealTime(QDate date,int proID, int flag);
 
 private:
     QStringList m_sqlDriver;

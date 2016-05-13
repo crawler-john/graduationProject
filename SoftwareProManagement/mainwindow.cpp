@@ -262,6 +262,7 @@ void MainWindow::PersonalInfoOperation()
 
 void MainWindow::ProInfoManageOperation()
 {
+
     ui->errorProInfoManager->clear();
     if(m_userinfo.getPost() != "软件项目管理员")
     {
@@ -370,10 +371,48 @@ void MainWindow::MonthlyOperation()
 
 void MainWindow::RoleManageOperation()
 {
+    // 添加项目信息
+
+
+    QString head[6];
+    head[0] = "账号";
+    head[1] = "姓名";
+    head[2] = "职位";
+    head[3] = "电话";
+    head[4] = "电子邮箱";
+    head[5] = "工作年限";
+    int headWidth[6] ={80,80,120,100,180,30};
+    //设置表格属性
+    setTableWeight(ui->tableRole,6,head,headWidth);
+
+    //获取数据
+    AllUserInfoList.clear();
+
+    DbManager->DBGetLoginUserInfo(AllUserInfoList,1);
+    //在表格中显示数据
+    addTableLoginUserInfoData(ui->tableRole,AllUserInfoList);
 }
 
 void MainWindow::LoginUserManageOperation()
 {
+    QString head[6];
+    head[0] = "账号";
+    head[1] = "姓名";
+    head[2] = "职位";
+    head[3] = "电话";
+    head[4] = "电子邮箱";
+    head[5] = "工作年限";
+    int headWidth[6] ={80,80,120,100,180,30};
+    //设置表格属性
+    setTableWeight(ui->tableLogin,6,head,headWidth);
+
+    //获取数据
+    LoginUserInfoList.clear();
+
+    DbManager->DBGetLoginUserInfo(LoginUserInfoList,0);
+    //在表格中显示数据
+    addTableLoginUserInfoData(ui->tableLogin,LoginUserInfoList);
+
 }
 
 void MainWindow::PermManageOperation()
@@ -476,9 +515,43 @@ void MainWindow::addTableProInfoData(QTableWidget *table, QList<ProInfo *> &List
     }
 }
 
+void MainWindow::addTableLoginUserInfoData(QTableWidget *table, QList<userInfo *> &List)
+{
+    table->setRowCount(0);
+    table->clearContents();
+
+    QList<userInfo *>::Iterator iter = List.begin();
+    for ( ; iter != List.end(); iter++)  {
+        int row_count = table->rowCount(); //获取表单行数
+        table->insertRow(row_count); //插入新行
+        QTableWidgetItem *item = new QTableWidgetItem();
+        QTableWidgetItem *item1 = new QTableWidgetItem();
+        QTableWidgetItem *item2 = new QTableWidgetItem();
+        QTableWidgetItem *item3 = new QTableWidgetItem();
+        QTableWidgetItem *item4 = new QTableWidgetItem();
+        QTableWidgetItem *item5 = new QTableWidgetItem();
+
+        item->setText((*iter)->getID());
+        item1->setText((*iter)->getName());
+        item2->setText((*iter)->getPost());
+        item3->setText((*iter)->getPhone());
+        item4->setText((*iter)->getEmail());
+        item5->setText(QString::number((*iter)->getWorkYears()));
+        table->setItem(row_count, 0, item);
+        table->setItem(row_count, 1, item1);
+        table->setItem(row_count, 2, item2);
+        table->setItem(row_count, 3, item3);
+        table->setItem(row_count, 4, item4);
+        table->setItem(row_count, 5, item5);
+    }
+}
+
 void MainWindow::initialize()
 {
     QDate date = QDate::currentDate();
+
+    ui->BtnSetProRealStart->hide();
+    ui->BtnSetProRealEnd->hide();
 
     ui->MyProStartYear->setRange(2010,2050);
     ui->MyProEndYear->setRange(2010,2050);
@@ -592,13 +665,13 @@ void MainWindow::initialize()
     ui->planEndMonth->setRange(1,12);
     ui->planEndDay->setRange(1,31);
 
-    ui->realStartYear->setRange(2010,2050);
-    ui->realStartMonth->setRange(1,12);
-    ui->realStartDay->setRange(1,31);
+    ui->realStartYear->setRange(0,2050);
+    ui->realStartMonth->setRange(0,12);
+    ui->realStartDay->setRange(0,31);
 
-    ui->realEndYear->setRange(2010,2050);
-    ui->realEndMonth->setRange(1,12);
-    ui->realEndDay->setRange(1,31);
+    ui->realEndYear->setRange(0,2050);
+    ui->realEndMonth->setRange(0,12);
+    ui->realEndDay->setRange(0,31);
 
     ui->createYear->clear();
     ui->createMonth->clear();
@@ -634,13 +707,13 @@ void MainWindow::initialize()
     ui->MyPlanEndMonth->setRange(1,12);
     ui->MyPlanEndDay->setRange(1,31);
 
-    ui->MyRealStartYear->setRange(2010,2050);
-    ui->MyRealStartMonth->setRange(1,12);
-    ui->MyRealStartDay->setRange(1,31);
+    ui->MyRealStartYear->setRange(0,2050);
+    ui->MyRealStartMonth->setRange(0,12);
+    ui->MyRealStartDay->setRange(0,31);
 
-    ui->MyRealEndYear->setRange(2010,2050);
-    ui->MyRealEndMonth->setRange(1,12);
-    ui->MyRealEndDay->setRange(1,31);
+    ui->MyRealEndYear->setRange(0,2050);
+    ui->MyRealEndMonth->setRange(0,12);
+    ui->MyRealEndDay->setRange(0,31);
 
     ui->MyCreateYear->clear();
     ui->MyCreateMonth->clear();
@@ -898,6 +971,8 @@ void MainWindow::MyTaskOperation()
 //表格点击操作
 void MainWindow::on_tableProInfo_itemPressed(QTableWidgetItem *item)
 {
+    ui->BtnSetProRealStart->show();
+    ui->BtnSetProRealEnd->show();
     QString proName = ui->tableProInfo->item(item->row(),0)->text();
     ProInfo *proinfo = NULL;
     QList<ProInfo *>::Iterator iter = ProInfoList.begin();
@@ -929,6 +1004,8 @@ void MainWindow::on_tableProInfo_itemPressed(QTableWidgetItem *item)
     ui->planEndMonth->setValue(proinfo->getPlanEnd().month());
     ui->planEndDay->setValue(proinfo->getPlanEnd().day());
 
+
+
     ui->realStartYear->setValue(proinfo->getRealStart().year());
     ui->realStartMonth->setValue(proinfo->getRealStart().month());
     ui->realStartDay->setValue(proinfo->getRealStart().day());
@@ -941,6 +1018,8 @@ void MainWindow::on_tableProInfo_itemPressed(QTableWidgetItem *item)
 
 void MainWindow::on_BtnProInfoManagerSelection_clicked()
 {
+    ui->BtnSetProRealStart->hide();
+    ui->BtnSetProRealEnd->hide();
     ui->proName->clear();
     ui->proManager->clear();
     ui->proCost->clear();
@@ -1059,4 +1138,100 @@ void MainWindow::on_BtnMyProSelection_clicked()
     DbManager->DBSelectMyProInfoList(m_userinfo.getID(), start,end,MyProInfoList);
     addTableProInfoData(ui->tableMyPro,MyProInfoList);
     ui->errorMyProInfo->setText("查询成功！");
+}
+
+void MainWindow::on_BtnSetProRealStart_clicked()
+{
+
+    QString proName = ui->proName->text();
+
+    ProInfo *proinfo = NULL;
+    QList<ProInfo *>::Iterator iter = ProInfoList.begin();
+    for ( ; iter != ProInfoList.end(); iter++)  {
+
+        if((*iter)->getName() == proName)
+        {
+            proinfo = *iter;
+            break;
+        }
+    }
+    QDate start;
+    start.setDate(ui->realStartYear->text().toInt(),ui->realStartMonth->text().toInt(),ui->realStartDay->text().toInt());
+    proinfo->setRealStart(start);
+    //更新开始时间
+    DbManager->DBUpdateRealTime(start,proinfo->getID(),0);
+}
+
+void MainWindow::on_BtnSetProRealEnd_clicked()
+{
+    QString proName = ui->proName->text();
+    ProInfo *proinfo = NULL;
+    QList<ProInfo *>::Iterator iter = ProInfoList.begin();
+    for ( ; iter != ProInfoList.end(); iter++)  {
+
+        if((*iter)->getName() == proName)
+        {
+            proinfo = *iter;
+            break;
+        }
+    }
+    QDate end;
+    end.setDate(ui->realEndYear->text().toInt(),ui->realEndMonth->text().toInt(),ui->realEndDay->text().toInt());
+    proinfo->setRealEnd(end);
+    //更新结束时间
+    DbManager->DBUpdateRealTime(end,proinfo->getID(),1);
+
+}
+
+void MainWindow::on_tableLogin_itemPressed(QTableWidgetItem *item)
+{
+    QString ID = ui->tableLogin->item(item->row(),0)->text();
+    userInfo *userinfo = NULL;
+    QList<userInfo *>::Iterator iter = LoginUserInfoList.begin();
+    for ( ; iter != LoginUserInfoList.end(); iter++)  {
+        if((*iter)->getID() == ID)
+        {
+            userinfo = *iter;
+            break;
+        }
+    }
+    ui->infoAccount_2->setText(userinfo->getID());
+    ui->infoAddress_2->setText(userinfo->getAddress());
+    ui->infoBirthday_2->setText(userinfo->getBirthday().toString(Qt::ISODate));
+    ui->infoBirthPlace_2->setText(userinfo->getBirthPlace());
+    ui->infoEmail_2->setText(userinfo->getEmail());
+    ui->infoGraduation_2->setText(userinfo->getGraduation());
+    ui->infoName_2->setText(userinfo->getName());
+    ui->infoPhone_2->setText(userinfo->getPhone());
+    ui->infoPost_2->setText(userinfo->getPost());
+    ui->infoRemark_2->setText(userinfo->getRemark());
+    ui->infoSex_2->setText(userinfo->getSex());
+    ui->infoWorkyears_2->setNum(userinfo->getWorkYears());
+
+}
+
+void MainWindow::on_tableRole_itemPressed(QTableWidgetItem *item)
+{
+    QString ID = ui->tableRole->item(item->row(),0)->text();
+    userInfo *userinfo = NULL;
+    QList<userInfo *>::Iterator iter = AllUserInfoList.begin();
+    for ( ; iter != AllUserInfoList.end(); iter++)  {
+        if((*iter)->getID() == ID)
+        {
+            userinfo = *iter;
+            break;
+        }
+    }
+    ui->infoAccount_3->setText(userinfo->getID());
+    ui->infoAddress_3->setText(userinfo->getAddress());
+    ui->infoBirthday_3->setText(userinfo->getBirthday().toString(Qt::ISODate));
+    ui->infoBirthPlace_3->setText(userinfo->getBirthPlace());
+    ui->infoEmail_3->setText(userinfo->getEmail());
+    ui->infoGraduation_3->setText(userinfo->getGraduation());
+    ui->infoName_3->setText(userinfo->getName());
+    ui->infoPhone_3->setText(userinfo->getPhone());
+    ui->infoPost_3->setText(userinfo->getPost());
+    ui->infoRemark_3->setText(userinfo->getRemark());
+    ui->infoSex_3->setText(userinfo->getSex());
+    ui->infoWorkyears_3->setNum(userinfo->getWorkYears());
 }
