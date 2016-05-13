@@ -236,12 +236,12 @@ void MainWindow::PersonalInfoOperation()
 
 void MainWindow::DailyOperation()
 {
+    ui->errorDaily->clear();
     if(m_userinfo.getPost() != "普通员工")
     {
         QStringList List;
         DbManager->DBGetStaff(List);
         ui->boxDaily->addItems(List);
-
     }
     else
     {

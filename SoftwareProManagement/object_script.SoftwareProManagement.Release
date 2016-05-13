@@ -13,6 +13,10 @@ INPUT(
 ./release\alteremail.o
 ./release\alteraddress.o
 ./release\dailyinfo.o
+./release\addrequest.o
+./release\addtask.o
+./release\addprocess.o
+./release\addprostaff.o
 ./release\qrc_images.o
 ./release\moc_login.o
 ./release\moc_mainwindow.o
@@ -24,4 +28,8 @@ INPUT(
 ./release\moc_alterphone.o
 ./release\moc_alteremail.o
 ./release\moc_alteraddress.o
+./release\moc_addrequest.o
+./release\moc_addtask.o
+./release\moc_addprocess.o
+./release\moc_addprostaff.o
 );
