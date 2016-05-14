@@ -77,6 +77,7 @@ private slots:
 
 
     void slotAddProInfoSuccess();
+    void slotAddUserInfoSuccess();
 
     void on_tableMyPro_itemPressed(QTableWidgetItem *item);
 
@@ -89,6 +90,12 @@ private slots:
     void on_tableLogin_itemPressed(QTableWidgetItem *item);
 
     void on_tableRole_itemPressed(QTableWidgetItem *item);
+
+    void on_BtnRoleManagerSelection_clicked();
+
+    void on_tablePerm_itemPressed(QTableWidgetItem *item);
+
+    void on_BtnChangePerm_clicked();
 
 private:
     //点击我的项目的操作

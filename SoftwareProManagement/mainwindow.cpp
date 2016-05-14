@@ -55,9 +55,10 @@ void MainWindow::getUserInfo(QString  UserID)
     ui->treeWidget->topLevelItem(1)->child(1)->setHidden(!m_userinfo.getPerm_StaffManage());
     ui->treeWidget->topLevelItem(1)->child(2)->setHidden(!m_userinfo.getPerm_CostManage());
     ui->treeWidget->topLevelItem(1)->child(3)->setHidden(!m_userinfo.getPerm_RequireTaskManage());
-    ui->treeWidget->topLevelItem(1)->child(4)->setHidden(!m_userinfo.getPerm_PlanManage());
-    ui->treeWidget->topLevelItem(1)->child(5)->setHidden(!m_userinfo.getPerm_WeeklyReports());
-    ui->treeWidget->topLevelItem(1)->child(6)->setHidden(!m_userinfo.getPerm_MonthlyReports());
+    ui->treeWidget->topLevelItem(1)->child(4)->setHidden(!m_userinfo.getPerm_RequireTaskManage());
+    ui->treeWidget->topLevelItem(1)->child(5)->setHidden(!m_userinfo.getPerm_PlanManage());
+    ui->treeWidget->topLevelItem(1)->child(6)->setHidden(!m_userinfo.getPerm_WeeklyReports());
+    ui->treeWidget->topLevelItem(1)->child(7)->setHidden(!m_userinfo.getPerm_MonthlyReports());
     if((!m_userinfo.getPerm_OrganManage() && !m_userinfo.getPerm_StaffManage() && !m_userinfo.getPerm_StaffManage()
         && !m_userinfo.getPerm_LoginUser() && !m_userinfo.getPerm_PermManage()))
     {
@@ -238,8 +239,10 @@ void MainWindow::on_pushButton_clicked()
 //点击添加新用户
 void MainWindow::on_BtnAddUser_clicked()
 {
-    AddUser *addUser = new AddUser;
+    AddUser *addUser = new AddUser(DbManager);
+    connect(addUser,SIGNAL(sigAddUserInfoSuccess()),this,SLOT(slotAddUserInfoSuccess()));
     addUser->exec();
+    disconnect(addUser,SIGNAL(sigAddUserInfoSuccess()),this,SLOT(slotAddUserInfoSuccess()));
     delete addUser;
 }
 
@@ -310,6 +313,7 @@ void MainWindow::ProProcessManageOperation()
 void MainWindow::DailyOperation()
 {
     ui->errorDaily->clear();
+    ui->boxDaily->clear();
     if(m_userinfo.getPost() != "普通员工")
     {
         QStringList List;
@@ -342,11 +346,12 @@ void MainWindow::DailyOperation()
 
 void MainWindow::MonthlyOperation()
 {
+    ui->boxDaily->clear();
     if(m_userinfo.getPost() != "普通员工")
     {
         QStringList List;
         DbManager->DBGetStaff(List);
-        ui->boxDaily->addItems(List);
+        ui->boxMonthly->addItems(List);
     }
     else
     {
@@ -371,7 +376,12 @@ void MainWindow::MonthlyOperation()
 
 void MainWindow::RoleManageOperation()
 {
+    ui->roleCombo->clear();
     // 添加项目信息
+    QStringList list;
+    DbManager->DBGetProject(list);
+    ui->roleCombo->addItem("所有人员");
+    ui->roleCombo->addItems(list);
 
 
     QString head[6];
@@ -417,6 +427,24 @@ void MainWindow::LoginUserManageOperation()
 
 void MainWindow::PermManageOperation()
 {
+    ui->perminfo->clear();
+    QString head[6];
+    head[0] = "账号";
+    head[1] = "姓名";
+    head[2] = "职位";
+    head[3] = "电话";
+    head[4] = "电子邮箱";
+    head[5] = "工作年限";
+    int headWidth[6] ={80,80,120,100,180,30};
+    //设置表格属性
+    setTableWeight(ui->tablePerm,6,head,headWidth);
+
+    //获取数据
+    AllUserInfoList.clear();
+
+    DbManager->DBGetLoginUserInfo(AllUserInfoList,1);
+    //在表格中显示数据
+    addTableLoginUserInfoData(ui->tablePerm,AllUserInfoList);
 }
 
 void MainWindow::setTableWeight(QTableWidget *table, int row, QString head[20],int width[20])
@@ -931,7 +959,7 @@ void MainWindow::on_BtnMonthlySelection_clicked()
         Name = this->m_userinfo.getName();
     }else
     {
-        Name = ui->boxDaily->currentText();
+        Name = ui->boxMonthly->currentText();
     }
 
     //进行查询 并映射到表格中去
@@ -1059,6 +1087,11 @@ void MainWindow::on_BtnProInfoManagerSelection_clicked()
 void MainWindow::slotAddProInfoSuccess()
 {
     ProInfoManageOperation();
+}
+
+void MainWindow::slotAddUserInfoSuccess()
+{
+    RoleManageOperation();
 }
 
 void MainWindow::on_tableMyPro_itemPressed(QTableWidgetItem *item)
@@ -1234,4 +1267,96 @@ void MainWindow::on_tableRole_itemPressed(QTableWidgetItem *item)
     ui->infoRemark_3->setText(userinfo->getRemark());
     ui->infoSex_3->setText(userinfo->getSex());
     ui->infoWorkyears_3->setNum(userinfo->getWorkYears());
+}
+
+void MainWindow::on_BtnRoleManagerSelection_clicked()
+{
+    ui->infoAccount_3->clear();
+    ui->infoAddress_3->clear();
+    ui->infoBirthday_3->clear();
+    ui->infoBirthPlace_3->clear();
+    ui->infoEmail_3->clear();
+    ui->infoGraduation_3->clear();
+    ui->infoName_3->clear();
+    ui->infoPhone_3->clear();
+    ui->infoPost_3->clear();
+    ui->infoRemark_3->clear();
+    ui->infoSex_3->clear();
+    ui->infoWorkyears_3->clear();
+
+
+    QString select;
+    select = ui->roleCombo->currentText();
+    AllUserInfoList.clear();
+    if(select == "所有人员")
+    {
+        //进行查询 并映射到表格中去
+        DbManager->DBGetLoginUserInfo(AllUserInfoList,1);
+    }else
+    {
+        DbManager->DBSelsctUserInfoByPro(select,AllUserInfoList);
+    }
+    addTableLoginUserInfoData(ui->tableRole,AllUserInfoList);
+    ui->roleinfo->setText("查询成功！");
+}
+
+void MainWindow::on_tablePerm_itemPressed(QTableWidgetItem *item)
+{
+    QString ID = ui->tablePerm->item(item->row(),0)->text();
+    userInfo *userinfo = NULL;
+    QList<userInfo *>::Iterator iter = AllUserInfoList.begin();
+    for ( ; iter != AllUserInfoList.end(); iter++)  {
+        if((*iter)->getID() == ID)
+        {
+            userinfo = *iter;
+            break;
+        }
+    }
+    ui->infoAccount_7->setText(userinfo->getID());
+    ui->infoName_7->setText(userinfo->getName());
+    ui->myProject->setChecked(userinfo->getPerm_myProject());
+    ui->myTask->setChecked(userinfo->getPerm_myTask());
+    ui->setinfo->setChecked(userinfo->getPerm_setInfo());
+    ui->proInfoManage->setChecked(userinfo->getPerm_proInfoManage());
+    ui->proStaffManage->setChecked(userinfo->getPerm_proStaffManage());
+    ui->CostManage->setChecked(userinfo->getPerm_CostManage());
+    ui->RequireTaskManage->setChecked(userinfo->getPerm_RequireTaskManage());
+    ui->PlanManage->setChecked(userinfo->getPerm_PlanManage());
+    ui->WeeklyReports->setChecked(userinfo->getPerm_WeeklyReports());
+    ui->MonthlyReports->setChecked(userinfo->getPerm_MonthlyReports());
+    ui->RoleManage->setChecked(userinfo->getPerm_RoleManage());
+    ui->LoginUser->setChecked(userinfo->getPerm_LoginUser());
+    ui->PermManage->setChecked(userinfo->getPerm_PermManage());
+
+}
+
+void MainWindow::on_BtnChangePerm_clicked()
+{
+    QString ID = ui->infoAccount_7->text();
+    userInfo *userinfo = NULL;
+    QList<userInfo *>::Iterator iter = AllUserInfoList.begin();
+    for ( ; iter != AllUserInfoList.end(); iter++)  {
+        if((*iter)->getID() == ID)
+        {
+            userinfo = *iter;
+            break;
+        }
+    }
+    userinfo->setPerm_myProject(ui->myProject->isChecked());
+    userinfo->setPerm_myTask(ui->myTask->isChecked());
+    userinfo->setPerm_setInfo(ui->setinfo->isChecked());
+    userinfo->setPerm_proInfoManage(ui->proInfoManage->isChecked());
+    userinfo->setPerm_proStaffManage(ui->proStaffManage->isChecked());
+    userinfo->setPerm_CostManage(ui->CostManage->isChecked());
+    userinfo->setPerm_RequireTaskManage(ui->RequireTaskManage->isChecked());
+    userinfo->setPerm_PlanManage(ui->PlanManage->isChecked());
+    userinfo->setPerm_WeeklyReports(ui->WeeklyReports->isChecked());
+    userinfo->setPerm_MonthlyReports(ui->MonthlyReports->isChecked());
+    userinfo->setPerm_RoleManage(ui->RoleManage->isChecked());
+    userinfo->setPerm_LoginUser(ui->LoginUser->isChecked());
+    userinfo->setPerm_PermManage(ui->PermManage->isChecked());
+
+    DbManager->DBUpdatePerm(*userinfo);
+    ui->perminfo->setText("改变权限成功！");
+
 }

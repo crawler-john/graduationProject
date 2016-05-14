@@ -390,7 +390,7 @@ DBManager::eDbStatus DBManager::DBSelectMonthlyList(QString name, QDate start, Q
 {
     DBopen();
     QSqlQuery t_sql;
-    QString sqlCMD = "select * from Monthly where name =\"" + name + "\" and Date <=\"" +end.toString(Qt::ISODate)+  "\" and Date >= \""+start.toString(Qt::ISODate)+"\" order by Date DESC;" ;
+    QString sqlCMD = "select * from monthly where name =\"" + name + "\" and Date <=\"" +end.toString(Qt::ISODate)+  "\" and Date >= \""+start.toString(Qt::ISODate)+"\" order by Date DESC;" ;
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
     {
@@ -543,11 +543,89 @@ DBManager::eDbStatus DBManager::DBGetLoginUserInfo(QList<userInfo *> &UserInfoLi
 
 }
 
+DBManager::eDbStatus DBManager::DBSelsctUserInfoByPro(QString ProName, QList<userInfo *> &UserInfoList)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select id,Password,Name,Sex,Birthday,BirthPlace,Graduation,Email,Phone,Address,Remark,WorkYears,perm_myProject,perm_myTask,perm_setInfo,perm_proInfoManage,perm_proStaffManage,perm_CostManage,perm_RequireTaskManage,perm_PlanManage,perm_WeeklyReports,perm_MonthlyReports,perm_OrganManage,perm_StaffManage,perm_RoleManage,perm_LoginUser,perm_PermManage,Post from userinfo where id in  (select userid from prostaff where proID IN (SELECT ID from proinfo where proName = \""+ProName+"\"));" ;
+
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            userInfo *userinfo = new userInfo;
+            userinfo->setID(t_sql.value(0).toString());
+            userinfo->setPassword(t_sql.value(1).toString());
+            userinfo->setName(t_sql.value(2).toString());
+            userinfo->setSex(t_sql.value(3).toString());
+            userinfo->setBirthday(t_sql.value(4).toDate());
+            userinfo->setBirthPlace(t_sql.value(5).toString());
+            userinfo->setGraduation(t_sql.value(6).toString());
+            userinfo->setEmail(t_sql.value(7).toString());
+            userinfo->setPhone(t_sql.value(8).toString());
+            userinfo->setAddress(t_sql.value(9).toString());
+            userinfo->setRemark(t_sql.value(10).toString());
+            userinfo->setWorkYears(t_sql.value(11).toInt());
+            userinfo->setPerm_myProject(t_sql.value(12).toBool());
+            userinfo->setPerm_myTask(t_sql.value(13).toBool());
+            userinfo->setPerm_setInfo(t_sql.value(14).toBool());
+            userinfo->setPerm_proInfoManage(t_sql.value(15).toBool());
+            userinfo->setPerm_proStaffManage(t_sql.value(16).toBool());
+            userinfo->setPerm_CostManage(t_sql.value(17).toBool());
+            userinfo->setPerm_RequireTaskManage(t_sql.value(18).toBool());
+            userinfo->setPerm_PlanManage(t_sql.value(19).toBool());
+            userinfo->setPerm_WeeklyReports(t_sql.value(20).toBool());
+            userinfo->setPerm_MonthlyReports(t_sql.value(21).toBool());
+            userinfo->setPerm_OrganManage(t_sql.value(22).toBool());
+            userinfo->setPerm_StaffManage(t_sql.value(23).toBool());
+            userinfo->setPerm_RoleManage(t_sql.value(24).toBool());
+            userinfo->setPerm_LoginUser(t_sql.value(25).toBool());
+            userinfo->setPerm_PermManage(t_sql.value(26).toBool());
+            userinfo->setPost(t_sql.value(27).toString());
+            UserInfoList.push_front(userinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+
+}
+
+
+
 DBManager::eDbStatus DBManager::DBGetStaff(QStringList &list)
 {
     DBopen();
     QSqlQuery t_sql;
     QString sqlCMD = "SELECT name from userinfo;" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            list << t_sql.value(0).toString();
+
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+
+
+DBManager::eDbStatus DBManager::DBGetProject(QStringList &list)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT proName from proinfo;" ;
 
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
@@ -618,6 +696,40 @@ DBManager::eDbStatus DBManager::DBInsertProject(ProInfo proinfo)
     DBopen();
     QSqlQuery t_sql;
     QString sqlCMD = "insert into proinfo(proName,proClient,proMoney,proManager,proState,proAddress,timePlanStart,timePlanEnd,timeCreate,priority,proDescribe) values(\""+proinfo.getName()+"\",\""+proinfo.getClient()+"\","+QString::number(proinfo.getMoney())+",\""+proinfo.getManager()+"\",\""+proinfo.getState()+"\",\""+proinfo.getAddress()+"\",\""+proinfo.getPlanStart().toString(Qt::ISODate)+"\",\""+proinfo.getPlanEnd().toString(Qt::ISODate)+"\",\""+proinfo.getCreate().toString(Qt::ISODate)+"\",'"+QString::number(proinfo.getPriority())+"',\""+proinfo.getDescribe().replace("\"","\\")+"\")";
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertUser(userInfo userinfo)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "insert into userinfo(id,Password,Name,Post,Sex,Birthday,BirthPlace,Graduation,Email,Phone,Address,Remark,WorkYears,perm_myProject,perm_myTask,perm_setInfo,perm_proInfoManage,perm_proStaffManage,perm_CostManage,perm_RequireTaskManage,perm_PlanManage,perm_WeeklyReports,perm_MonthlyReports,perm_OrganManage,perm_StaffManage,perm_RoleManage,perm_LoginUser,perm_PermManage,LoginFlag) values(\""+
+            userinfo.getID()+"\",\""+userinfo.getPassword()+"\",\""+userinfo.getName()+"\",\""+userinfo.getPost()+"\",\""+userinfo.getSex()+
+            "\",\""+userinfo.getBirthday().toString(Qt::ISODate)+"\",\""+userinfo.getBirthPlace()+"\",\""+userinfo.getGraduation()+"\",\""+userinfo.getEmail()+"\",\""+userinfo.getPhone()+"\",\""+userinfo.getAddress()+"\",\""+userinfo.getRemark()+"\","+QString::number(userinfo.getWorkYears())+",'"+QString::number((int)userinfo.getPerm_myProject())+
+            "','"+QString::number((int)userinfo.getPerm_myTask())+
+            "','"+QString::number((int)userinfo.getPerm_setInfo())+
+            "','"+QString::number((int)userinfo.getPerm_proInfoManage())+
+            "','"+QString::number((int)userinfo.getPerm_proStaffManage())+
+            "','"+QString::number((int)userinfo.getPerm_CostManage())+
+            "','"+QString::number((int)userinfo.getPerm_RequireTaskManage())+
+            "','"+QString::number((int)userinfo.getPerm_PlanManage())+
+            "','"+QString::number((int)userinfo.getPerm_WeeklyReports())+
+            "','"+QString::number((int)userinfo.getPerm_MonthlyReports())+
+            "','"+QString::number((int)userinfo.getPerm_OrganManage())+
+            "','"+QString::number((int)userinfo.getPerm_StaffManage())+
+            "','"+QString::number((int)userinfo.getPerm_RoleManage())+
+            "','"+QString::number((int)userinfo.getPerm_LoginUser())+
+            "','"+QString::number((int)userinfo.getPerm_PermManage())+"','0')";
     qDebug() << sqlCMD;
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
@@ -646,6 +758,38 @@ DBManager::eDbStatus DBManager::DBUpdateRealTime(QDate date, int proID, int flag
     }
     qDebug() << sqlCMD;
     flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBUpdatePerm(userInfo &userinfo)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "update userinfo set perm_myProject = '"
+            +QString::number((int)userinfo.getPerm_myProject())+
+            "',perm_myTask='"+QString::number((int)userinfo.getPerm_myTask())+
+            "',perm_setinfo='"+QString::number((int)userinfo.getPerm_setInfo())+
+            "',perm_proInfoManage='"+QString::number((int)userinfo.getPerm_proInfoManage())+
+            "',perm_proStaffManage='"+QString::number((int)userinfo.getPerm_StaffManage())+
+            "',perm_CostManage='"+QString::number((int)userinfo.getPerm_CostManage())+
+            "',perm_RequireTaskManage='"+QString::number((int)userinfo.getPerm_RequireTaskManage())+
+            "',perm_PlanManage='"+QString::number((int)userinfo.getPerm_PlanManage())+
+            "',perm_WeeklyReports='"+QString::number((int)userinfo.getPerm_WeeklyReports())+
+            "',perm_MonthlyReports='"+QString::number((int)userinfo.getPerm_MonthlyReports())+
+            "',perm_RoleManage='"+QString::number((int)userinfo.getPerm_RoleManage())+
+            "',perm_LoginUser='"+QString::number((int)userinfo.getPerm_LoginUser())+
+            "',perm_PermManage ='"+QString::number((int)userinfo.getPerm_PermManage())+"';";
+
+    qDebug() << sqlCMD;
+    bool flag = t_sql.exec(sqlCMD);
     if(flag)
     {
         m_db.close();

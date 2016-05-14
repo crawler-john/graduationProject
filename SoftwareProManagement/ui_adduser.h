@@ -28,7 +28,7 @@ class Ui_AddUser
 {
 public:
     QPushButton *BtnConfirm;
-    QLabel *dailyInfo;
+    QLabel *Info;
     QPushButton *BtnCancel;
     QLabel *label;
     QLabel *label_5;
@@ -39,22 +39,27 @@ public:
     QLabel *label_8;
     QLabel *label_9;
     QLabel *label_10;
-    QLabel *label_11;
     QLabel *label_12;
     QLabel *label_13;
     QLabel *label_14;
-    QLineEdit *lineEdit;
-    QLineEdit *lineEdit_2;
-    QComboBox *comboBox;
-    QLineEdit *lineEdit_3;
-    QLineEdit *lineEdit_4;
-    QComboBox *comboBox_2;
-    QSpinBox *spinBox;
-    QLineEdit *lineEdit_5;
-    QLineEdit *lineEdit_6;
-    QLineEdit *lineEdit_7;
-    QLineEdit *lineEdit_8;
-    QTextEdit *textEdit;
+    QLineEdit *ID;
+    QLineEdit *Password;
+    QComboBox *Sex;
+    QLineEdit *Name;
+    QComboBox *Post;
+    QSpinBox *workYears;
+    QLineEdit *birthplace;
+    QLineEdit *Graduation;
+    QLineEdit *Email;
+    QLineEdit *Address;
+    QTextEdit *mark;
+    QSpinBox *Month;
+    QSpinBox *Year;
+    QLabel *label_91;
+    QLabel *label_92;
+    QSpinBox *Day;
+    QLabel *label_11;
+    QLineEdit *Phone;
 
     void setupUi(QDialog *AddUser)
     {
@@ -67,10 +72,10 @@ public:
         BtnConfirm = new QPushButton(AddUser);
         BtnConfirm->setObjectName(QStringLiteral("BtnConfirm"));
         BtnConfirm->setGeometry(QRect(230, 370, 61, 23));
-        dailyInfo = new QLabel(AddUser);
-        dailyInfo->setObjectName(QStringLiteral("dailyInfo"));
-        dailyInfo->setGeometry(QRect(30, 365, 161, 21));
-        dailyInfo->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
+        Info = new QLabel(AddUser);
+        Info->setObjectName(QStringLiteral("Info"));
+        Info->setGeometry(QRect(30, 365, 161, 21));
+        Info->setStyleSheet(QString::fromUtf8("font: 75 12pt \"\351\273\221\344\275\223\";\n"
 "color:rgb(255, 0, 0);"));
         BtnCancel = new QPushButton(AddUser);
         BtnCancel->setObjectName(QStringLiteral("BtnCancel"));
@@ -102,7 +107,7 @@ public:
 "color:rgb(0, 0, 0);"));
         label_7 = new QLabel(AddUser);
         label_7->setObjectName(QStringLiteral("label_7"));
-        label_7->setGeometry(QRect(30, 140, 71, 16));
+        label_7->setGeometry(QRect(180, 110, 41, 16));
         label_7->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "color:rgb(0, 0, 0);"));
         label_8 = new QLabel(AddUser);
@@ -120,11 +125,6 @@ public:
         label_10->setGeometry(QRect(30, 230, 71, 16));
         label_10->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "color:rgb(0, 0, 0);"));
-        label_11 = new QLabel(AddUser);
-        label_11->setObjectName(QStringLiteral("label_11"));
-        label_11->setGeometry(QRect(200, 110, 41, 16));
-        label_11->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
-"color:rgb(0, 0, 0);"));
         label_12 = new QLabel(AddUser);
         label_12->setObjectName(QStringLiteral("label_12"));
         label_12->setGeometry(QRect(30, 260, 41, 16));
@@ -140,42 +140,62 @@ public:
         label_14->setGeometry(QRect(200, 140, 81, 16));
         label_14->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "color:rgb(0, 0, 0);"));
-        lineEdit = new QLineEdit(AddUser);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(60, 50, 113, 20));
-        lineEdit_2 = new QLineEdit(AddUser);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(100, 80, 91, 20));
-        comboBox = new QComboBox(AddUser);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(70, 109, 91, 22));
-        lineEdit_3 = new QLineEdit(AddUser);
-        lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
-        lineEdit_3->setGeometry(QRect(250, 50, 113, 20));
-        lineEdit_4 = new QLineEdit(AddUser);
-        lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
-        lineEdit_4->setGeometry(QRect(250, 110, 113, 20));
-        comboBox_2 = new QComboBox(AddUser);
-        comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
-        comboBox_2->setGeometry(QRect(250, 80, 111, 22));
-        spinBox = new QSpinBox(AddUser);
-        spinBox->setObjectName(QStringLiteral("spinBox"));
-        spinBox->setGeometry(QRect(280, 137, 42, 22));
-        lineEdit_5 = new QLineEdit(AddUser);
-        lineEdit_5->setObjectName(QStringLiteral("lineEdit_5"));
-        lineEdit_5->setGeometry(QRect(100, 170, 231, 20));
-        lineEdit_6 = new QLineEdit(AddUser);
-        lineEdit_6->setObjectName(QStringLiteral("lineEdit_6"));
-        lineEdit_6->setGeometry(QRect(100, 200, 231, 20));
-        lineEdit_7 = new QLineEdit(AddUser);
-        lineEdit_7->setObjectName(QStringLiteral("lineEdit_7"));
-        lineEdit_7->setGeometry(QRect(100, 230, 111, 20));
-        lineEdit_8 = new QLineEdit(AddUser);
-        lineEdit_8->setObjectName(QStringLiteral("lineEdit_8"));
-        lineEdit_8->setGeometry(QRect(80, 260, 261, 20));
-        textEdit = new QTextEdit(AddUser);
-        textEdit->setObjectName(QStringLiteral("textEdit"));
-        textEdit->setGeometry(QRect(80, 290, 261, 61));
+        ID = new QLineEdit(AddUser);
+        ID->setObjectName(QStringLiteral("ID"));
+        ID->setGeometry(QRect(60, 50, 113, 20));
+        Password = new QLineEdit(AddUser);
+        Password->setObjectName(QStringLiteral("Password"));
+        Password->setGeometry(QRect(100, 80, 91, 20));
+        Sex = new QComboBox(AddUser);
+        Sex->setObjectName(QStringLiteral("Sex"));
+        Sex->setGeometry(QRect(70, 109, 51, 22));
+        Name = new QLineEdit(AddUser);
+        Name->setObjectName(QStringLiteral("Name"));
+        Name->setGeometry(QRect(250, 50, 113, 20));
+        Post = new QComboBox(AddUser);
+        Post->setObjectName(QStringLiteral("Post"));
+        Post->setGeometry(QRect(250, 80, 111, 22));
+        workYears = new QSpinBox(AddUser);
+        workYears->setObjectName(QStringLiteral("workYears"));
+        workYears->setGeometry(QRect(280, 137, 42, 22));
+        birthplace = new QLineEdit(AddUser);
+        birthplace->setObjectName(QStringLiteral("birthplace"));
+        birthplace->setGeometry(QRect(100, 170, 231, 20));
+        Graduation = new QLineEdit(AddUser);
+        Graduation->setObjectName(QStringLiteral("Graduation"));
+        Graduation->setGeometry(QRect(100, 200, 231, 20));
+        Email = new QLineEdit(AddUser);
+        Email->setObjectName(QStringLiteral("Email"));
+        Email->setGeometry(QRect(100, 230, 111, 20));
+        Address = new QLineEdit(AddUser);
+        Address->setObjectName(QStringLiteral("Address"));
+        Address->setGeometry(QRect(80, 260, 261, 20));
+        mark = new QTextEdit(AddUser);
+        mark->setObjectName(QStringLiteral("mark"));
+        mark->setGeometry(QRect(80, 290, 261, 61));
+        Month = new QSpinBox(AddUser);
+        Month->setObjectName(QStringLiteral("Month"));
+        Month->setGeometry(QRect(280, 110, 42, 22));
+        Year = new QSpinBox(AddUser);
+        Year->setObjectName(QStringLiteral("Year"));
+        Year->setGeometry(QRect(220, 110, 51, 22));
+        label_91 = new QLabel(AddUser);
+        label_91->setObjectName(QStringLiteral("label_91"));
+        label_91->setGeometry(QRect(275, 114, 16, 16));
+        label_92 = new QLabel(AddUser);
+        label_92->setObjectName(QStringLiteral("label_92"));
+        label_92->setGeometry(QRect(323, 114, 16, 16));
+        Day = new QSpinBox(AddUser);
+        Day->setObjectName(QStringLiteral("Day"));
+        Day->setGeometry(QRect(330, 110, 42, 22));
+        label_11 = new QLabel(AddUser);
+        label_11->setObjectName(QStringLiteral("label_11"));
+        label_11->setGeometry(QRect(30, 140, 41, 16));
+        label_11->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"color:rgb(0, 0, 0);"));
+        Phone = new QLineEdit(AddUser);
+        Phone->setObjectName(QStringLiteral("Phone"));
+        Phone->setGeometry(QRect(80, 140, 113, 20));
 
         retranslateUi(AddUser);
 
@@ -186,7 +206,7 @@ public:
     {
         AddUser->setWindowTitle(QApplication::translate("AddUser", "Dialog", 0));
         BtnConfirm->setText(QApplication::translate("AddUser", "\347\241\256\345\256\232", 0));
-        dailyInfo->setText(QString());
+        Info->setText(QString());
         BtnCancel->setText(QApplication::translate("AddUser", "\351\200\200\345\207\272", 0));
         label->setText(QApplication::translate("AddUser", "ID\357\274\232", 0));
         label_5->setText(QApplication::translate("AddUser", "\345\247\223\345\220\215\357\274\232", 0));
@@ -197,23 +217,25 @@ public:
         label_8->setText(QApplication::translate("AddUser", "\345\207\272\347\224\237\345\234\260\357\274\232", 0));
         label_9->setText(QApplication::translate("AddUser", "\346\257\225\344\270\232\351\231\242\346\240\241\357\274\232", 0));
         label_10->setText(QApplication::translate("AddUser", "\347\224\265\345\255\220\351\202\256\344\273\266\357\274\232", 0));
-        label_11->setText(QApplication::translate("AddUser", "\347\224\265\350\257\235\357\274\232", 0));
         label_12->setText(QApplication::translate("AddUser", "\345\234\260\345\235\200\357\274\232", 0));
         label_13->setText(QApplication::translate("AddUser", "\345\244\207\346\263\250\357\274\232", 0));
         label_14->setText(QApplication::translate("AddUser", "\345\267\245\344\275\234\345\271\264\351\231\220\357\274\232", 0));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
+        Sex->clear();
+        Sex->insertItems(0, QStringList()
          << QApplication::translate("AddUser", "\347\224\267", 0)
          << QApplication::translate("AddUser", "\345\245\263", 0)
         );
-        comboBox_2->clear();
-        comboBox_2->insertItems(0, QStringList()
+        Post->clear();
+        Post->insertItems(0, QStringList()
          << QApplication::translate("AddUser", "\346\231\256\351\200\232\345\221\230\345\267\245", 0)
          << QApplication::translate("AddUser", "\351\241\271\347\233\256\347\273\217\347\220\206", 0)
          << QApplication::translate("AddUser", "\351\203\250\351\227\250\347\273\217\347\220\206", 0)
          << QApplication::translate("AddUser", "\347\256\241\347\220\206\345\221\230", 0)
          << QApplication::translate("AddUser", "\350\275\257\344\273\266\351\241\271\347\233\256\347\256\241\347\220\206\345\221\230", 0)
         );
+        label_91->setText(QApplication::translate("AddUser", "-", 0));
+        label_92->setText(QApplication::translate("AddUser", "-", 0));
+        label_11->setText(QApplication::translate("AddUser", "\347\224\265\350\257\235\357\274\232", 0));
     } // retranslateUi
 
 };

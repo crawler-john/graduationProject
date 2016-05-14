@@ -47,27 +47,26 @@ void AddProject::mouseMoveEvent(QMouseEvent *event)
 //添加新项目操作
 void AddProject::on_BtnConfirm_clicked()
 {
-    ProInfo proinfo;
-    QDate planStart,planEnd;
-    planStart.setDate(ui->planStartYear->text().toInt(),ui->planStartMonth->text().toInt(),ui->planStartDay->text().toInt());
-    planEnd.setDate(ui->planEndYear->text().toInt(),ui->planEndMonth->text().toInt(),ui->planEndDay->text().toInt());
-    proinfo.setName(ui->proName->text());
-    proinfo.setClient(ui->proClient->text());
-    proinfo.setDescribe(ui->proDescribe->toPlainText());
-    proinfo.setMoney(ui->proCost->text().toInt());
-    proinfo.setManager(ui->proManager->currentText());
-    proinfo.setState(ui->proState->currentText());
-    proinfo.setAddress(ui->proAddress->text());
-    proinfo.setPriority(ui->proPriority->currentIndex());
-    proinfo.setCreate(QDate::currentDate());
-    proinfo.setPlanStart(planStart);
-    proinfo.setPlanEnd(planEnd);
-
     if((ui->proName->text().isEmpty())|| (ui->proClient->text().isEmpty()) || (ui->proDescribe->toPlainText().isEmpty()) || (ui->proCost->text().isEmpty()) || (ui->proAddress->text().isEmpty()))
     {
         ui->proInfo->setText("输入信息不完全！");
     }else
     {
+        ProInfo proinfo;
+        QDate planStart,planEnd;
+        planStart.setDate(ui->planStartYear->text().toInt(),ui->planStartMonth->text().toInt(),ui->planStartDay->text().toInt());
+        planEnd.setDate(ui->planEndYear->text().toInt(),ui->planEndMonth->text().toInt(),ui->planEndDay->text().toInt());
+        proinfo.setName(ui->proName->text());
+        proinfo.setClient(ui->proClient->text());
+        proinfo.setDescribe(ui->proDescribe->toPlainText());
+        proinfo.setMoney(ui->proCost->text().toInt());
+        proinfo.setManager(ui->proManager->currentText());
+        proinfo.setState(ui->proState->currentText());
+        proinfo.setAddress(ui->proAddress->text());
+        proinfo.setPriority(ui->proPriority->currentIndex());
+        proinfo.setCreate(QDate::currentDate());
+        proinfo.setPlanStart(planStart);
+        proinfo.setPlanEnd(planEnd);
         m_DbManager->DBInsertProject(proinfo);
         ui->proInfo->setText("添加项目成功！");
         emit sigAddProInfoSuccess();

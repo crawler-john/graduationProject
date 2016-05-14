@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGroupBox>
@@ -386,7 +387,7 @@ public:
     QPushButton *BtnRoleManagerSelection;
     QPushButton *BtnAddUser;
     QTableWidget *tableRole;
-    QComboBox *comboBox_21;
+    QComboBox *roleCombo;
     QLabel *label_314;
     QGroupBox *groupBox_30;
     QLabel *label_144;
@@ -413,6 +414,7 @@ public:
     QLabel *infoWorkyears_3;
     QLabel *infoRemark_3;
     QLabel *label_155;
+    QLabel *roleinfo;
     QWidget *page_12;
     QGroupBox *groupBox_15;
     QTableWidget *tableLogin;
@@ -443,13 +445,29 @@ public:
     QLabel *label_143;
     QWidget *page_13;
     QGroupBox *groupBox_16;
-    QPushButton *BtnPermManagerSelection;
-    QLabel *label_117;
     QTableWidget *tablePerm;
     QGroupBox *groupBox_28;
     QLabel *MonthlyName_9;
     QLabel *MonthlyDate_9;
-    QComboBox *comboBox_3;
+    QCheckBox *myProject;
+    QCheckBox *myTask;
+    QCheckBox *setinfo;
+    QCheckBox *proStaffManage;
+    QCheckBox *CostManage;
+    QCheckBox *proInfoManage;
+    QCheckBox *WeeklyReports;
+    QCheckBox *RequireTaskManage;
+    QCheckBox *PlanManage;
+    QCheckBox *RoleManage;
+    QCheckBox *LoginUser;
+    QCheckBox *MonthlyReports;
+    QCheckBox *PermManage;
+    QPushButton *BtnChangePerm;
+    QLabel *perminfo;
+    QLabel *infoName_7;
+    QLabel *label_307;
+    QLabel *infoAccount_7;
+    QLabel *label_308;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -1850,16 +1868,16 @@ public:
 ""));
         BtnAddUser = new QPushButton(groupBox_14);
         BtnAddUser->setObjectName(QStringLiteral("BtnAddUser"));
-        BtnAddUser->setGeometry(QRect(500, 15, 81, 23));
+        BtnAddUser->setGeometry(QRect(560, 15, 81, 23));
         BtnAddUser->setStyleSheet(QLatin1String("border: 1px solid green;\n"
 "border-radius:10px;\n"
 ""));
         tableRole = new QTableWidget(groupBox_14);
         tableRole->setObjectName(QStringLiteral("tableRole"));
         tableRole->setGeometry(QRect(10, 290, 641, 141));
-        comboBox_21 = new QComboBox(groupBox_14);
-        comboBox_21->setObjectName(QStringLiteral("comboBox_21"));
-        comboBox_21->setGeometry(QRect(82, 15, 291, 22));
+        roleCombo = new QComboBox(groupBox_14);
+        roleCombo->setObjectName(QStringLiteral("roleCombo"));
+        roleCombo->setGeometry(QRect(82, 15, 291, 22));
         label_314 = new QLabel(groupBox_14);
         label_314->setObjectName(QStringLiteral("label_314"));
         label_314->setGeometry(QRect(18, 20, 54, 12));
@@ -1975,6 +1993,11 @@ public:
         label_155->setObjectName(QStringLiteral("label_155"));
         label_155->setGeometry(QRect(20, 109, 71, 16));
         label_155->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        roleinfo = new QLabel(groupBox_14);
+        roleinfo->setObjectName(QStringLiteral("roleinfo"));
+        roleinfo->setGeometry(QRect(437, 16, 121, 21));
+        roleinfo->setStyleSheet(QString::fromUtf8("color:rgb(255,0,0);\n"
+"font: 75 10pt \"\351\273\221\344\275\223\";"));
         stackedWidget->addWidget(page_11);
         page_12 = new QWidget();
         page_12->setObjectName(QStringLiteral("page_12"));
@@ -2102,37 +2125,97 @@ public:
         groupBox_16->setObjectName(QStringLiteral("groupBox_16"));
         groupBox_16->setGeometry(QRect(0, 0, 661, 451));
         groupBox_16->setStyleSheet(QStringLiteral(""));
-        BtnPermManagerSelection = new QPushButton(groupBox_16);
-        BtnPermManagerSelection->setObjectName(QStringLiteral("BtnPermManagerSelection"));
-        BtnPermManagerSelection->setGeometry(QRect(380, 15, 41, 23));
-        BtnPermManagerSelection->setStyleSheet(QLatin1String("border: 1px solid green;\n"
-"border-radius:10px;\n"
-""));
-        label_117 = new QLabel(groupBox_16);
-        label_117->setObjectName(QStringLiteral("label_117"));
-        label_117->setGeometry(QRect(18, 20, 91, 16));
-        label_117->setStyleSheet(QStringLiteral(""));
         tablePerm = new QTableWidget(groupBox_16);
         tablePerm->setObjectName(QStringLiteral("tablePerm"));
-        tablePerm->setGeometry(QRect(10, 300, 641, 141));
+        tablePerm->setGeometry(QRect(10, 250, 641, 191));
         groupBox_28 = new QGroupBox(groupBox_16);
         groupBox_28->setObjectName(QStringLiteral("groupBox_28"));
-        groupBox_28->setGeometry(QRect(10, 50, 641, 191));
+        groupBox_28->setGeometry(QRect(10, 20, 641, 211));
+        groupBox_28->setStyleSheet(QString::fromUtf8("QCheckBox{\n"
+"font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"}\n"
+"\n"
+""));
         MonthlyName_9 = new QLabel(groupBox_28);
         MonthlyName_9->setObjectName(QStringLiteral("MonthlyName_9"));
         MonthlyName_9->setGeometry(QRect(63, 19, 81, 20));
         MonthlyDate_9 = new QLabel(groupBox_28);
         MonthlyDate_9->setObjectName(QStringLiteral("MonthlyDate_9"));
         MonthlyDate_9->setGeometry(QRect(213, 18, 91, 20));
-        comboBox_3 = new QComboBox(groupBox_16);
-        comboBox_3->setObjectName(QStringLiteral("comboBox_3"));
-        comboBox_3->setGeometry(QRect(120, 16, 251, 22));
+        myProject = new QCheckBox(groupBox_28);
+        myProject->setObjectName(QStringLiteral("myProject"));
+        myProject->setGeometry(QRect(30, 60, 101, 21));
+        myTask = new QCheckBox(groupBox_28);
+        myTask->setObjectName(QStringLiteral("myTask"));
+        myTask->setGeometry(QRect(240, 60, 101, 21));
+        setinfo = new QCheckBox(groupBox_28);
+        setinfo->setObjectName(QStringLiteral("setinfo"));
+        setinfo->setGeometry(QRect(440, 60, 101, 21));
+        proStaffManage = new QCheckBox(groupBox_28);
+        proStaffManage->setObjectName(QStringLiteral("proStaffManage"));
+        proStaffManage->setGeometry(QRect(240, 90, 131, 21));
+        CostManage = new QCheckBox(groupBox_28);
+        CostManage->setObjectName(QStringLiteral("CostManage"));
+        CostManage->setGeometry(QRect(440, 90, 101, 21));
+        proInfoManage = new QCheckBox(groupBox_28);
+        proInfoManage->setObjectName(QStringLiteral("proInfoManage"));
+        proInfoManage->setGeometry(QRect(30, 90, 141, 21));
+        WeeklyReports = new QCheckBox(groupBox_28);
+        WeeklyReports->setObjectName(QStringLiteral("WeeklyReports"));
+        WeeklyReports->setGeometry(QRect(440, 120, 101, 21));
+        RequireTaskManage = new QCheckBox(groupBox_28);
+        RequireTaskManage->setObjectName(QStringLiteral("RequireTaskManage"));
+        RequireTaskManage->setGeometry(QRect(30, 120, 121, 21));
+        PlanManage = new QCheckBox(groupBox_28);
+        PlanManage->setObjectName(QStringLiteral("PlanManage"));
+        PlanManage->setGeometry(QRect(240, 120, 121, 21));
+        RoleManage = new QCheckBox(groupBox_28);
+        RoleManage->setObjectName(QStringLiteral("RoleManage"));
+        RoleManage->setGeometry(QRect(240, 150, 101, 21));
+        LoginUser = new QCheckBox(groupBox_28);
+        LoginUser->setObjectName(QStringLiteral("LoginUser"));
+        LoginUser->setGeometry(QRect(440, 150, 101, 21));
+        MonthlyReports = new QCheckBox(groupBox_28);
+        MonthlyReports->setObjectName(QStringLiteral("MonthlyReports"));
+        MonthlyReports->setGeometry(QRect(30, 150, 101, 21));
+        PermManage = new QCheckBox(groupBox_28);
+        PermManage->setObjectName(QStringLiteral("PermManage"));
+        PermManage->setGeometry(QRect(30, 180, 101, 21));
+        BtnChangePerm = new QPushButton(groupBox_28);
+        BtnChangePerm->setObjectName(QStringLiteral("BtnChangePerm"));
+        BtnChangePerm->setGeometry(QRect(450, 180, 121, 23));
+        BtnChangePerm->setStyleSheet(QLatin1String("border: 1px solid green;\n"
+"border-radius:10px;\n"
+""));
+        perminfo = new QLabel(groupBox_28);
+        perminfo->setObjectName(QStringLiteral("perminfo"));
+        perminfo->setGeometry(QRect(320, 180, 121, 21));
+        perminfo->setStyleSheet(QString::fromUtf8("color:rgb(255,0,0);\n"
+"font: 75 10pt \"\351\273\221\344\275\223\";"));
+        infoName_7 = new QLabel(page_13);
+        infoName_7->setObjectName(QStringLiteral("infoName_7"));
+        infoName_7->setGeometry(QRect(455, 50, 161, 16));
+        infoName_7->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_307 = new QLabel(page_13);
+        label_307->setObjectName(QStringLiteral("label_307"));
+        label_307->setGeometry(QRect(35, 50, 71, 16));
+        label_307->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
+        infoAccount_7 = new QLabel(page_13);
+        infoAccount_7->setObjectName(QStringLiteral("infoAccount_7"));
+        infoAccount_7->setGeometry(QRect(120, 50, 161, 16));
+        infoAccount_7->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
+"text-decoration: underline;"));
+        label_308 = new QLabel(page_13);
+        label_308->setObjectName(QStringLiteral("label_308"));
+        label_308->setGeometry(QRect(370, 50, 71, 16));
+        label_308->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";"));
         stackedWidget->addWidget(page_13);
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(14);
+        stackedWidget->setCurrentIndex(16);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -2453,6 +2536,7 @@ public:
         infoWorkyears_3->setText(QString());
         infoRemark_3->setText(QString());
         label_155->setText(QApplication::translate("MainWindow", "\346\257\225\344\270\232\351\231\242\346\240\241\357\274\232", 0));
+        roleinfo->setText(QString());
         groupBox_15->setTitle(QApplication::translate("MainWindow", "\347\231\273\345\275\225\347\224\250\346\210\267", 0));
         groupBox_27->setTitle(QApplication::translate("MainWindow", "\346\211\200\351\200\211\344\270\255\347\232\204\347\224\250\346\210\267", 0));
         label_132->setText(QApplication::translate("MainWindow", "\346\200\247    \345\210\253\357\274\232", 0));
@@ -2480,11 +2564,28 @@ public:
         infoRemark_2->setText(QString());
         label_143->setText(QApplication::translate("MainWindow", "\346\257\225\344\270\232\351\231\242\346\240\241\357\274\232", 0));
         groupBox_16->setTitle(QApplication::translate("MainWindow", "\346\235\203\351\231\220\347\256\241\347\220\206", 0));
-        BtnPermManagerSelection->setText(QApplication::translate("MainWindow", "\346\237\245\350\257\242", 0));
-        label_117->setText(QApplication::translate("MainWindow", "\351\200\232\350\277\207\345\247\223\345\220\215\346\237\245\350\257\242\357\274\232", 0));
-        groupBox_28->setTitle(QApplication::translate("MainWindow", "\346\211\200\351\200\211\344\270\255\347\224\250\346\210\267", 0));
+        groupBox_28->setTitle(QApplication::translate("MainWindow", "\346\211\200\351\200\211\344\270\255\347\224\250\346\210\267\346\235\203\351\231\220\344\277\241\346\201\257", 0));
         MonthlyName_9->setText(QString());
         MonthlyDate_9->setText(QString());
+        myProject->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\351\241\271\347\233\256", 0));
+        myTask->setText(QApplication::translate("MainWindow", "\346\210\221\347\232\204\344\273\273\345\212\241", 0));
+        setinfo->setText(QApplication::translate("MainWindow", "\344\270\252\344\272\272\344\277\241\346\201\257", 0));
+        proStaffManage->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\344\272\272\345\221\230\347\256\241\347\220\206", 0));
+        CostManage->setText(QApplication::translate("MainWindow", "\346\210\220\346\234\254\347\256\241\347\220\206", 0));
+        proInfoManage->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\344\277\241\346\201\257\347\256\241\347\220\206", 0));
+        WeeklyReports->setText(QApplication::translate("MainWindow", "\345\221\250\346\212\245", 0));
+        RequireTaskManage->setText(QApplication::translate("MainWindow", "\351\234\200\346\261\202\344\273\273\345\212\241\347\256\241\347\220\206", 0));
+        PlanManage->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\350\277\233\345\272\246\347\256\241\347\220\206", 0));
+        RoleManage->setText(QApplication::translate("MainWindow", "\350\247\222\350\211\262\347\256\241\347\220\206", 0));
+        LoginUser->setText(QApplication::translate("MainWindow", "\347\231\273\345\275\225\347\224\250\346\210\267", 0));
+        MonthlyReports->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\346\234\210\346\212\245", 0));
+        PermManage->setText(QApplication::translate("MainWindow", "\346\235\203\351\231\220\347\256\241\347\220\206", 0));
+        BtnChangePerm->setText(QApplication::translate("MainWindow", "\346\224\271\345\217\230\345\275\223\345\211\215\346\235\203\351\231\220", 0));
+        perminfo->setText(QString());
+        infoName_7->setText(QString());
+        label_307->setText(QApplication::translate("MainWindow", "\350\264\246    \345\217\267\357\274\232", 0));
+        infoAccount_7->setText(QString());
+        label_308->setText(QApplication::translate("MainWindow", "\345\247\223    \345\220\215\357\274\232", 0));
     } // retranslateUi
 
 };

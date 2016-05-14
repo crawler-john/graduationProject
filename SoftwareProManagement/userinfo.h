@@ -67,6 +67,8 @@ public:
     bool getPerm_PermManage();
     void setPerm_PermManage(bool perm_PermManage);
 
+    void setPerm(QString Post);
+
 private:
     QString ID;
     QString Password;
