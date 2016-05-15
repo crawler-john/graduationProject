@@ -18,6 +18,9 @@ INPUT(
 ./debug\addprocess.o
 ./debug\addprostaff.o
 ./debug\proinfo.o
+./debug\prostaffinfo.o
+./debug\addcost.o
+./debug\procost.o
 ./debug\qrc_images.o
 ./debug\moc_login.o
 ./debug\moc_mainwindow.o
@@ -33,4 +36,5 @@ INPUT(
 ./debug\moc_addtask.o
 ./debug\moc_addprocess.o
 ./debug\moc_addprostaff.o
+./debug\moc_addcost.o
 );

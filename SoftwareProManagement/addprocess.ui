@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>379</width>
-    <height>394</height>
+    <height>337</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,23 +36,6 @@ QLineEdit{
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_9">
-   <property name="geometry">
-    <rect>
-     <x>24</x>
-     <y>256</y>
-     <width>141</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 75 11pt &quot;黑体&quot;;
-color:rgb(0, 0, 0);</string>
-   </property>
-   <property name="text">
-    <string>进度实际结束时间：</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -68,26 +51,6 @@ color:rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>项目名：</string>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="realEndYear">
-   <property name="geometry">
-    <rect>
-     <x>169</x>
-     <y>256</y>
-     <width>61</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="realEndDay">
-   <property name="geometry">
-    <rect>
-     <x>284</x>
-     <y>256</y>
-     <width>42</width>
-     <height>22</height>
-    </rect>
    </property>
   </widget>
   <widget class="QSpinBox" name="createMonth">
@@ -140,19 +103,6 @@ color:rgb(0, 0, 0);</string>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_95">
-   <property name="geometry">
-    <rect>
-     <x>277</x>
-     <y>230</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>-</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
@@ -168,29 +118,6 @@ color:rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>进度计划开始时间：</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_97">
-   <property name="geometry">
-    <rect>
-     <x>277</x>
-     <y>260</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>-</string>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="realEndMonth">
-   <property name="geometry">
-    <rect>
-     <x>234</x>
-     <y>256</y>
-     <width>42</width>
-     <height>22</height>
-    </rect>
    </property>
   </widget>
   <widget class="QSpinBox" name="createDay">
@@ -247,7 +174,7 @@ color:rgb(0, 0, 0);</string>
    <property name="geometry">
     <rect>
      <x>24</x>
-     <y>286</y>
+     <y>230</y>
      <width>71</width>
      <height>16</height>
     </rect>
@@ -258,36 +185,6 @@ color:rgb(0, 0, 0);</string>
    </property>
    <property name="text">
     <string>进度描述：</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_98">
-   <property name="geometry">
-    <rect>
-     <x>229</x>
-     <y>260</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>-</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_11">
-   <property name="geometry">
-    <rect>
-     <x>24</x>
-     <y>226</y>
-     <width>141</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 75 11pt &quot;黑体&quot;;
-color:rgb(0, 0, 0);</string>
-   </property>
-   <property name="text">
-    <string>进度实际开始时间：</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_12">
@@ -320,21 +217,11 @@ color:rgb(0, 0, 0);</string>
     <string>-</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="realStartMonth">
-   <property name="geometry">
-    <rect>
-     <x>234</x>
-     <y>226</y>
-     <width>42</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="BtnConfirm">
    <property name="geometry">
     <rect>
      <x>234</x>
-     <y>356</y>
+     <y>300</y>
      <width>61</width>
      <height>23</height>
     </rect>
@@ -363,19 +250,6 @@ color:rgb(0, 0, 0);</string>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_96">
-   <property name="geometry">
-    <rect>
-     <x>229</x>
-     <y>230</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>-</string>
-   </property>
-  </widget>
   <widget class="QSpinBox" name="createtYear">
    <property name="geometry">
     <rect>
@@ -390,7 +264,7 @@ color:rgb(0, 0, 0);</string>
    <property name="geometry">
     <rect>
      <x>304</x>
-     <y>356</y>
+     <y>300</y>
      <width>61</width>
      <height>23</height>
     </rect>
@@ -399,11 +273,11 @@ color:rgb(0, 0, 0);</string>
     <string>退出</string>
    </property>
   </widget>
-  <widget class="QLabel" name="dailyInfo">
+  <widget class="QLabel" name="Info">
    <property name="geometry">
     <rect>
      <x>14</x>
-     <y>356</y>
+     <y>300</y>
      <width>161</width>
      <height>21</height>
     </rect>
@@ -427,16 +301,6 @@ color:rgb(255, 0, 0);</string>
    </property>
    <property name="text">
     <string>-</string>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="realStartYear">
-   <property name="geometry">
-    <rect>
-     <x>169</x>
-     <y>226</y>
-     <width>61</width>
-     <height>22</height>
-    </rect>
    </property>
   </widget>
   <widget class="QSpinBox" name="planStartMonth">
@@ -475,21 +339,11 @@ color:rgb(255, 0, 0);</string>
     <string>-</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="realStartDay">
-   <property name="geometry">
-    <rect>
-     <x>284</x>
-     <y>226</y>
-     <width>42</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QTextEdit" name="proDescribe">
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>286</y>
+     <y>230</y>
      <width>261</width>
      <height>51</height>
     </rect>

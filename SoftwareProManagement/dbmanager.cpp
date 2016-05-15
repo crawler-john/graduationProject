@@ -1,4 +1,5 @@
 #include "dbmanager.h"
+#include "prostaffinfo.h"
 
 DBManager::DBManager(QString HostAddress):m_hostAddress(HostAddress)
 {
@@ -347,6 +348,49 @@ DBManager::eDbStatus DBManager::DBGetMyProInfoList(QString userID, QList<ProInfo
             proinfo->setCreate(t_sql.value(12).toDate());
             proinfo->setPriority(t_sql.value(13).toInt());
             ProInfoList.push_back(proinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBSelectUser(QString name, QString &ID, int &workyears)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT Id,WorkYears from userinfo where name = '"+name+"'" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            ID = t_sql.value(0).toString();
+            workyears = t_sql.value(1).toInt();
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBSelectPro(QString name,int &proID)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT Id from proinfo where proName = '"+name+"'" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            proID = t_sql.value(0).toInt();
         }
         m_db.close();
         return DB_SUCCESS;
@@ -730,6 +774,104 @@ DBManager::eDbStatus DBManager::DBInsertUser(userInfo userinfo)
             "','"+QString::number((int)userinfo.getPerm_RoleManage())+
             "','"+QString::number((int)userinfo.getPerm_LoginUser())+
             "','"+QString::number((int)userinfo.getPerm_PermManage())+"','0')";
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBGetProStaffInfo(QList<proStaffInfo *> &proStaffList, QString ProName)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT prostaff.userID,userinfo.Name,prostaff.proID,proinfo.proName,prostaff.post,prostaff.stopUse,prostaff.describe,prostaff.workyear,prostaff.outsourcing from prostaff,userinfo,proinfo  where prostaff.userID = userinfo.Id and prostaff.proID = proinfo.Id and proName ='"+ProName+"';" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            proStaffInfo *prostaffinfo = new proStaffInfo;
+            prostaffinfo->setUserID(t_sql.value(0).toString());
+            prostaffinfo->setUserName(t_sql.value(1).toString());
+            prostaffinfo->setProID(t_sql.value(2).toInt());
+            prostaffinfo->setProName(t_sql.value(3).toString());
+            prostaffinfo->setPost(t_sql.value(4).toString());
+            prostaffinfo->setStopUse(t_sql.value(5).toBool());
+            prostaffinfo->setDescribe(t_sql.value(6).toString());
+            prostaffinfo->setWorkyears(t_sql.value(7).toInt());
+            prostaffinfo->setOutSourcing(t_sql.value(8).toBool());
+
+            proStaffList.push_front(prostaffinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+
+}
+
+DBManager::eDbStatus DBManager::DBGetProCostInfo(QList<proCost *> &proCostList, QString ProName)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT procost.ID,procost.proID,proinfo.proName,procost.title,procost.money,procost.describe FROM procost,proinfo WHERE procost.proID = proinfo.Id and proinfo.proName ='"+ProName+"'; ";
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            proCost *procostinfo = new proCost;
+            procostinfo->setID(t_sql.value(0).toInt());
+            procostinfo->setproID(t_sql.value(1).toInt());
+            procostinfo->setProName(t_sql.value(2).toString());
+            procostinfo->setTitle(t_sql.value(3).toString());
+            procostinfo->setMoney(t_sql.value(4).toInt());
+            procostinfo->setDescribe(t_sql.value(5).toString());
+            proCostList.push_front(procostinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertProStaff(proStaffInfo &proStaffInfo)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "insert into prostaff VALUES('"
+            +proStaffInfo.getUserID()+"',"+QString::number(proStaffInfo.getProID())+",'"+proStaffInfo.getPost()+"','"+(proStaffInfo.getStopUse()?"1":"0")+"','"+proStaffInfo.getDescribe()+"',"+QString::number(proStaffInfo.getWorkyears())+",'"+(proStaffInfo.getOutSourcing()?"1":"0")+"');";
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertProCost(proCost &procost)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "insert into procost(proID,title,money,procost.describe) VALUES("+QString::number(procost.getproID())+",'"+procost.getTitle()+"',"+QString::number(procost.getMoney())+",'"+procost.getDescribe()+"')";
     qDebug() << sqlCMD;
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
@@ -756,7 +898,7 @@ DBManager::eDbStatus DBManager::DBUpdateRealTime(QDate date, int proID, int flag
     {
         sqlCMD = "update proinfo set timeRealEnd = \""+date.toString(Qt::ISODate)+"\" where id = "+QString::number(proID)+";";
     }
-    qDebug() << sqlCMD;
+
     flag = t_sql.exec(sqlCMD);
     if(flag)
     {
@@ -788,7 +930,7 @@ DBManager::eDbStatus DBManager::DBUpdatePerm(userInfo &userinfo)
             "',perm_LoginUser='"+QString::number((int)userinfo.getPerm_LoginUser())+
             "',perm_PermManage ='"+QString::number((int)userinfo.getPerm_PermManage())+"';";
 
-    qDebug() << sqlCMD;
+
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
     {

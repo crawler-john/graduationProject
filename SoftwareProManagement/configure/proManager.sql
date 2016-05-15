@@ -37,13 +37,13 @@ CREATE TABLE `userinfo` (
 -- ----------------------------
 -- Records of userinfo
 -- ----------------------------
-INSERT INTO `userinfo` VALUES ('10001', '123456', 'John', '项目经理', '男', '1993-02-26', '浙江省嘉兴市', '湖南工学院', '895961454@qq.com', '15757364226', '川杨新苑25栋603室', '无', '3', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0');
-INSERT INTO `userinfo` VALUES ('10002', '123456', 'Rick', '普通员工', '男', '1990-02-06', '浙江省嘉兴市', '湖南工学院', '846553122@qq.com', '18874576131', '湘都公寓39栋505室', '无', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0');
-INSERT INTO `userinfo` VALUES ('10003', '123456', 'Echo', '部门经理', '男', '1989-05-12', '浙江省湖州市', '上海理工学院', '47168599@qq.com', '15757422216', '罗马都市39栋202室', '无', '6', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0');
-INSERT INTO `userinfo` VALUES ('10004', '123456', 'Jakkey', '普通员工', '男', '1988-04-17', '浙江省绍兴市', '杭州医药学院', '5491556121@qq.com', '15325336567', '石岩小区25栋304室', '无', '2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0');
+INSERT INTO `userinfo` VALUES ('10001', '031411', '董笙烽', '管理员', '男', '1993-02-26', '浙江省嘉兴市南湖区凤桥镇三星村', '湖南工学院', '895961454@qq.com', '15757364226', '上海市浦东新区川杨新苑25栋601', '无', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '0', '1', '1', '1', '0');
+INSERT INTO `userinfo` VALUES ('10002', '123456', '龚琪琪', '部门经理', '男', '1991-02-26', '上海市浦东新区川沙镇', '镇江大学', '543762598@qq.com', '13819089938', '上海市浦东新区川沙镇', '无', '3', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '0', '0', '0', '0', '0');
+INSERT INTO `userinfo` VALUES ('10003', '123456', '卢仁云', '部门经理', '男', '1991-02-26', '安徽省', '武汉大学', '543762598@qq.com', '18842576621', '上海市浦东新区川沙镇', '无', '3', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '0', '0', '0', '0', '0');
+INSERT INTO `userinfo` VALUES ('10004', '123456', '卢达江', '项目经理', '男', '1991-02-26', '湖南省怀化市', '武汉大学', '476299857@qq.com', '18842574487', '上海市浦东新区川沙镇', '无', '2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '0', '0', '0', '0', '0');
 INSERT INTO `userinfo` VALUES ('10005', '123456', 'Tom', '软件项目管理员', '男', '1994-11-21', '浙江省温州市', '北京大学', '8874325489@qq.com', '15325488976', '玫瑰花园25栋', '无', '3', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0');
-INSERT INTO `userinfo` VALUES ('10006', '123456', 'Lucy', '普通员工', '女', '1996-11-25', '浙江省杭州市', '嘉兴大学', '574576950@qq.com', '18826135746', '孙桥花园1栋101室', '无', '1', '1', '1', '1', '0', '0', '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0');
-INSERT INTO `userinfo` VALUES ('admin', '123456', 'admin', '管理员', '男', '1993-02-26', '上海市', '杭州电子科技大学', '491980531@qq.com', '18625746664', '孙桥花园25栋205室', '无', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0');
+INSERT INTO `userinfo` VALUES ('10006', '123456', '顾柏文', '软件项目管理员', '男', '1992-02-26', '江苏省泰州市', '连云港大学', '476299857@qq.com', '15958472217', '上海市浦东新区新厂', '无', '2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '0', '0', '0', '0', '0');
+INSERT INTO `userinfo` VALUES ('10007', '13579', '袁鑫', '普通员工', '男', '1988-03-01', '江苏省', '浙江大学', '574632145@qq.com', '15547285532', '江苏省吴中区', '无', '2', '1', '1', '1', '0', '0', '0', '1', '1', '1', '1', '0', '0', '0', '0', '0', '0');
 
 #创建项目表
 CREATE TABLE `proinfo`  (
@@ -82,10 +82,20 @@ CREATE TABLE `prostaff` (
     constraint fk_staff_proid FOREIGN KEY(proID) REFERENCES  proinfo(Id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+#创建成本表
+CREATE TABLE `procost` (
+    `ID` int(11) not null PRIMARY KEY AUTO_INCREMENT,  #成本的ID
+    `proID` int(20) not null,
+    `title` varchar(50) not null,
+    `money` int(11) not null,
+    `describe` varchar(500),
+    constraint fk_cost_proid FOREIGN KEY(proID) REFERENCES  proinfo(Id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 #创建需求相关信息表
 CREATE TABLE `prorequest` (
-    `ID` int(11) not null PRIMARY KEY,  #需求的ID
+    `ID` int(11) not null PRIMARY KEY AUTO_INCREMENT,  #需求的ID
     `requestName` varchar(50) not null, #需求的名称
     `timeCreate`   date not null,
     `proID` int(20) not null,       #项目的ID
@@ -98,7 +108,7 @@ CREATE TABLE `prorequest` (
 
 #创建项目任务信息表
 CREATE TABLE `protask` (
-    `ID` int(11) not null PRIMARY KEY,  #项目任务ID
+    `ID` int(11) not null PRIMARY KEY AUTO_INCREMENT,  #项目任务ID
     `proID` int(20) not null,           #项目任务所在项目ID
     `timeCreate`   date not null,
     `taskName` varchar(50) ,            #项目任务名称
@@ -115,7 +125,7 @@ CREATE TABLE `protask` (
 
 #创建项目进度信息表
 CREATE TABLE `proprocess` (
-    `ID` int(11) not null PRIMARY KEY,  #项目进度ID
+    `ID` int(11) not null PRIMARY KEY AUTO_INCREMENT,  #项目进度ID
     `proID` int(20) not null,       #项目进度所在的项目
     `timeCreate`   date not null,
     `processName` varchar(50),      #项目进度的名称

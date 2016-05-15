@@ -10,6 +10,8 @@
 #include "alteremail.h"
 #include "alterphone.h"
 #include "proinfo.h"
+#include "addprostaff.h"
+#include "addcost.h"
 
 MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     QMainWindow(parent),
@@ -150,6 +152,7 @@ void MainWindow::SlotTreeWidgetClick(QTreeWidgetItem * item)
             break;
         case 5:
             //项目进度管理操作
+            ProProcessManageOperation();
             break;
         case 6:
             //周报操作
@@ -292,22 +295,120 @@ void MainWindow::ProInfoManageOperation()
 
 void MainWindow::ProStaffManageOperation()
 {
+    ui->prostaffcombo->clear();
+    // 添加项目信息
+    QStringList list;
+    DbManager->DBGetProject(list);
+    ui->prostaffcombo->addItems(list);
+
+    ui->perminfo->clear();
+    QString head[6];
+    head[0] = "项目名";
+    head[1] = "用户名";
+    head[2] = "用户职位";
+    head[3] = "是否停用";
+    head[4] = "工作年限";
+    head[5] = "是否允许外购";
+    int headWidth[6] ={200,80,120,80,80,80};
+    //设置表格属性
+    setTableWeight(ui->tableProStaff,6,head,headWidth);
+
+    ui->BtnProStaffManagerSelection->click();
+     ui->proStaffInfo->clear();
 }
 
 void MainWindow::ProCostManageOperation()
 {
+    ui->costCombo->clear();
+    // 添加项目信息
+    QStringList list;
+    DbManager->DBGetProject(list);
+    ui->costCombo->addItems(list);
+    ui->perminfo->clear();
+    QString head[4];
+    head[0] = "项目名";
+    head[1] = "花费标题";
+    head[2] = "花费金额";
+    head[3] = "相关描述";
+    int headWidth[4] ={200,80,120,80};
+    //设置表格属性
+    setTableWeight(ui->tableProCost,4,head,headWidth);
+    ui->BtnCostManagerSelection->click();
+    ui->proCostInfo->clear();
 }
 
 void MainWindow::ProRequestManageOperation()
 {
+    ui->proNameRequest->clear();
+    // 添加项目信息
+    QStringList list;
+    DbManager->DBGetProject(list);
+    ui->proNameRequestcombox->addItems(list);
+
+    ui->prorequestInfo->clear();
+    QString head[5];
+    head[0] = "项目名";
+    head[1] = "需求名";
+    head[2] = "创建时间";
+    head[3] = "任务类型";
+    head[4] = "任务状态";
+
+    int headWidth[5] ={200,160,120,80,80};
+    //设置表格属性
+    setTableWeight(ui->tableProRequest,5,head,headWidth);
+
+
+    ui->BtnRequestManagerSelection->click();
+    ui->prorequestInfo->clear();
 }
 
 void MainWindow::ProTaskManageOperation()
 {
+    ui->proTaskInfo->clear();
+    // 添加项目信息
+    QStringList list;
+    DbManager->DBGetProject(list);
+    ui->TaskCombo->addItems(list);
+
+    ui->proTaskInfo->clear();
+    QString head[5];
+    head[0] = "项目名";
+    head[1] = "任务名";
+    head[2] = "任务创建时间";
+    head[3] = "任务执行者";
+    head[4] = "任务优先级";
+
+    int headWidth[5] ={200,160,120,80,80};
+    //设置表格属性
+    setTableWeight(ui->tableProTask,5,head,headWidth);
+
+
+    ui->BtnAddProTask->click();
+    ui->proTaskInfo->clear();
 }
 
 void MainWindow::ProProcessManageOperation()
 {
+
+    ui->proProcessInfo->clear();
+    // 添加项目信息
+    QStringList list;
+    DbManager->DBGetProject(list);
+    ui->proNameProcessCombox->addItems(list);
+
+    ui->proTaskInfo->clear();
+    QString head[4];
+    head[0] = "项目名";
+    head[1] = "进度名";
+    head[2] = "进度创建时间";
+    head[3] = "进度描述";
+
+    int headWidth[4] ={200,160,120,80};
+    //设置表格属性
+    setTableWeight(ui->tableProProcess,4,head,headWidth);
+
+    ui->BtnAddProProcess->click();
+    ui->proProcessInfo->clear();
 }
 
 void MainWindow::DailyOperation()
@@ -449,7 +550,7 @@ void MainWindow::PermManageOperation()
 
 void MainWindow::setTableWeight(QTableWidget *table, int row, QString head[20],int width[20])
 {
-    table->setColumnCount(6); //设置列数
+    table->setColumnCount(row); //设置列数
     table->setSelectionMode(QAbstractItemView::SingleSelection);
     //设置表头内容
     QStringList header;
@@ -571,6 +672,66 @@ void MainWindow::addTableLoginUserInfoData(QTableWidget *table, QList<userInfo *
         table->setItem(row_count, 3, item3);
         table->setItem(row_count, 4, item4);
         table->setItem(row_count, 5, item5);
+    }
+}
+
+void MainWindow::addTableProStaffInfoData(QTableWidget *table, QList<proStaffInfo *> &List)
+{
+    table->setRowCount(0);
+    table->clearContents();
+
+    QList<proStaffInfo *>::Iterator iter = List.begin();
+    for ( ; iter != List.end(); iter++)  {
+        int row_count = table->rowCount(); //获取表单行数
+        table->insertRow(row_count); //插入新行
+        QTableWidgetItem *item = new QTableWidgetItem();
+        QTableWidgetItem *item1 = new QTableWidgetItem();
+        QTableWidgetItem *item2 = new QTableWidgetItem();
+        QTableWidgetItem *item3 = new QTableWidgetItem();
+        QTableWidgetItem *item4 = new QTableWidgetItem();
+        QTableWidgetItem *item5 = new QTableWidgetItem();
+
+        item->setText((*iter)->getProName());
+        item1->setText((*iter)->getUserName());
+        item2->setText((*iter)->getPost());
+        item3->setText(((*iter)->getStopUse())?"有":"无");
+
+        item4->setText(QString::number((*iter)->getWorkyears()));
+
+        item5->setText(((*iter)->getOutSourcing()) ? "有": "无");
+
+        table->setItem(row_count, 0, item);
+        table->setItem(row_count, 1, item1);
+        table->setItem(row_count, 2, item2);
+        table->setItem(row_count, 3, item3);
+        table->setItem(row_count, 4, item4);
+        table->setItem(row_count, 5, item5);
+    }
+}
+
+void MainWindow::addTableProCostInfoData(QTableWidget *table, QList<proCost *> &List)
+{
+    table->setRowCount(0);
+    table->clearContents();
+
+    QList<proCost *>::Iterator iter = List.begin();
+    for ( ; iter != List.end(); iter++)  {
+        int row_count = table->rowCount(); //获取表单行数
+        table->insertRow(row_count); //插入新行
+        QTableWidgetItem *item = new QTableWidgetItem();
+        QTableWidgetItem *item1 = new QTableWidgetItem();
+        QTableWidgetItem *item2 = new QTableWidgetItem();
+        QTableWidgetItem *item3 = new QTableWidgetItem();
+
+        item->setText((*iter)->getProName());
+        item1->setText((*iter)->getTitle());
+        item2->setText(QString::number((*iter)->getMoney()));
+        item3->setText((*iter)->getDescribe());
+        table->setItem(row_count, 0, item);
+        table->setItem(row_count, 1, item1);
+        table->setItem(row_count, 2, item2);
+        table->setItem(row_count, 3, item3);
+
     }
 }
 
@@ -994,6 +1155,25 @@ void MainWindow::MyProOperation()
 
 void MainWindow::MyTaskOperation()
 {
+    ui->mytaskinfo->clear();
+    // 添加项目信息
+    QStringList list;
+    DbManager->DBGetProject(list);
+    ui->mytaskCombox->addItems(list);
+
+    ui->mytaskinfo->clear();
+    QString head[4];
+    head[0] = "项目名";
+    head[1] = "进度名";
+    head[2] = "进度创建时间";
+    head[3] = "进度描述";
+
+    int headWidth[4] ={200,160,120,80};
+    //设置表格属性
+    setTableWeight(ui->tableMyTask,4,head,headWidth);
+
+    ui->BtnAddProProcess->click();
+    ui->mytaskinfo->clear();
 }
 
 //表格点击操作
@@ -1092,6 +1272,18 @@ void MainWindow::slotAddProInfoSuccess()
 void MainWindow::slotAddUserInfoSuccess()
 {
     RoleManageOperation();
+}
+
+void MainWindow::slotAddProStaffInfoSuccess()
+{
+    ui->BtnProStaffManagerSelection->click();
+    ui->proStaffInfo->clear();
+}
+
+void MainWindow::slotAddProCostInfoSuccess()
+{
+    ui->BtnCostManagerSelection->click();
+    ui->proCostInfo->clear();
 }
 
 void MainWindow::on_tableMyPro_itemPressed(QTableWidgetItem *item)
@@ -1358,5 +1550,124 @@ void MainWindow::on_BtnChangePerm_clicked()
 
     DbManager->DBUpdatePerm(*userinfo);
     ui->perminfo->setText("改变权限成功！");
+
+}
+
+void MainWindow::on_BtnProStaffManagerSelection_clicked()
+{
+    QString ProName = ui->prostaffcombo->currentText();
+
+    ui->perminfo->clear();
+    QString head[6];
+    head[0] = "项目名";
+    head[1] = "用户名";
+    head[2] = "用户职位";
+    head[3] = "是否停用";
+    head[4] = "工作年限";
+    head[5] = "是否允许外购";
+    int headWidth[6] ={200,80,120,80,80,80};
+    //设置表格属性
+    setTableWeight(ui->tableProStaff,6,head,headWidth);
+
+    //获取数据
+    proStaffList.clear();
+
+    DbManager->DBGetProStaffInfo(proStaffList,ProName);
+
+    //在表格中显示数据
+    addTableProStaffInfoData(ui->tableProStaff,proStaffList);
+    ui->proStaffInfo->setText("查询成功！");
+
+}
+
+void MainWindow::on_BtnAddProStaff_clicked()
+{
+    addProStaff *addprostaff = new addProStaff(DbManager,ui->prostaffcombo->currentText());
+    connect(addprostaff,SIGNAL(sigAddProInfoSuccess()),this,SLOT(slotAddProStaffInfoSuccess()));
+    addprostaff->exec();
+    disconnect(addprostaff,SIGNAL(sigAddProInfoSuccess()),this,SLOT(slotAddProStaffInfoSuccess()));
+    delete addprostaff;
+}
+
+void MainWindow::on_tableProStaff_itemPressed(QTableWidgetItem *item)
+{
+    QString userName = ui->tableProStaff->item(item->row(),1)->text();
+    proStaffInfo *staffinfo = NULL;
+    QList<proStaffInfo *>::Iterator iter = proStaffList.begin();
+    for ( ; iter != proStaffList.end(); iter++)  {
+        if((*iter)->getUserName() == userName)
+        {
+            staffinfo = *iter;
+            break;
+        }
+    }
+    ui->useridStaff->setText(staffinfo->getUserID());
+    ui->usernameStaff->setText(staffinfo->getProName());
+    ui->proidStaff->setText(QString::number(staffinfo->getProID()));
+    ui->proNameStaff->setText(staffinfo->getProName());
+    ui->postStaff->setText(staffinfo->getPost());
+    ui->stopuserStaff->setText(staffinfo->getStopUse()?"是":"否");
+    ui->describeStaff->setText(staffinfo->getDescribe());
+    ui->outsourcingStaff->setText(staffinfo->getOutSourcing()?"是":"否");
+    ui->workyearsStaff->setText(QString::number(staffinfo->getWorkyears()));
+
+
+}
+
+void MainWindow::on_tableProCost_itemPressed(QTableWidgetItem *item)
+{
+    QString title = ui->tableProCost->item(item->row(),1)->text();
+    proCost *procostinfo = NULL;
+    QList<proCost *>::Iterator iter = proCostList.begin();
+    for ( ; iter != proCostList.end(); iter++)  {
+        if((*iter)->getTitle() == title)
+        {
+            procostinfo = *iter;
+            break;
+        }
+    }
+    ui->proNameCost->setText(procostinfo->getProName());
+    ui->titleCost->setText(procostinfo->getTitle());
+    ui->moneyCost->setText(QString::number(procostinfo->getMoney()));
+    ui->describeCost->setText(procostinfo->getDescribe());
+
+}
+
+void MainWindow::on_BtnCostManagerSelection_clicked()
+{
+    QString ProName = ui->costCombo->currentText();
+
+    ui->proCostInfo->clear();
+
+    //获取数据
+    proCostList.clear();
+    DbManager->DBGetProCostInfo(proCostList,ProName);
+
+    //在表格中显示数据
+    addTableProCostInfoData(ui->tableProCost,proCostList);
+    ui->proCostInfo->setText("查询成功！");
+}
+
+void MainWindow::on_BtnAddProCost_clicked()
+{
+    addCost *addcost = new addCost(DbManager,ui->costCombo->currentText());
+    connect(addcost,SIGNAL(sigAddProCostInfoSuccess()),this,SLOT(slotAddProCostInfoSuccess()));
+    addcost->exec();
+    disconnect(addcost,SIGNAL(sigAddProCostInfoSuccess()),this,SLOT(slotAddProCostInfoSuccess()));
+    delete addcost;
+}
+
+void MainWindow::on_BtnAddProTask_clicked()
+{
+
+}
+
+void MainWindow::on_BtnAddProProcess_clicked()
+{
+
+}
+
+void MainWindow::on_BtnRequestManagerSelection_clicked()
+{
 
 }

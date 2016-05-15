@@ -18,6 +18,9 @@ INPUT(
 ./release\addprocess.o
 ./release\addprostaff.o
 ./release\proinfo.o
+./release\prostaffinfo.o
+./release\addcost.o
+./release\procost.o
 ./release\qrc_images.o
 ./release\moc_login.o
 ./release\moc_mainwindow.o
@@ -33,4 +36,5 @@ INPUT(
 ./release\moc_addtask.o
 ./release\moc_addprocess.o
 ./release\moc_addprostaff.o
+./release\moc_addcost.o
 );

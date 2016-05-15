@@ -9,6 +9,8 @@
 #include <QTableWidget>
 #include "dailyinfo.h"
 #include "proinfo.h"
+#include "prostaffinfo.h"
+#include "procost.h"
 namespace Ui {
 class MainWindow;
 }
@@ -78,6 +80,8 @@ private slots:
 
     void slotAddProInfoSuccess();
     void slotAddUserInfoSuccess();
+    void slotAddProStaffInfoSuccess();
+    void slotAddProCostInfoSuccess();
 
     void on_tableMyPro_itemPressed(QTableWidgetItem *item);
 
@@ -96,6 +100,24 @@ private slots:
     void on_tablePerm_itemPressed(QTableWidgetItem *item);
 
     void on_BtnChangePerm_clicked();
+
+    void on_BtnProStaffManagerSelection_clicked();
+
+    void on_BtnAddProStaff_clicked();
+
+    void on_tableProStaff_itemPressed(QTableWidgetItem *item);
+
+    void on_tableProCost_itemPressed(QTableWidgetItem *item);
+
+    void on_BtnCostManagerSelection_clicked();
+
+    void on_BtnAddProCost_clicked();
+
+    void on_BtnAddProTask_clicked();
+
+    void on_BtnAddProProcess_clicked();
+
+    void on_BtnRequestManagerSelection_clicked();
 
 private:
     //点击我的项目的操作
@@ -138,7 +160,9 @@ private:
     void addTableProInfoData(QTableWidget *table,QList<ProInfo *> &List);
     //为表格添加在线用户信息
     void addTableLoginUserInfoData(QTableWidget *table,QList<userInfo *> &List);
-
+    //为表格添加项目员工信息
+    void addTableProStaffInfoData(QTableWidget *table,QList<proStaffInfo *> &List);
+    void addTableProCostInfoData(QTableWidget *table,QList<proCost *> &List);
 
     void initialize();
 
@@ -148,6 +172,9 @@ private:
     QList<ProInfo *> MyProInfoList;
     QList<userInfo *> LoginUserInfoList;
     QList<userInfo *> AllUserInfoList;
+    QList<proStaffInfo *> proStaffList;
+    QList<proCost *> proCostList;
+
 };
 
 #endif // MAINWINDOW_H

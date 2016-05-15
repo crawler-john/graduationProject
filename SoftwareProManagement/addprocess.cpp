@@ -7,6 +7,7 @@ addProcess::addProcess(QWidget *parent) :
     ui(new Ui::addProcess)
 {
     ui->setupUi(this);
+        setWindowFlags(Qt::FramelessWindowHint);
 }
 
 addProcess::~addProcess()

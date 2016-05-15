@@ -32,7 +32,10 @@ SOURCES += main.cpp\
     addtask.cpp \
     addprocess.cpp \
     addprostaff.cpp \
-    proinfo.cpp
+    proinfo.cpp \
+    prostaffinfo.cpp \
+    addcost.cpp \
+    procost.cpp
 
 
 
@@ -54,7 +57,10 @@ HEADERS  += \
     addtask.h \
     addprocess.h \
     addprostaff.h \
-    proinfo.h
+    proinfo.h \
+    prostaffinfo.h \
+    addcost.h \
+    procost.h
 
 
 
@@ -78,7 +84,8 @@ FORMS += \
     addrequest.ui \
     addtask.ui \
     addprocess.ui \
-    addprostaff.ui
+    addprostaff.ui \
+    addcost.ui
 
 
 RESOURCES += \

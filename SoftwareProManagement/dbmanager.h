@@ -9,6 +9,8 @@
 #include "userinfo.h"
 #include "dailyinfo.h"
 #include "proinfo.h"
+#include "prostaffinfo.h"
+#include "procost.h"
 
 
 class DBManager
@@ -48,7 +50,10 @@ public:
     //获取我的项目信息
     eDbStatus DBGetMyProInfoList(QString userID,QList<ProInfo*> &ProInfoList);
 
-
+    //查询人员信息
+    eDbStatus DBSelectUser(QString name,QString &ID,int &workyears);
+    //查询项目信息
+    eDbStatus DBSelectPro(QString name,int &proID);
     //查询周报信息
     eDbStatus DBSelectDailyList(QString name,QDate start,QDate end,QList<DailyInfo*> &dailyList);
     //查询月报信息
@@ -76,6 +81,12 @@ public:
     eDbStatus DBInsertProject(ProInfo proinfo);
     //添加人员
     eDbStatus DBInsertUser(userInfo userinfo);
+    eDbStatus DBGetProStaffInfo(QList<proStaffInfo *> &proStaffList,QString ProName);
+    eDbStatus DBGetProCostInfo(QList<proCost *> &proCostList,QString ProName);
+    //添加项目人员
+    eDbStatus DBInsertProStaff(proStaffInfo &proStaffInfo);
+    eDbStatus DBInsertProCost(proCost &procost);
+
     //更新实际开始结束时间 flag:0 开始时间  flag：1 结束时间
     eDbStatus DBUpdateRealTime(QDate date,int proID, int flag);
 
