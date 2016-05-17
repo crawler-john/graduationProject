@@ -8,6 +8,7 @@ AlterAddress::AlterAddress(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     connect(ui->BtnCancel,SIGNAL(clicked()),this,SLOT(close()));
+    setWindowTitle("修改地址");
 }
 
 AlterAddress::~AlterAddress()

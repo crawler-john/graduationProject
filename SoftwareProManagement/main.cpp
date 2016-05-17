@@ -15,10 +15,10 @@ int main(int argc, char *argv[])
 //    splash.show();
 //    a.processEvents();
 
-//    login w;
-//    w.show();
-    DBManager Dbmanager("127.0.0.1");
-    MainWindow w(&Dbmanager,"10005");
+    login w;
+    w.show();
+//    DBManager Dbmanager("127.0.0.1");
+//    MainWindow w(&Dbmanager,"10005");
     w.show();
     
 //    splash.finish(&w);

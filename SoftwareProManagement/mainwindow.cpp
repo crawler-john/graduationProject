@@ -12,6 +12,9 @@
 #include "proinfo.h"
 #include "addprostaff.h"
 #include "addcost.h"
+#include "addrequest.h"
+#include "addtask.h"
+#include "addprocess.h"
 
 MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     QMainWindow(parent),
@@ -30,6 +33,7 @@ MainWindow::MainWindow(DBManager *DbManager,QString  UserID,QWidget *parent) :
     m_userinfo.setID(UserID);
     initialize();
     getUserInfo(UserID);
+    setWindowTitle("软件项目管理系统");
 
 }
 //获取用户当前所拥有的权限并按照权限显示
@@ -203,7 +207,7 @@ void MainWindow::on_BtnLoginOutSystem_clicked()
 void MainWindow::on_BtnReLogin_clicked()
 {
     DbManager->DBSetLoginFlag(m_userinfo.getID(),false);
-    qDebug() << "重新登录槽函数";
+    emit SigRelogin();
 }
 
 void MainWindow::on_BtnClose_clicked()
@@ -296,6 +300,7 @@ void MainWindow::ProInfoManageOperation()
 void MainWindow::ProStaffManageOperation()
 {
     ui->prostaffcombo->clear();
+
     // 添加项目信息
     QStringList list;
     DbManager->DBGetProject(list);
@@ -339,6 +344,7 @@ void MainWindow::ProCostManageOperation()
 
 void MainWindow::ProRequestManageOperation()
 {
+    ui->proNameRequestcombox->clear();
     ui->proNameRequest->clear();
     // 添加项目信息
     QStringList list;
@@ -364,6 +370,7 @@ void MainWindow::ProRequestManageOperation()
 
 void MainWindow::ProTaskManageOperation()
 {
+    ui->TaskCombo->clear();
     ui->proTaskInfo->clear();
     // 添加项目信息
     QStringList list;
@@ -383,13 +390,14 @@ void MainWindow::ProTaskManageOperation()
     setTableWeight(ui->tableProTask,5,head,headWidth);
 
 
-    ui->BtnAddProTask->click();
+    ui->BtnRequestManagerSelection_2->click();
     ui->proTaskInfo->clear();
 }
 
 void MainWindow::ProProcessManageOperation()
 {
 
+    ui->proNameProcessCombox->clear();
     ui->proProcessInfo->clear();
     // 添加项目信息
     QStringList list;
@@ -407,7 +415,7 @@ void MainWindow::ProProcessManageOperation()
     //设置表格属性
     setTableWeight(ui->tableProProcess,4,head,headWidth);
 
-    ui->BtnAddProProcess->click();
+    ui->BtnProcessManagerSelection->click();
     ui->proProcessInfo->clear();
 }
 
@@ -473,6 +481,7 @@ void MainWindow::MonthlyOperation()
     DbManager->DBGetMonthlyList(m_userinfo.getID(),List);
     //在表格中显示数据
     addTableData(ui->tableMonthly,List);
+    ui->errorMonthly->clear();
 }
 
 void MainWindow::RoleManageOperation()
@@ -727,6 +736,94 @@ void MainWindow::addTableProCostInfoData(QTableWidget *table, QList<proCost *> &
         item1->setText((*iter)->getTitle());
         item2->setText(QString::number((*iter)->getMoney()));
         item3->setText((*iter)->getDescribe());
+        table->setItem(row_count, 0, item);
+        table->setItem(row_count, 1, item1);
+        table->setItem(row_count, 2, item2);
+        table->setItem(row_count, 3, item3);
+
+    }
+}
+
+void MainWindow::addTableProRequestInfoData(QTableWidget *table, QList<requestInfo *> &List)
+{
+    table->setRowCount(0);
+    table->clearContents();
+
+    QList<requestInfo *>::Iterator iter = List.begin();
+    for ( ; iter != List.end(); iter++)  {
+        int row_count = table->rowCount(); //获取表单行数
+        table->insertRow(row_count); //插入新行
+
+        QTableWidgetItem *item = new QTableWidgetItem();
+        QTableWidgetItem *item1 = new QTableWidgetItem();
+        QTableWidgetItem *item2 = new QTableWidgetItem();
+        QTableWidgetItem *item3 = new QTableWidgetItem();
+        QTableWidgetItem *item4 = new QTableWidgetItem();
+        requestInfo *requestinfo = (*iter);
+
+        item->setText(requestinfo->getProName());
+        item1->setText(requestinfo->getRequestName());
+        item2->setText(requestinfo->gettimeCreate().toString(Qt::ISODate));
+        item3->setText((requestinfo->getRequestType()==0)?"功能性需求":"非功能性需求");
+        item4->setText(requestinfo->getRequestState());
+        table->setItem(row_count, 0, item);
+        table->setItem(row_count, 1, item1);
+        table->setItem(row_count, 2, item2);
+        table->setItem(row_count, 3, item3);
+        table->setItem(row_count, 4, item4);
+
+    }
+}
+
+void MainWindow::addTableProTaskInfoData(QTableWidget *table, QList<Taskinfo *> &List)
+{
+    table->setRowCount(0);
+    table->clearContents();
+
+    QList<Taskinfo *>::Iterator iter = List.begin();
+    for ( ; iter != List.end(); iter++)  {
+        int row_count = table->rowCount(); //获取表单行数
+        table->insertRow(row_count); //插入新行
+        QTableWidgetItem *item = new QTableWidgetItem();
+        QTableWidgetItem *item1 = new QTableWidgetItem();
+        QTableWidgetItem *item2 = new QTableWidgetItem();
+        QTableWidgetItem *item3 = new QTableWidgetItem();
+        QTableWidgetItem *item4 = new QTableWidgetItem();
+        Taskinfo *taskinfo = (*iter);
+        item->setText(taskinfo->getProName());
+        item1->setText(taskinfo->gettaskName());
+        item2->setText(taskinfo->gettimeCreate().toString(Qt::ISODate));
+        item3->setText(taskinfo->gettaskExecutorName());
+        item4->setText(QString::number(taskinfo->gettaskPriority()));
+        table->setItem(row_count, 0, item);
+        table->setItem(row_count, 1, item1);
+        table->setItem(row_count, 2, item2);
+        table->setItem(row_count, 3, item3);
+        table->setItem(row_count, 4, item4);
+
+    }
+}
+
+void MainWindow::addTableProProcessInfoData(QTableWidget *table, QList<ProcessInfo *> &List)
+{
+
+    table->setRowCount(0);
+    table->clearContents();
+
+    QList<ProcessInfo *>::Iterator iter = List.begin();
+    for ( ; iter != List.end(); iter++)  {
+        int row_count = table->rowCount(); //获取表单行数
+        table->insertRow(row_count); //插入新行
+        QTableWidgetItem *item = new QTableWidgetItem();
+        QTableWidgetItem *item1 = new QTableWidgetItem();
+        QTableWidgetItem *item2 = new QTableWidgetItem();
+        QTableWidgetItem *item3 = new QTableWidgetItem();
+        ProcessInfo *processinfo = (*iter);
+
+        item->setText(processinfo->getproName());
+        item1->setText(processinfo->getprocessName());
+        item2->setText(processinfo->gettimeCreate().toString(Qt::ISODate));
+        item3->setText(processinfo->getprocessDescribe());
         table->setItem(row_count, 0, item);
         table->setItem(row_count, 1, item1);
         table->setItem(row_count, 2, item2);
@@ -1156,9 +1253,12 @@ void MainWindow::MyProOperation()
 void MainWindow::MyTaskOperation()
 {
     ui->mytaskinfo->clear();
+
+    //获取与我相关的项目
     // 添加项目信息
+    ui->mytaskCombox->clear();
     QStringList list;
-    DbManager->DBGetProject(list);
+    DbManager->DBGetMyProject(list,m_userinfo.getID());
     ui->mytaskCombox->addItems(list);
 
     ui->mytaskinfo->clear();
@@ -1171,8 +1271,8 @@ void MainWindow::MyTaskOperation()
     int headWidth[4] ={200,160,120,80};
     //设置表格属性
     setTableWeight(ui->tableMyTask,4,head,headWidth);
+    ui->BtnMyTaskSelection->click();
 
-    ui->BtnAddProProcess->click();
     ui->mytaskinfo->clear();
 }
 
@@ -1284,6 +1384,24 @@ void MainWindow::slotAddProCostInfoSuccess()
 {
     ui->BtnCostManagerSelection->click();
     ui->proCostInfo->clear();
+}
+
+void MainWindow::slotAddProRequestInfoSuccess()
+{
+    ui->BtnRequestManagerSelection->click();
+    ui->prorequestInfo->clear();
+}
+
+void MainWindow::slotAddProTaskInfoSuccess()
+{
+    ui->BtnRequestManagerSelection_2->click();
+    ui->proTaskInfo->clear();
+}
+
+void MainWindow::slotAddProProcessInfoSuccess()
+{
+    ui->BtnProcessManagerSelection->click();
+    ui->proProcessInfo->clear();
 }
 
 void MainWindow::on_tableMyPro_itemPressed(QTableWidgetItem *item)
@@ -1657,17 +1775,260 @@ void MainWindow::on_BtnAddProCost_clicked()
     delete addcost;
 }
 
+
+
+void MainWindow::on_BtnRequestManagerSelection_clicked()
+{
+    QString ProName = ui->proNameRequestcombox->currentText();
+
+    ui->prorequestInfo->clear();
+
+    //获取数据
+    proRequestList.clear();
+    //获取时间
+    QDate start,end;
+    start.setDate(ui->RequestManagerStartYear->text().toInt(),ui->RequestManagerStartMonth->text().toInt(),ui->RequestManagerStartDay->text().toInt());
+    end.setDate(ui->RequestManagerEndYear->text().toInt(),ui->RequestManagerEndMonth->text().toInt(),ui->RequestManagerEndDay->text().toInt());
+
+
+    DbManager->DBGetProRequestInfo(proRequestList,ProName,start,end);
+
+    //在表格中显示数据
+    addTableProRequestInfoData(ui->tableProRequest,proRequestList);
+    ui->prorequestInfo->setText("查询成功！");
+}
+
+void MainWindow::on_BtnProcessManagerSelection_clicked()
+{
+    QString ProName = ui->proNameProcessCombox->currentText();
+
+    ui->proProcessInfo->clear();
+
+    //获取数据
+    proProcessList.clear();
+    //获取时间
+    QDate start,end;
+    start.setDate(ui->ProcessManagerStartYear->text().toInt(),ui->ProcessManagerStartMonth->text().toInt(),ui->ProcessManagerStartDay->text().toInt());
+    end.setDate(ui->ProcessManagerEndYear->text().toInt(),ui->ProcessManagerEndMonth->text().toInt(),ui->ProcessManagerEndDay->text().toInt());
+
+
+    DbManager->DBGetProProcessInfo(proProcessList,ProName,start,end);
+
+    //在表格中显示数据
+    addTableProProcessInfoData(ui->tableProProcess,proProcessList);
+    ui->proProcessInfo->setText("查询成功！");
+
+}
+
+void MainWindow::on_BtnRequestManagerSelection_2_clicked()
+{
+    QString ProName = ui->TaskCombo->currentText();
+
+    ui->proTaskInfo->clear();
+
+    //获取数据
+    proTaskList.clear();
+    //获取时间
+    QDate start,end;
+    start.setDate(ui->TaskManagerStartYear->text().toInt(),ui->TaskManagerStartMonth->text().toInt(),ui->TaskManagerStartDay->text().toInt());
+    end.setDate(ui->TaskManagerEndYear->text().toInt(),ui->TaskManagerEndMonth->text().toInt(),ui->TaskManagerEndDay->text().toInt());
+
+    DbManager->DBGetProTaskInfo(proTaskList,ProName,start,end);
+
+    //在表格中显示数据
+    addTableProTaskInfoData(ui->tableProTask,proTaskList);
+    ui->proTaskInfo->setText("查询成功！");
+}
+
+void MainWindow::on_tableProProcess_itemPressed(QTableWidgetItem *item)
+{
+    QString title = ui->tableProProcess->item(item->row(),1)->text();
+    ProcessInfo *processinfo = NULL;
+    QList<ProcessInfo *>::Iterator iter = proProcessList.begin();
+    for ( ; iter != proProcessList.end(); iter++)  {
+        if((*iter)->getprocessName() == title)
+        {
+            processinfo = *iter;
+            break;
+        }
+    }
+
+
+    ui->NameProcess->setText(processinfo->getprocessName());
+    ui->pronameProcess->setText(processinfo->getproName());
+    ui->describeProcess->setText(processinfo->getprocessDescribe());
+    ui->taskProcess->setText(processinfo->gettaskName());
+
+    ui->createYearProcess->setRange(1900,2015);
+    ui->createMonthProcess->setRange(1,12);
+    ui->createDayProcess->setRange(1,31);
+    ui->createYearProcess->setValue(processinfo->gettimeCreate().year());
+    ui->createMonthProcess->setValue(processinfo->gettimeCreate().month());
+    ui->createDayProcess->setValue(processinfo->gettimeCreate().day());
+}
+
+void MainWindow::on_tableProRequest_itemPressed(QTableWidgetItem *item)
+{
+    QString title = ui->tableProRequest->item(item->row(),1)->text();
+    requestInfo *requestinfo = NULL;
+    QList<requestInfo *>::Iterator iter = proRequestList.begin();
+    for ( ; iter != proRequestList.end(); iter++)  {
+        if((*iter)->getRequestName() == title)
+        {
+            requestinfo = *iter;
+            break;
+        }
+    }
+    ui->RequestcreateYear->setRange(1900,2015);
+    ui->RequsetcreateMonth->setRange(1,12);
+    ui->requestcreateDay->setRange(1,31);
+    ui->NameRequest->setText(requestinfo->getRequestName());
+    ui->proNameRequest->setText(requestinfo->getProName());
+    ui->RequestcreateYear->setValue(requestinfo->gettimeCreate().year());
+    ui->RequsetcreateMonth->setValue(requestinfo->gettimeCreate().month());
+    ui->requestcreateDay->setValue(requestinfo->gettimeCreate().day());
+    ui->TypeRequest->setText((requestinfo->getRequestType()==0)?"功能性需求":"非功能性需求");
+    ui->stateRequest->setText(requestinfo->getRequestName());
+    ui->describeRequest->setText(requestinfo->getRequestDescribe());
+
+}
+
+void MainWindow::on_tableProTask_itemPressed(QTableWidgetItem *item)
+{
+    QString title = ui->tableProTask->item(item->row(),1)->text();
+    Taskinfo *taskinfo = NULL;
+    QList<Taskinfo *>::Iterator iter = proTaskList.begin();
+    for ( ; iter != proTaskList.end(); iter++)  {
+        if((*iter)->gettaskName() == title)
+        {
+            taskinfo = *iter;
+            break;
+        }
+    }
+    ui->createYearTask->setRange(1900,2015);;
+    ui->createMonthTask->setRange(1,12);
+    ui->createDayTask->setRange(1,31);
+
+    ui->planStartYearTask->setRange(1900,2015);;
+    ui->planStartMonthTask->setRange(1,12);
+    ui->planStartDayTask->setValue(taskinfo->gettimePlanStart().day());
+
+    ui->planEndYearTask->setRange(1900,2015);;
+    ui->planEndMonthTask->setRange(1,12);
+    ui->planEndDayTask->setRange(1,31);
+
+    ui->nameTask->setText(taskinfo->gettaskName());
+    ui->proNameTask->setText(taskinfo->getProName());
+    ui->TaskRequest1->setText(taskinfo->getrequestName());
+
+    ui->ExectorTask->setText(taskinfo->gettaskExecutorName());
+    ui->PriorityTask->setText(QString::number(taskinfo->gettaskPriority()));
+    ui->describeTask->setText(taskinfo->gettaskDescribe());
+
+    ui->createYearTask->setValue(taskinfo->gettimeCreate().year());
+    ui->createMonthTask->setValue(taskinfo->gettimeCreate().month());
+    ui->createDayTask->setValue(taskinfo->gettimeCreate().day());
+
+    ui->planStartYearTask->setValue(taskinfo->gettimePlanStart().year());
+    ui->planStartMonthTask->setValue(taskinfo->gettimePlanStart().month());
+    ui->planStartDayTask->setValue(taskinfo->gettimePlanStart().day());
+
+    ui->planEndYearTask->setValue(taskinfo->gettimePlanEnd().year());
+    ui->planEndMonthTask->setValue(taskinfo->gettimePlanEnd().month());
+    ui->planEndDayTask->setValue(taskinfo->gettimePlanEnd().day());
+
+
+}
+
+void MainWindow::on_BtnAddProRequest_clicked()
+{
+    addRequest *addrequest = new addRequest(DbManager,ui->proNameRequestcombox->currentText());
+    connect(addrequest,SIGNAL(sigAddProRequestInfoSuccess()),this,SLOT(slotAddProRequestInfoSuccess()));
+    addrequest->exec();
+    disconnect(addrequest,SIGNAL(sigAddProRequestInfoSuccess()),this,SLOT(slotAddProRequestInfoSuccess()));
+    delete addrequest;
+}
 void MainWindow::on_BtnAddProTask_clicked()
 {
 
+    addTask *addtask = new addTask(DbManager,ui->TaskCombo->currentText());
+    connect(addtask,SIGNAL(sigAddProTaskInfoSuccess()),this,SLOT(slotAddProTaskInfoSuccess()));
+    addtask->exec();
+    disconnect(addtask,SIGNAL(sigAddProTaskInfoSuccess()),this,SLOT(slotAddProTaskInfoSuccess()));
+    delete addtask;
 }
 
 void MainWindow::on_BtnAddProProcess_clicked()
 {
+    addProcess *addprocess = new addProcess(DbManager,ui->proNameProcessCombox->currentText());
+    connect(addprocess,SIGNAL(sigAddProProcessInfoSuccess()),this,SLOT(slotAddProProcessInfoSuccess()));
+    addprocess->exec();
+    disconnect(addprocess,SIGNAL(sigAddProProcessInfoSuccess()),this,SLOT(slotAddProProcessInfoSuccess()));
+
+    delete addprocess;
 
 }
 
-void MainWindow::on_BtnRequestManagerSelection_clicked()
+void MainWindow::on_BtnMyTaskSelection_clicked()
 {
+    QString ProName = ui->mytaskCombox->currentText();
 
+    ui->mytaskinfo->clear();
+
+    //获取数据
+    proMyTaskList.clear();
+    //获取时间
+    QDate start,end;
+    start.setDate(ui->MyTaskStartYear->text().toInt(),ui->MyTaskStartMonth->text().toInt(),ui->MyTaskStartDay->text().toInt());
+    end.setDate(ui->MyTaskEndYear->text().toInt(),ui->MyTaskEndMonth->text().toInt(),ui->MyTaskEndDay->text().toInt());
+
+    DbManager->DBGetProMyTaskInfo(proMyTaskList,ProName,m_userinfo.getID(),start,end);
+
+    //在表格中显示数据
+    addTableProTaskInfoData(ui->tableMyTask,proMyTaskList);
+    ui->mytaskinfo->setText("查询成功！");
+}
+
+void MainWindow::on_tableMyTask_itemPressed(QTableWidgetItem *item)
+{
+    QString title = ui->tableMyTask->item(item->row(),1)->text();
+    Taskinfo *taskinfo = NULL;
+    QList<Taskinfo *>::Iterator iter = proMyTaskList.begin();
+    for ( ; iter != proMyTaskList.end(); iter++)  {
+        if((*iter)->gettaskName() == title)
+        {
+            taskinfo = *iter;
+            break;
+        }
+    }
+    ui->createYearTask_2->setRange(1900,2015);;
+    ui->createMonthTask_2->setRange(1,12);
+    ui->createDayTask_2->setRange(1,31);
+
+    ui->planStartYearTask_2->setRange(1900,2015);;
+    ui->planStartMonthTask_2->setRange(1,12);
+    ui->planStartDayTask_2->setValue(taskinfo->gettimePlanStart().day());
+
+    ui->planEndYearTask_2->setRange(1900,2015);;
+    ui->planEndMonthTask_2->setRange(1,12);
+    ui->planEndDayTask_2->setRange(1,31);
+
+    ui->nameTask_2->setText(taskinfo->gettaskName());
+    ui->proNameTask_2->setText(taskinfo->getProName());
+    ui->TaskRequest1_2->setText(taskinfo->getrequestName());
+
+    ui->PriorityTask_2->setText(QString::number(taskinfo->gettaskPriority()));
+    ui->describeTask_2->setText(taskinfo->gettaskDescribe());
+
+    ui->createYearTask_2->setValue(taskinfo->gettimeCreate().year());
+    ui->createMonthTask_2->setValue(taskinfo->gettimeCreate().month());
+    ui->createDayTask_2->setValue(taskinfo->gettimeCreate().day());
+
+    ui->planStartYearTask_2->setValue(taskinfo->gettimePlanStart().year());
+    ui->planStartMonthTask_2->setValue(taskinfo->gettimePlanStart().month());
+    ui->planStartDayTask_2->setValue(taskinfo->gettimePlanStart().day());
+
+    ui->planEndYearTask_2->setValue(taskinfo->gettimePlanEnd().year());
+    ui->planEndMonthTask_2->setValue(taskinfo->gettimePlanEnd().month());
+    ui->planEndDayTask_2->setValue(taskinfo->gettimePlanEnd().day());
 }

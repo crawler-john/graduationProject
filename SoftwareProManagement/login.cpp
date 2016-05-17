@@ -18,6 +18,8 @@ login::login(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
     readConfig();
     createLogin();
+    setWindowTitle("软件项目管理系统");
+    setWindowIcon(QIcon("./img/icon.ico"));
 }
 
 void login::createLogin()
@@ -56,7 +58,7 @@ void login::createLogin()
 void login::readConfig()
 {
     QDomDocument doc("mydocument");
-    QFile file("configure/configure.xml");
+    QFile file("./configure/configure.xml");
     if (!file.open(QIODevice::ReadOnly))
         return;
     if (!doc.setContent(&file))
@@ -81,6 +83,7 @@ void login::readConfig()
             if(e.tagName() == "ServerIpAddress")  // the node really is an element.
             {
                 hostAddress = e.text();
+
                 DbManager->setHostAddress(hostAddress);
             }
 
@@ -110,17 +113,17 @@ void login::SlotUserLogin()
     }
 
     QString password;
-    qDebug() << hostAddress;
     DBManager::eDbStatus status = DbManager->DBSelectUserPassword(inputAccount,&password);
     if(status != DBManager::DB_SUCCESS)
     {
-        qDebug() << status;
-        QMessageBox::critical(this,"警告","当前服务器异常，请联系管理员！");
+
+        QMessageBox::critical(this,"警告",("当前服务器异常，请联系管理员！"));
     }else
     {
         if(password == inputPassword)
         {
             mainWin = new MainWindow(DbManager,inputAccount);
+            connect(mainWin,SIGNAL(SigRelogin()),this,SLOT(SlotRelogin()));
             this->hide();
             mainWin->show();
         }else{
@@ -129,6 +132,15 @@ void login::SlotUserLogin()
     }
 
 
+}
+
+void login::SlotRelogin()
+{
+    disconnect(mainWin,SIGNAL(SigRelogin()),this,SLOT(SlotRelogin()));
+    mainWin->hide();
+    delete mainWin;
+    mainWin = NULL;
+    this->show();
 }
 
 

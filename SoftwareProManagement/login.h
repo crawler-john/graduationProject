@@ -51,6 +51,7 @@ protected:
 public slots:
     //用户登录
     void SlotUserLogin();
+    void SlotRelogin();
 
 };
 

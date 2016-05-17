@@ -10,6 +10,7 @@ Monthly::Monthly(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
     connect(this,SIGNAL(rejected()),this,SLOT(close()));
     connect(ui->BtnCancel,SIGNAL(clicked()),this,SLOT(close()));
+    setWindowTitle("月报");
 }
 
 Monthly::~Monthly()

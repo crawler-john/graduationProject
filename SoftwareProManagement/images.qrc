@@ -9,5 +9,24 @@
         <file>img/SoftwareProManagement.png</file>
         <file>img/welcome.png</file>
         <file>img/welcomeOperation.png</file>
+        <file>img/10-14051R33442612.jpg</file>
+        <file>img/9252150_104332198328_2.jpg</file>
+        <file>img/addCost.jpg</file>
+        <file>img/addProcess.jpg</file>
+        <file>img/addProject.jpg</file>
+        <file>img/addProStaff.jpg</file>
+        <file>img/addRequest.jpg</file>
+        <file>img/addTask.jpg</file>
+        <file>img/addUser.jpg</file>
+        <file>img/alterAddress.jpg</file>
+        <file>img/alterEmail.jpg</file>
+        <file>img/alterPassword.jpg</file>
+        <file>img/alterPerm.jpg</file>
+        <file>img/alterPhone.jpg</file>
+        <file>img/close.png</file>
+        <file>img/daily.jpg</file>
+        <file>img/mainWindow.png</file>
+        <file>img/monthly.jpg</file>
+        <file>img/test.png</file>
     </qresource>
 </RCC>

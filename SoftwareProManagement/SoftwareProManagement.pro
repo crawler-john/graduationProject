@@ -35,7 +35,10 @@ SOURCES += main.cpp\
     proinfo.cpp \
     prostaffinfo.cpp \
     addcost.cpp \
-    procost.cpp
+    procost.cpp \
+    requestinfo.cpp \
+    taskinfo.cpp \
+    processinfo.cpp
 
 
 
@@ -60,16 +63,21 @@ HEADERS  += \
     proinfo.h \
     prostaffinfo.h \
     addcost.h \
-    procost.h
+    procost.h \
+    requestinfo.h \
+    taskinfo.h \
+    processinfo.h
 
 
 
 OTHER_FILES += \
     configure.xml \
     configure/configure.xml \
-    configure/proManager.sql \
-    my.rc
+    configure/proManager.sql
 
+
+RESOURCES += \
+    images.qrc
 
 FORMS += \
     mainwindow.ui \
@@ -87,8 +95,14 @@ FORMS += \
     addprostaff.ui \
     addcost.ui
 
+OTHER_FILES += \
+    my.rc
 
-RESOURCES += \
-    images.qrc
+
+RC_FILE = my.rc
+
+
+
+
 
 

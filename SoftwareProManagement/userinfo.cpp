@@ -284,8 +284,7 @@ void userInfo::setPerm(QString Post)
     perm_myProject = true;
     perm_myTask = true;
     perm_setInfo = true;
-    perm_RequireTaskManage = true;
-    perm_PlanManage = true;
+
     perm_WeeklyReports = true;
     perm_MonthlyReports = true;
     perm_OrganManage = false;
@@ -293,6 +292,8 @@ void userInfo::setPerm(QString Post)
 
     if(Post == "普通员工")
     {
+        perm_RequireTaskManage = false;
+        perm_PlanManage = false;
         perm_proInfoManage = false;
         perm_proStaffManage = false;
         perm_CostManage = false;
@@ -301,6 +302,8 @@ void userInfo::setPerm(QString Post)
         perm_PermManage = false;
     }else if(Post == "项目经理")
     {
+        perm_RequireTaskManage = true;
+        perm_PlanManage = true;
         perm_proInfoManage =true;
         perm_proStaffManage = true;
         perm_CostManage = true;
@@ -309,6 +312,8 @@ void userInfo::setPerm(QString Post)
         perm_PermManage = false;
     }else if(Post == "管理员")
     {
+        perm_RequireTaskManage = true;
+        perm_PlanManage = true;
         perm_proInfoManage =true;
         perm_proStaffManage = true;
         perm_CostManage = true;
@@ -317,6 +322,8 @@ void userInfo::setPerm(QString Post)
         perm_PermManage = true;
     }else if(Post == "部门经理")
     {
+        perm_RequireTaskManage = true;
+        perm_PlanManage = true;
         perm_proInfoManage =true;
         perm_proStaffManage = true;
         perm_CostManage = true;
@@ -325,6 +332,8 @@ void userInfo::setPerm(QString Post)
         perm_PermManage = false;
     }else if(Post == "软件项目管理员")
     {
+        perm_RequireTaskManage = true;
+        perm_PlanManage = true;
         perm_proInfoManage =true;
         perm_proStaffManage = true;
         perm_CostManage = true;

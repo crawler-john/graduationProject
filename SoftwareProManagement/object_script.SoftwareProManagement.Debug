@@ -21,6 +21,9 @@ INPUT(
 ./debug\prostaffinfo.o
 ./debug\addcost.o
 ./debug\procost.o
+./debug\requestinfo.o
+./debug\taskinfo.o
+./debug\processinfo.o
 ./debug\qrc_images.o
 ./debug\moc_login.o
 ./debug\moc_mainwindow.o

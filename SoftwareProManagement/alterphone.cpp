@@ -8,6 +8,7 @@ AlterPhone::AlterPhone(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     connect(ui->BtnCancel,SIGNAL(clicked()),this,SLOT(close()));
+    setWindowTitle("修改电话");
 }
 
 AlterPhone::~AlterPhone()

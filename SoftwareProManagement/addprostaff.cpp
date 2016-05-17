@@ -16,7 +16,7 @@ addProStaff::addProStaff(DBManager *DbManager,QString proName,QWidget *parent) :
     m_dbmanager->DBGetStaff(list);
     ui->name->addItems(list);
     ui->proname->addItem(proName);
-
+    setWindowTitle("添加项目人员");
 
 }
 

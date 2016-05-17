@@ -11,6 +11,9 @@
 #include "proinfo.h"
 #include "prostaffinfo.h"
 #include "procost.h"
+#include "processinfo.h"
+#include "taskinfo.h"
+#include "requestinfo.h"
 
 
 class DBManager
@@ -30,6 +33,8 @@ public:
     eDbStatus DBSelectUserPassword(QString userID,QString *userPassword);
     //获取用户信息
     eDbStatus DBGetUserInfo(QString  userID,userInfo &userinfo);
+    eDbStatus DBGetUserID(QString userName,QString  &userID);
+
     //更改登录标志
     eDbStatus DBSetLoginFlag(QString userID,bool Loginflag);
     //修改密码
@@ -72,8 +77,15 @@ public:
 
     //获取所有项目信息
     eDbStatus DBGetProject(QStringList &list);
+    eDbStatus DBGetMyProject(QStringList &list,QString userId);
     //获取项目经理
     eDbStatus DBGetManagers(QStringList &list);
+    //获取项目人员
+    eDbStatus DBGetProStaffByProID(QStringList &list,int proID);
+    //获取项目相关需求名
+    eDbStatus DBGetProRequestByProID(QStringList &list,int proID);
+    eDbStatus DBGetProProcessByProID(QStringList &list,int proID);
+
 
     //为数据库添加周报或月报 flag:0 周报  flag：1月报
     eDbStatus DBInsertReport(DailyInfo dailyinfo, int flag);
@@ -83,15 +95,27 @@ public:
     eDbStatus DBInsertUser(userInfo userinfo);
     eDbStatus DBGetProStaffInfo(QList<proStaffInfo *> &proStaffList,QString ProName);
     eDbStatus DBGetProCostInfo(QList<proCost *> &proCostList,QString ProName);
+    eDbStatus DBGetProRequestInfo(QList<requestInfo *> &proRequestList,QString ProName,QDate start,QDate end);
+    eDbStatus DBGetProTaskInfo(QList<Taskinfo *> &proTaskList,QString ProName,QDate start,QDate end);
+    eDbStatus DBGetProMyTaskInfo(QList<Taskinfo *> &proTaskList,QString ProName,QString userID,QDate start,QDate end);
+    eDbStatus DBGetProProcessInfo(QList<ProcessInfo *> &proProcessList,QString ProName,QDate start,QDate end);
     //添加项目人员
     eDbStatus DBInsertProStaff(proStaffInfo &proStaffInfo);
     eDbStatus DBInsertProCost(proCost &procost);
+    eDbStatus DBInsertProRequest(requestInfo &prorequest);
+    eDbStatus DBInsertProTask(Taskinfo &protask);
+    eDbStatus DBInsertProProcess(ProcessInfo &proprocess);
 
     //更新实际开始结束时间 flag:0 开始时间  flag：1 结束时间
     eDbStatus DBUpdateRealTime(QDate date,int proID, int flag);
 
     //更新权限
     eDbStatus DBUpdatePerm(userInfo &userinfo);
+    eDbStatus DBSelectRequestID(int proID,QString RequestName,int &RequestId);
+    eDbStatus DBSelectTaskID(int proID,QString TaskName,int &TaskId);
+    eDbStatus DBSelectProcessID(int proID,QString processName,int &processId);
+    eDbStatus DBInsertTaskRequest(int Request_Id,int TaskId);
+    eDbStatus DBInsertProcessTask(int TaskId,int process_Id);
 
 private:
     QStringList m_sqlDriver;

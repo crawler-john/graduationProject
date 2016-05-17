@@ -9,6 +9,7 @@ AlterEmail::AlterEmail(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     connect(ui->BtnCancel,SIGNAL(clicked()),this,SLOT(close()));
+    setWindowTitle("修改邮箱");
 }
 
 AlterEmail::~AlterEmail()

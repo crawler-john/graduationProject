@@ -14,6 +14,7 @@ AddUser::AddUser(DBManager *DbManager,QWidget *parent) :
     ui->Year->setRange(1900,QDate::currentDate().year());
     ui->Month->setRange(1,12);
     ui->Day->setRange(1,31);
+    setWindowTitle("添加用户");
 
 }
 

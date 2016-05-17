@@ -15,6 +15,7 @@ addCost::addCost(DBManager *DbManager,QString proName,QWidget *parent) :
     m_dbmanager->DBGetStaff(list);
 
     ui->proName->addItem(proName);
+    setWindowTitle("添加成本项");
 }
 
 addCost::~addCost()

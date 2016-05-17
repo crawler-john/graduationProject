@@ -120,6 +120,27 @@ DBManager::eDbStatus DBManager::DBGetUserInfo(QString  userID,userInfo &userinfo
 
 }
 
+DBManager::eDbStatus DBManager::DBGetUserID(QString userName, QString &userID)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select Id from userinfo where name = '" + userName + "';" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            userID = t_sql.value(0).toString();
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
 DBManager::eDbStatus DBManager::DBSetLoginFlag(QString userID, bool Loginflag)
 {
     DBopen();
@@ -687,6 +708,28 @@ DBManager::eDbStatus DBManager::DBGetProject(QStringList &list)
     }
 }
 
+DBManager::eDbStatus DBManager::DBGetMyProject(QStringList &list, QString userId)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT proName from proinfo,prostaff where  proinfo.id = prostaff.proid  and  prostaff.userID = '"+userId+"';" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            list << t_sql.value(0).toString();
+
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
 DBManager::eDbStatus DBManager::DBGetManagers(QStringList &list)
 {
     DBopen();
@@ -707,6 +750,73 @@ DBManager::eDbStatus DBManager::DBGetManagers(QStringList &list)
         m_db.close();
         return DB_FAILED;
     }
+}
+
+DBManager::eDbStatus DBManager::DBGetProStaffByProID(QStringList &list, int proID)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select userinfo.Name from userinfo,prostaff where userinfo.Id = prostaff.userID and prostaff.proid ='"+QString::number(proID)+"'" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            list << t_sql.value(0).toString();
+
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBGetProRequestByProID(QStringList &list, int proID)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select requestName from prorequest where prorequest.proID = '"+QString::number(proID)+"'" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            list << t_sql.value(0).toString();
+
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBGetProProcessByProID(QStringList &list, int proID)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select taskName from protask where protask.proID = '"+QString::number(proID)+"'" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            list << t_sql.value(0).toString();
+
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+
 }
 
 DBManager::eDbStatus DBManager::DBInsertReport(DailyInfo dailyinfo, int flag)
@@ -848,6 +958,145 @@ DBManager::eDbStatus DBManager::DBGetProCostInfo(QList<proCost *> &proCostList, 
     }
 }
 
+DBManager::eDbStatus DBManager::DBGetProRequestInfo(QList<requestInfo *> &proRequestList, QString ProName, QDate start, QDate end)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT prorequest.id,prorequest.requestName,prorequest.timeCreate,proinfo.Id,proinfo.proName,prorequest.requestDescribe,prorequest.requestType,prorequest.requestState from prorequest,proinfo where prorequest.proID = proinfo.Id  and proinfo.proName = '"+ProName+"' and prorequest.timeCreate >= '"+start.toString(Qt::ISODate)+"' and prorequest.timeCreate  <= '"+end.toString(Qt::ISODate)+"'";
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            requestInfo *prorequestinfo = new requestInfo;
+            prorequestinfo->setID(t_sql.value(0).toInt());
+            prorequestinfo->setRequestName(t_sql.value(1).toString());
+            prorequestinfo->settimeCreate(t_sql.value(2).toDate());
+            prorequestinfo->setProID(t_sql.value(3).toInt());
+            prorequestinfo->setProName(t_sql.value(4).toString());
+            prorequestinfo->setRequestDescribe(t_sql.value(5).toString());
+            prorequestinfo->setRequestType(t_sql.value(6).toInt());
+            prorequestinfo->setRequestState(t_sql.value(7).toString());
+            proRequestList.push_front(prorequestinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBGetProTaskInfo(QList<Taskinfo *> &proTaskList, QString ProName, QDate start, QDate end)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT protask.ID,task_request.requestID,prorequest.requestName,proinfo.Id,proinfo.proName,protask.timeCreate,protask.taskName,protask.taskExecutor,userinfo.Name,protask.taskPriority,protask.taskDescribe,protask.timePlanStart,protask.timePlanEnd from protask,proinfo,task_request,prorequest,userinfo WHERE protask.proID = proinfo.id and protask.ID = task_request.taskID and task_request.requestID = prorequest.ID and userinfo.Id = protask.taskExecutor and proinfo.proName = '"+ProName+"' and protask.timeCreate >= '"+start.toString(Qt::ISODate)+"' and protask.timeCreate  <= '"+end.toString(Qt::ISODate)+"';";
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            Taskinfo *protaskinfo = new Taskinfo;
+
+            protaskinfo->setID(t_sql.value(0).toInt());
+            protaskinfo->setrequestTask(t_sql.value(1).toInt());
+            protaskinfo->setrequestName(t_sql.value(2).toString());
+
+            protaskinfo->setproID(t_sql.value(3).toInt());
+            protaskinfo->setProName(t_sql.value(4).toString());
+            protaskinfo->settimeCreate(t_sql.value(5).toDate());
+            protaskinfo->settaskName(t_sql.value(6).toString());
+            protaskinfo->settaskExecutorID(t_sql.value(7).toString());
+            protaskinfo->settaskExecutorName(t_sql.value(8).toString());
+
+            protaskinfo->settaskPriority(t_sql.value(9).toInt());
+            protaskinfo->settaskDescribe(t_sql.value(10).toString());
+            protaskinfo->settimePlanStart(t_sql.value(11).toDate());
+            protaskinfo->settimePlanEnd(t_sql.value(12).toDate());
+            proTaskList.push_front(protaskinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBGetProMyTaskInfo(QList<Taskinfo *> &proTaskList, QString ProName,QString userID, QDate start, QDate end)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "SELECT protask.ID,task_request.requestID,prorequest.requestName,proinfo.Id,proinfo.proName,protask.timeCreate,protask.taskName,protask.taskExecutor,userinfo.Name,protask.taskPriority,protask.taskDescribe,protask.timePlanStart,protask.timePlanEnd from protask,proinfo,task_request,prorequest,userinfo,prostaff WHERE prostaff.userID = userinfo.id and protask.proID = proinfo.id and protask.ID = task_request.taskID and task_request.requestID = prorequest.ID and userinfo.Id = protask.taskExecutor and proinfo.proName = '"+ProName+"' and protask.timeCreate >= '"+start.toString(Qt::ISODate)+"' and protask.timeCreate  <= '"+end.toString(Qt::ISODate)+"' and userinfo.id = "+userID+";";
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            Taskinfo *protaskinfo = new Taskinfo;
+
+            protaskinfo->setID(t_sql.value(0).toInt());
+            protaskinfo->setrequestTask(t_sql.value(1).toInt());
+            protaskinfo->setrequestName(t_sql.value(2).toString());
+
+            protaskinfo->setproID(t_sql.value(3).toInt());
+            protaskinfo->setProName(t_sql.value(4).toString());
+            protaskinfo->settimeCreate(t_sql.value(5).toDate());
+            protaskinfo->settaskName(t_sql.value(6).toString());
+            protaskinfo->settaskExecutorID(t_sql.value(7).toString());
+            protaskinfo->settaskExecutorName(t_sql.value(8).toString());
+
+            protaskinfo->settaskPriority(t_sql.value(9).toInt());
+            protaskinfo->settaskDescribe(t_sql.value(10).toString());
+            protaskinfo->settimePlanStart(t_sql.value(11).toDate());
+            protaskinfo->settimePlanEnd(t_sql.value(12).toDate());
+            proTaskList.push_front(protaskinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBGetProProcessInfo(QList<ProcessInfo *> &proProcessList, QString ProName, QDate start, QDate end)
+{
+    DBopen();
+    QSqlQuery t_sql;
+
+    QString sqlCMD = "SELECT proprocess.ID,proprocess.proID,proinfo.proName,proprocess.timeCreate,protask.ID,protask.taskName,proprocess.processName,proprocess.processDescribe  from proprocess,process_task,proinfo,protask where  protask.ID = process_task.taskID and proinfo.id = proprocess.proID and process_task.processID = proprocess.ID and proinfo.proName = '"+ProName+"' and proprocess.timeCreate >= '"+start.toString(Qt::ISODate)+"' and proprocess.timeCreate  <= '"+end.toString(Qt::ISODate)+"';";
+
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            ProcessInfo *proprocessinfo = new ProcessInfo;
+
+            proprocessinfo->setID(t_sql.value(0).toInt());
+            proprocessinfo->setproID(t_sql.value(1).toInt());
+            proprocessinfo->setproName(t_sql.value(2).toString());
+            proprocessinfo->settimeCreate(t_sql.value(3).toDate());
+            proprocessinfo->settaskID(t_sql.value(4).toInt());
+            proprocessinfo->settaskName(t_sql.value(5).toString());
+            proprocessinfo->setprocessName(t_sql.value(6).toString());
+            proprocessinfo->setprocessDescribe(t_sql.value(7).toString());
+            proProcessList.push_front(proprocessinfo);
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
 DBManager::eDbStatus DBManager::DBInsertProStaff(proStaffInfo &proStaffInfo)
 {
     DBopen();
@@ -872,7 +1121,67 @@ DBManager::eDbStatus DBManager::DBInsertProCost(proCost &procost)
     DBopen();
     QSqlQuery t_sql;
     QString sqlCMD = "insert into procost(proID,title,money,procost.describe) VALUES("+QString::number(procost.getproID())+",'"+procost.getTitle()+"',"+QString::number(procost.getMoney())+",'"+procost.getDescribe()+"')";
-    qDebug() << sqlCMD;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertProRequest(requestInfo &prorequest)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "insert into prorequest(requestName,timeCreate,proID,requestDescribe,prorequest.requestType,requestState) VALUES('"+
+            prorequest.getRequestName()+"','"+prorequest.gettimeCreate().toString(Qt::ISODate)+"',"+QString::number(prorequest.getProID())+",'"+prorequest.getRequestDescribe()+"','"+QString::number(prorequest.getRequestType())+"','"+prorequest.getRequestState()+"');";
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertProTask(Taskinfo &protask)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "insert into protask(proID,timeCreate,taskName,taskExecutor,taskPriority,taskDescribe,timePlanStart,timePlanEnd)  values("
+            +QString::number(protask.getproID())+",'"+protask.gettimeCreate().toString(Qt::ISODate)+"','"
+            +protask.gettaskName()+"',"+protask.gettaskExecutorID()+",'"+QString::number(protask.gettaskPriority())+"','"+protask.gettaskDescribe()+"','"
+            +protask.gettimePlanStart().toString(Qt::ISODate)+"','"+protask.gettimePlanEnd().toString(Qt::ISODate)+"');";
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertProProcess(ProcessInfo &proprocess)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "insert into proprocess(proid,timeCreate,processName,ProcessDescribe) values("
+            +QString::number(proprocess.getproID())+",'"+proprocess.gettimeCreate().toString(Qt::ISODate)+"','"
+            +proprocess.getprocessName()+"','"+proprocess.getprocessDescribe()+"')";
+
     bool flag = t_sql.exec(sqlCMD);
     if(flag)
     {
@@ -930,6 +1239,108 @@ DBManager::eDbStatus DBManager::DBUpdatePerm(userInfo &userinfo)
             "',perm_LoginUser='"+QString::number((int)userinfo.getPerm_LoginUser())+
             "',perm_PermManage ='"+QString::number((int)userinfo.getPerm_PermManage())+"';";
 
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBSelectRequestID(int proID, QString RequestName,int &RequestId)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select id from prorequest where proid ="+QString::number(proID)+" and prorequest.requestName ='" + RequestName +"';" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            RequestId = t_sql.value(0).toInt();
+
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBSelectTaskID(int proID, QString TaskName, int &TaskId)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select id from protask where proid ="+QString::number(proID)+" and protask.taskName ='" + TaskName +"';" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            TaskId = t_sql.value(0).toInt();
+
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBSelectProcessID(int proID, QString processName, int &processId)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "select id from proprocess where proid ="+QString::number(proID)+" and proprocess.processName ='" + processName +"';" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        while(t_sql.next()){
+            processId = t_sql.value(0).toInt();
+
+        }
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertTaskRequest(int Request_Id, int TaskId)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "insert into task_request values(" +QString::number(TaskId)+","+QString::number(Request_Id)+")" ;
+
+    bool flag = t_sql.exec(sqlCMD);
+    if(flag)
+    {
+        m_db.close();
+        return DB_SUCCESS;
+    }else
+    {
+        m_db.close();
+        return DB_FAILED;
+    }
+}
+
+DBManager::eDbStatus DBManager::DBInsertProcessTask(int TaskId, int process_Id)
+{
+    DBopen();
+    QSqlQuery t_sql;
+    QString sqlCMD = "insert into process_task values(" +QString::number(process_Id)+","+QString::number(TaskId)+")" ;
 
     bool flag = t_sql.exec(sqlCMD);
     if(flag)

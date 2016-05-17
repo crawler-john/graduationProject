@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>383</width>
+    <width>379</width>
     <height>284</height>
    </rect>
   </property>
@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QDialog#addCost{
-	background-image:url(img/add.jpg);
+	background-image:url(img/addCost.jpg);
 }
 QTextEdit{
 	background-color:rgb(235,199,255);

@@ -21,6 +21,9 @@ INPUT(
 ./release\prostaffinfo.o
 ./release\addcost.o
 ./release\procost.o
+./release\requestinfo.o
+./release\taskinfo.o
+./release\processinfo.o
 ./release\qrc_images.o
 ./release\moc_login.o
 ./release\moc_mainwindow.o

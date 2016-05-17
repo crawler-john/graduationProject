@@ -20,6 +20,7 @@ AddProject::AddProject(DBManager *DbManager,QWidget *parent) :
     QStringList List;
     m_DbManager->DBGetManagers(List);
     ui->proManager->addItems(List);
+    setWindowTitle("添加项目");
 }
 
 AddProject::~AddProject()

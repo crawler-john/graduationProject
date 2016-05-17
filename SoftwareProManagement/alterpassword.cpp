@@ -16,6 +16,7 @@ alterPassword::alterPassword(QString oldPassword,QWidget *parent) :
     ui->newPassword->setEchoMode (QLineEdit::Password);
     ui->confirmPassword->setEchoMode (QLineEdit::Password);
     connect(ui->BtnCancel,SIGNAL(clicked()),this,SLOT(close()));
+    setWindowTitle("修改密码");
 }
 
 alterPassword::~alterPassword()

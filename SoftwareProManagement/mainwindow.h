@@ -11,6 +11,9 @@
 #include "proinfo.h"
 #include "prostaffinfo.h"
 #include "procost.h"
+#include "requestinfo.h"
+#include "taskinfo.h"
+#include "processinfo.h"
 namespace Ui {
 class MainWindow;
 }
@@ -37,8 +40,10 @@ signals:
     //选择对应的stackedWidget
     void SigSelectStackedWidget(int);
     void SigAlterPassword(bool);
+    void SigRelogin();
 public slots:
     void SlotTreeWidgetClick(QTreeWidgetItem * item);
+
 
 private slots:
     void on_BtnLoginOutSystem_clicked();
@@ -82,6 +87,10 @@ private slots:
     void slotAddUserInfoSuccess();
     void slotAddProStaffInfoSuccess();
     void slotAddProCostInfoSuccess();
+    void slotAddProRequestInfoSuccess();
+    void slotAddProTaskInfoSuccess();
+    void slotAddProProcessInfoSuccess();
+
 
     void on_tableMyPro_itemPressed(QTableWidgetItem *item);
 
@@ -118,6 +127,22 @@ private slots:
     void on_BtnAddProProcess_clicked();
 
     void on_BtnRequestManagerSelection_clicked();
+
+    void on_BtnProcessManagerSelection_clicked();
+
+    void on_BtnRequestManagerSelection_2_clicked();
+
+    void on_tableProProcess_itemPressed(QTableWidgetItem *item);
+
+    void on_tableProRequest_itemPressed(QTableWidgetItem *item);
+
+    void on_tableProTask_itemPressed(QTableWidgetItem *item);
+
+    void on_BtnAddProRequest_clicked();
+
+    void on_BtnMyTaskSelection_clicked();
+
+    void on_tableMyTask_itemPressed(QTableWidgetItem *item);
 
 private:
     //点击我的项目的操作
@@ -164,6 +189,12 @@ private:
     void addTableProStaffInfoData(QTableWidget *table,QList<proStaffInfo *> &List);
     void addTableProCostInfoData(QTableWidget *table,QList<proCost *> &List);
 
+    void addTableProRequestInfoData(QTableWidget *table,QList<requestInfo *> &List);
+
+    void addTableProTaskInfoData(QTableWidget *table,QList<Taskinfo *> &List);
+
+    void addTableProProcessInfoData(QTableWidget *table,QList<ProcessInfo *> &List);
+
     void initialize();
 
 
@@ -174,6 +205,10 @@ private:
     QList<userInfo *> AllUserInfoList;
     QList<proStaffInfo *> proStaffList;
     QList<proCost *> proCostList;
+    QList<requestInfo *> proRequestList;
+    QList<Taskinfo *> proTaskList;
+    QList<Taskinfo *> proMyTaskList;
+    QList<ProcessInfo *> proProcessList;
 
 };
 

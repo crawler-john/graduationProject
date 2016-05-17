@@ -9,6 +9,7 @@ Daily::Daily(QWidget *parent) :
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
     connect(ui->BtnCancel,SIGNAL(clicked()),this,SLOT(close()));
+    setWindowTitle("添加周报");
 }
 
 Daily::~Daily()
