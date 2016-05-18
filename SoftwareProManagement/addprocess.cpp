@@ -81,11 +81,11 @@ void addProcess::on_BtnConfirm_clicked()
         flag = m_dbmanager->DBInsertProcessTask(task_id,process_id);
         if(flag == DBManager::DB_SUCCESS)
         {
-            ui->Info->setText("添加成本项成功！");
+            ui->Info->setText("添加新的进度成功！");
             emit sigAddProProcessInfoSuccess();
         }else
         {
-            ui->Info->setText("添加成本项失败");
+            ui->Info->setText("添加新的进度失败");
         }
     }
 }

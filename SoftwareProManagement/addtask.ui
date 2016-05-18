@@ -382,7 +382,7 @@ color:rgb(0, 0, 0);</string>
 color:rgb(0, 0, 0);</string>
    </property>
    <property name="text">
-    <string>进度计划开始时间：</string>
+    <string>任务计划开始时间：</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_8">
@@ -399,7 +399,7 @@ color:rgb(0, 0, 0);</string>
 color:rgb(0, 0, 0);</string>
    </property>
    <property name="text">
-    <string>进度计划结束时间：</string>
+    <string>任务计划结束时间：</string>
    </property>
   </widget>
   <widget class="QSpinBox" name="planStartMonth">

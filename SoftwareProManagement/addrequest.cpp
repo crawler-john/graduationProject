@@ -66,11 +66,11 @@ void addRequest::on_BtnConfirm_clicked()
 
         if(flag == DBManager::DB_SUCCESS)
         {
-            ui->Info->setText("添加成本项成功！");
+            ui->Info->setText("添加新的需求项成功！");
             emit sigAddProRequestInfoSuccess();
         }else
         {
-            ui->Info->setText("添加成本项失败");
+            ui->Info->setText("添加新的需求项成功！");
         }
     }
 }

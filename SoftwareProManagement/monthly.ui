@@ -98,7 +98,7 @@
 </string>
    </property>
    <property name="text">
-    <string>下  周  计  划:</string>
+    <string>下  月  计  划:</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">

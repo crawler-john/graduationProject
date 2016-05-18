@@ -96,11 +96,11 @@ void addTask::on_BtnConfirm_clicked()
         flag = m_dbmanager->DBInsertTaskRequest(request_id,task_id);
         if(flag == DBManager::DB_SUCCESS)
         {
-            ui->Info->setText("添加成本项成功！");
+            ui->Info->setText("添加新的任务成功！");
             emit sigAddProTaskInfoSuccess();
         }else
         {
-            ui->Info->setText("添加成本项失败");
+            ui->Info->setText("添加新的任务成功！");
         }
     }
 

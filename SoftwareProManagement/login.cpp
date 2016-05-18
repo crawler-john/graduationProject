@@ -130,8 +130,6 @@ void login::SlotUserLogin()
             ErrorInfo->setText("账号或密码有误！");
         }
     }
-
-
 }
 
 void login::SlotRelogin()
