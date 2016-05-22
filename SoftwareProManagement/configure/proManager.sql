@@ -129,11 +129,7 @@ CREATE TABLE `proprocess` (
     `proID` int(20) not null,       #项目进度所在的项目
     `timeCreate`   date not null,
     `processName` varchar(50),      #项目进度的名称
-    `processDescribe` varchar(500), #项目进度描述
-    `timePlanStart` date not null,  #项目任务计划开始时间
-    `timePlanEnd` date not null,    #项目任务计划结束时间
-    `timeRealStart` date,       #项目任务实际开始时间
-    `timeRealEnd` date,         #项目任务实际结束时间
+    `processDescribe` varchar(500)  #项目进度描述
     constraint fk_process_proid FOREIGN KEY(proID) REFERENCES  proinfo(Id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

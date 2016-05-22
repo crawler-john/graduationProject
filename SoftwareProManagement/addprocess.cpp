@@ -72,10 +72,13 @@ void addProcess::on_BtnConfirm_clicked()
 
         //插入相关信息
         bool flag = m_dbmanager->DBInsertProProcess(proprocess);
+
         //插入相关信息表
         int task_id,process_id;
         flag = m_dbmanager->DBSelectTaskID(proID,ui->processTaskName->currentText(),task_id);
+
         flag = m_dbmanager->DBSelectProcessID(proID,ui->processName->text(),process_id);
+
 
         qDebug() << process_id <<"    " << task_id;
         flag = m_dbmanager->DBInsertProcessTask(task_id,process_id);

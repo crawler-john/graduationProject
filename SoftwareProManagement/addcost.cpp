@@ -16,6 +16,7 @@ addCost::addCost(DBManager *DbManager,QString proName,QWidget *parent) :
 
     ui->proName->addItem(proName);
     setWindowTitle("添加成本项");
+    ui->money->setRange(0,5000000);
 }
 
 addCost::~addCost()

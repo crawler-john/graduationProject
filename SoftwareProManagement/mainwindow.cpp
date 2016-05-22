@@ -51,14 +51,14 @@ void MainWindow::getUserInfo(QString  UserID)
     ui->treeWidget->topLevelItem(0)->child(0)->setHidden(!m_userinfo.getPerm_myProject());
     ui->treeWidget->topLevelItem(0)->child(1)->setHidden(!m_userinfo.getPerm_myTask());
     ui->treeWidget->topLevelItem(0)->child(2)->setHidden(!m_userinfo.getPerm_setInfo());
-    if((!m_userinfo.getPerm_proInfoManage() && !m_userinfo.getPerm_StaffManage() && !m_userinfo.getPerm_CostManage()
+    if((!m_userinfo.getPerm_proInfoManage() && !m_userinfo.getPerm_proStaffManage() && !m_userinfo.getPerm_CostManage()
         && !m_userinfo.getPerm_RequireTaskManage() && !m_userinfo.getPerm_PlanManage() && !m_userinfo.getPerm_WeeklyReports()
         &&!m_userinfo.getPerm_MonthlyReports()))
     {
         ui->treeWidget->topLevelItem(1)->setHidden(true);
     }
     ui->treeWidget->topLevelItem(1)->child(0)->setHidden(!m_userinfo.getPerm_proInfoManage());
-    ui->treeWidget->topLevelItem(1)->child(1)->setHidden(!m_userinfo.getPerm_StaffManage());
+    ui->treeWidget->topLevelItem(1)->child(1)->setHidden(!m_userinfo.getPerm_proStaffManage());
     ui->treeWidget->topLevelItem(1)->child(2)->setHidden(!m_userinfo.getPerm_CostManage());
     ui->treeWidget->topLevelItem(1)->child(3)->setHidden(!m_userinfo.getPerm_RequireTaskManage());
     ui->treeWidget->topLevelItem(1)->child(4)->setHidden(!m_userinfo.getPerm_RequireTaskManage());
@@ -272,6 +272,7 @@ void MainWindow::PersonalInfoOperation()
 
 void MainWindow::ProInfoManageOperation()
 {
+    ui->BtnproFinish->hide();
 
     ui->errorProInfoManager->clear();
     if(m_userinfo.getPost() != "软件项目管理员")
@@ -344,6 +345,7 @@ void MainWindow::ProCostManageOperation()
 
 void MainWindow::ProRequestManageOperation()
 {
+    ui->BtnRequestFinish->hide();
     ui->proNameRequestcombox->clear();
     ui->proNameRequest->clear();
     // 添加项目信息
@@ -1253,7 +1255,6 @@ void MainWindow::MyProOperation()
 void MainWindow::MyTaskOperation()
 {
     ui->mytaskinfo->clear();
-
     //获取与我相关的项目
     // 添加项目信息
     ui->mytaskCombox->clear();
@@ -1279,6 +1280,8 @@ void MainWindow::MyTaskOperation()
 //表格点击操作
 void MainWindow::on_tableProInfo_itemPressed(QTableWidgetItem *item)
 {
+    ui->BtnproFinish->hide();
+
     ui->BtnSetProRealStart->show();
     ui->BtnSetProRealEnd->show();
     QString proName = ui->tableProInfo->item(item->row(),0)->text();
@@ -1296,6 +1299,12 @@ void MainWindow::on_tableProInfo_itemPressed(QTableWidgetItem *item)
     ui->proCost->setText(QString::number(proinfo->getMoney()));
     ui->proClient->setText(proinfo->getClient());
     ui->proState->setText(proinfo->getState());
+    if(proinfo->getState() != "已完成")
+    {
+        ui->BtnproFinish->show();
+
+    }
+
     ui->proAddress->setText(proinfo->getAddress());
 
     ui->proPriority->setCurrentIndex(proinfo->getPriority());
@@ -1701,9 +1710,9 @@ void MainWindow::on_BtnProStaffManagerSelection_clicked()
 void MainWindow::on_BtnAddProStaff_clicked()
 {
     addProStaff *addprostaff = new addProStaff(DbManager,ui->prostaffcombo->currentText());
-    connect(addprostaff,SIGNAL(sigAddProInfoSuccess()),this,SLOT(slotAddProStaffInfoSuccess()));
+    connect(addprostaff,SIGNAL(sigAddProStaffInfoSuccess()),this,SLOT(slotAddProStaffInfoSuccess()));
     addprostaff->exec();
-    disconnect(addprostaff,SIGNAL(sigAddProInfoSuccess()),this,SLOT(slotAddProStaffInfoSuccess()));
+    disconnect(addprostaff,SIGNAL(sigAddProStaffInfoSuccess()),this,SLOT(slotAddProStaffInfoSuccess()));
     delete addprostaff;
 }
 
@@ -1869,6 +1878,7 @@ void MainWindow::on_tableProProcess_itemPressed(QTableWidgetItem *item)
 
 void MainWindow::on_tableProRequest_itemPressed(QTableWidgetItem *item)
 {
+    ui->BtnRequestFinish->hide();
     QString title = ui->tableProRequest->item(item->row(),1)->text();
     requestInfo *requestinfo = NULL;
     QList<requestInfo *>::Iterator iter = proRequestList.begin();
@@ -1888,7 +1898,11 @@ void MainWindow::on_tableProRequest_itemPressed(QTableWidgetItem *item)
     ui->RequsetcreateMonth->setValue(requestinfo->gettimeCreate().month());
     ui->requestcreateDay->setValue(requestinfo->gettimeCreate().day());
     ui->TypeRequest->setText((requestinfo->getRequestType()==0)?"功能性需求":"非功能性需求");
-    ui->stateRequest->setText(requestinfo->getRequestName());
+    ui->stateRequest->setText(requestinfo->getRequestState());
+    if(requestinfo->getRequestState() != "已完成")
+    {
+         ui->BtnRequestFinish->show();
+    }
     ui->describeRequest->setText(requestinfo->getRequestDescribe());
 
 }
@@ -1983,7 +1997,6 @@ void MainWindow::on_BtnMyTaskSelection_clicked()
     end.setDate(ui->MyTaskEndYear->text().toInt(),ui->MyTaskEndMonth->text().toInt(),ui->MyTaskEndDay->text().toInt());
 
     DbManager->DBGetProMyTaskInfo(proMyTaskList,ProName,m_userinfo.getID(),start,end);
-
     //在表格中显示数据
     addTableProTaskInfoData(ui->tableMyTask,proMyTaskList);
     ui->mytaskinfo->setText("查询成功！");
@@ -2031,4 +2044,41 @@ void MainWindow::on_tableMyTask_itemPressed(QTableWidgetItem *item)
     ui->planEndYearTask_2->setValue(taskinfo->gettimePlanEnd().year());
     ui->planEndMonthTask_2->setValue(taskinfo->gettimePlanEnd().month());
     ui->planEndDayTask_2->setValue(taskinfo->gettimePlanEnd().day());
+}
+
+void MainWindow::on_BtnRequestFinish_clicked()
+{
+    QString title = ui->NameRequest->text();
+    requestInfo *requestinfo = NULL;
+    QList<requestInfo *>::Iterator iter = proRequestList.begin();
+    for ( ; iter != proRequestList.end(); iter++)  {
+        if((*iter)->getRequestName() == title)
+        {
+            requestinfo = *iter;
+            break;
+        }
+    }
+
+    requestinfo->setRequestState("已完成");
+     ui->stateRequest->setText(requestinfo->getRequestState());
+     DbManager->updateRequestState(title,"已完成");
+}
+
+void MainWindow::on_BtnproFinish_clicked()
+{
+    QString proName = ui->proName->text();
+    ProInfo *proinfo = NULL;
+    QList<ProInfo *>::Iterator iter = ProInfoList.begin();
+    for ( ; iter != ProInfoList.end(); iter++)  {
+        if((*iter)->getName() == proName)
+        {
+            proinfo = *iter;
+            break;
+        }
+    }
+    proinfo->setState("已完成");
+    ui->proState->setText(proinfo->getState());
+
+
+     DbManager->updateProFinish(proName);
 }

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[73];
-    char stringdata[1705];
+    QByteArrayData data[75];
+    char stringdata[1757];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -101,7 +101,9 @@ QT_MOC_LITERAL(68, 1560, 30),
 QT_MOC_LITERAL(69, 1591, 27),
 QT_MOC_LITERAL(70, 1619, 27),
 QT_MOC_LITERAL(71, 1647, 29),
-QT_MOC_LITERAL(72, 1677, 26)
+QT_MOC_LITERAL(72, 1677, 26),
+QT_MOC_LITERAL(73, 1704, 27),
+QT_MOC_LITERAL(74, 1732, 23)
     },
     "MainWindow\0SigSelectStackedWidget\0\0"
     "SigAlterPassword\0SigRelogin\0"
@@ -157,6 +159,8 @@ QT_MOC_LITERAL(72, 1677, 26)
     "on_BtnAddProRequest_clicked\0"
     "on_BtnMyTaskSelection_clicked\0"
     "on_tableMyTask_itemPressed\0"
+    "on_BtnRequestFinish_clicked\0"
+    "on_BtnproFinish_clicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -166,7 +170,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      60,   14, // methods
+      62,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -174,68 +178,70 @@ static const uint qt_meta_data_MainWindow[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  314,    2, 0x05,
-       3,    1,  317,    2, 0x05,
-       4,    0,  320,    2, 0x05,
+       1,    1,  324,    2, 0x05,
+       3,    1,  327,    2, 0x05,
+       4,    0,  330,    2, 0x05,
 
  // slots: name, argc, parameters, tag, flags
-       5,    1,  321,    2, 0x0a,
-       8,    0,  324,    2, 0x08,
-       9,    0,  325,    2, 0x08,
-      10,    0,  326,    2, 0x08,
-      11,    0,  327,    2, 0x08,
-      12,    0,  328,    2, 0x08,
-      13,    0,  329,    2, 0x08,
-      14,    0,  330,    2, 0x08,
-      15,    0,  331,    2, 0x08,
-      16,    0,  332,    2, 0x08,
-      17,    0,  333,    2, 0x08,
-      18,    0,  334,    2, 0x08,
-      19,    1,  335,    2, 0x08,
-      21,    1,  338,    2, 0x08,
-      23,    1,  341,    2, 0x08,
-      25,    1,  344,    2, 0x08,
-      27,    4,  347,    2, 0x08,
-      32,    4,  356,    2, 0x08,
-      33,    1,  365,    2, 0x08,
-      35,    1,  368,    2, 0x08,
-      36,    0,  371,    2, 0x08,
-      37,    0,  372,    2, 0x08,
-      38,    1,  373,    2, 0x08,
-      39,    0,  376,    2, 0x08,
-      40,    0,  377,    2, 0x08,
-      41,    0,  378,    2, 0x08,
-      42,    0,  379,    2, 0x08,
-      43,    0,  380,    2, 0x08,
-      44,    0,  381,    2, 0x08,
-      45,    0,  382,    2, 0x08,
-      46,    0,  383,    2, 0x08,
-      47,    1,  384,    2, 0x08,
-      48,    0,  387,    2, 0x08,
-      49,    0,  388,    2, 0x08,
-      50,    0,  389,    2, 0x08,
-      51,    1,  390,    2, 0x08,
-      52,    1,  393,    2, 0x08,
-      53,    0,  396,    2, 0x08,
-      54,    1,  397,    2, 0x08,
-      55,    0,  400,    2, 0x08,
-      56,    0,  401,    2, 0x08,
-      57,    0,  402,    2, 0x08,
-      58,    1,  403,    2, 0x08,
-      59,    1,  406,    2, 0x08,
-      60,    0,  409,    2, 0x08,
-      61,    0,  410,    2, 0x08,
-      62,    0,  411,    2, 0x08,
-      63,    0,  412,    2, 0x08,
-      64,    0,  413,    2, 0x08,
-      65,    0,  414,    2, 0x08,
-      66,    0,  415,    2, 0x08,
-      67,    1,  416,    2, 0x08,
-      68,    1,  419,    2, 0x08,
-      69,    1,  422,    2, 0x08,
-      70,    0,  425,    2, 0x08,
-      71,    0,  426,    2, 0x08,
-      72,    1,  427,    2, 0x08,
+       5,    1,  331,    2, 0x0a,
+       8,    0,  334,    2, 0x08,
+       9,    0,  335,    2, 0x08,
+      10,    0,  336,    2, 0x08,
+      11,    0,  337,    2, 0x08,
+      12,    0,  338,    2, 0x08,
+      13,    0,  339,    2, 0x08,
+      14,    0,  340,    2, 0x08,
+      15,    0,  341,    2, 0x08,
+      16,    0,  342,    2, 0x08,
+      17,    0,  343,    2, 0x08,
+      18,    0,  344,    2, 0x08,
+      19,    1,  345,    2, 0x08,
+      21,    1,  348,    2, 0x08,
+      23,    1,  351,    2, 0x08,
+      25,    1,  354,    2, 0x08,
+      27,    4,  357,    2, 0x08,
+      32,    4,  366,    2, 0x08,
+      33,    1,  375,    2, 0x08,
+      35,    1,  378,    2, 0x08,
+      36,    0,  381,    2, 0x08,
+      37,    0,  382,    2, 0x08,
+      38,    1,  383,    2, 0x08,
+      39,    0,  386,    2, 0x08,
+      40,    0,  387,    2, 0x08,
+      41,    0,  388,    2, 0x08,
+      42,    0,  389,    2, 0x08,
+      43,    0,  390,    2, 0x08,
+      44,    0,  391,    2, 0x08,
+      45,    0,  392,    2, 0x08,
+      46,    0,  393,    2, 0x08,
+      47,    1,  394,    2, 0x08,
+      48,    0,  397,    2, 0x08,
+      49,    0,  398,    2, 0x08,
+      50,    0,  399,    2, 0x08,
+      51,    1,  400,    2, 0x08,
+      52,    1,  403,    2, 0x08,
+      53,    0,  406,    2, 0x08,
+      54,    1,  407,    2, 0x08,
+      55,    0,  410,    2, 0x08,
+      56,    0,  411,    2, 0x08,
+      57,    0,  412,    2, 0x08,
+      58,    1,  413,    2, 0x08,
+      59,    1,  416,    2, 0x08,
+      60,    0,  419,    2, 0x08,
+      61,    0,  420,    2, 0x08,
+      62,    0,  421,    2, 0x08,
+      63,    0,  422,    2, 0x08,
+      64,    0,  423,    2, 0x08,
+      65,    0,  424,    2, 0x08,
+      66,    0,  425,    2, 0x08,
+      67,    1,  426,    2, 0x08,
+      68,    1,  429,    2, 0x08,
+      69,    1,  432,    2, 0x08,
+      70,    0,  435,    2, 0x08,
+      71,    0,  436,    2, 0x08,
+      72,    1,  437,    2, 0x08,
+      73,    0,  440,    2, 0x08,
+      74,    0,  441,    2, 0x08,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    2,
@@ -300,6 +306,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 34,    7,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -369,6 +377,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 57: _t->on_BtnAddProRequest_clicked(); break;
         case 58: _t->on_BtnMyTaskSelection_clicked(); break;
         case 59: _t->on_tableMyTask_itemPressed((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 60: _t->on_BtnRequestFinish_clicked(); break;
+        case 61: _t->on_BtnproFinish_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -420,13 +430,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 60)
+        if (_id < 62)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 60;
+        _id -= 62;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 60)
+        if (_id < 62)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 60;
+        _id -= 62;
     }
     return _id;
 }

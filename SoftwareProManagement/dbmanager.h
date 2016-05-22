@@ -117,6 +117,10 @@ public:
     eDbStatus DBInsertTaskRequest(int Request_Id,int TaskId);
     eDbStatus DBInsertProcessTask(int TaskId,int process_Id);
 
+    //更改任务完成度
+    eDbStatus updateRequestState(QString RequestName,QString state);
+    eDbStatus updateProFinish(QString proName);
+
 private:
     QStringList m_sqlDriver;
     QSqlDatabase m_db;

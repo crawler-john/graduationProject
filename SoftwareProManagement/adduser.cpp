@@ -67,9 +67,16 @@ void AddUser::on_BtnConfirm_clicked()
 
         userinfo.setPerm(userinfo.getPost());
 
-        m_DbManager->DBInsertUser(userinfo);
-        ui->Info->setText("添加项目成功！");
-        emit sigAddUserInfoSuccess();
+        bool flag = m_DbManager->DBInsertUser(userinfo);
+        if(flag == DBManager::DB_SUCCESS)
+        {
+            ui->Info->setText("添加用户成功！");
+            emit sigAddUserInfoSuccess();
+        }else
+        {
+            ui->Info->setText("用户ID已经存在！");
+        }
+
     }
 
 

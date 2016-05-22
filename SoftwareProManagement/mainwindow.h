@@ -144,6 +144,10 @@ private slots:
 
     void on_tableMyTask_itemPressed(QTableWidgetItem *item);
 
+    void on_BtnRequestFinish_clicked();
+
+    void on_BtnproFinish_clicked();
+
 private:
     //点击我的项目的操作
     void MyProOperation();

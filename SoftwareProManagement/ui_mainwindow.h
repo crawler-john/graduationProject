@@ -257,6 +257,7 @@ public:
     QComboBox *proPriority;
     QPushButton *BtnSetProRealStart;
     QPushButton *BtnSetProRealEnd;
+    QPushButton *BtnproFinish;
     QLabel *errorProInfoManager;
     QWidget *page_5;
     QGroupBox *groupBox_5;
@@ -339,6 +340,7 @@ public:
     QLabel *proNameRequest;
     QLabel *TypeRequest;
     QLabel *stateRequest;
+    QPushButton *BtnRequestFinish;
     QComboBox *proNameRequestcombox;
     QLabel *label_210;
     QPushButton *BtnAddProRequest;
@@ -1448,7 +1450,7 @@ public:
         label_98->setGeometry(QRect(267, 124, 16, 16));
         label_99 = new QLabel(groupBox_20);
         label_99->setObjectName(QStringLiteral("label_99"));
-        label_99->setGeometry(QRect(463, 20, 71, 16));
+        label_99->setGeometry(QRect(410, 20, 71, 16));
         label_99->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "color:rgb(0, 0, 0);"));
         label_100 = new QLabel(groupBox_20);
@@ -1510,17 +1512,17 @@ public:
         planEndDay->setGeometry(QRect(580, 120, 42, 22));
         proCost = new QLabel(groupBox_20);
         proCost->setObjectName(QStringLiteral("proCost"));
-        proCost->setGeometry(QRect(550, 20, 81, 16));
+        proCost->setGeometry(QRect(497, 20, 81, 16));
         proCost->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "text-decoration: underline;"));
         proManager = new QLabel(groupBox_20);
         proManager->setObjectName(QStringLiteral("proManager"));
-        proManager->setGeometry(QRect(350, 20, 101, 16));
+        proManager->setGeometry(QRect(350, 20, 61, 16));
         proManager->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "text-decoration: underline;"));
         proState = new QLabel(groupBox_20);
         proState->setObjectName(QStringLiteral("proState"));
-        proState->setGeometry(QRect(350, 50, 101, 16));
+        proState->setGeometry(QRect(350, 50, 71, 16));
         proState->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "text-decoration: underline;"));
         proName = new QLabel(groupBox_20);
@@ -1546,12 +1548,12 @@ public:
         proAddress->setGeometry(QRect(370, 83, 211, 20));
         label_15 = new QLabel(groupBox_20);
         label_15->setObjectName(QStringLiteral("label_15"));
-        label_15->setGeometry(QRect(460, 52, 91, 16));
+        label_15->setGeometry(QRect(407, 52, 91, 16));
         label_15->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "color:rgb(0, 0, 0);"));
         proPriority = new QComboBox(groupBox_20);
         proPriority->setObjectName(QStringLiteral("proPriority"));
-        proPriority->setGeometry(QRect(551, 50, 81, 22));
+        proPriority->setGeometry(QRect(498, 50, 81, 22));
         BtnSetProRealStart = new QPushButton(groupBox_20);
         BtnSetProRealStart->setObjectName(QStringLiteral("BtnSetProRealStart"));
         BtnSetProRealStart->setGeometry(QRect(210, 180, 111, 23));
@@ -1562,6 +1564,12 @@ public:
         BtnSetProRealEnd->setObjectName(QStringLiteral("BtnSetProRealEnd"));
         BtnSetProRealEnd->setGeometry(QRect(510, 180, 121, 23));
         BtnSetProRealEnd->setStyleSheet(QLatin1String("border: 1px solid green;\n"
+"border-radius:10px;\n"
+""));
+        BtnproFinish = new QPushButton(groupBox_20);
+        BtnproFinish->setObjectName(QStringLiteral("BtnproFinish"));
+        BtnproFinish->setGeometry(QRect(570, 10, 61, 23));
+        BtnproFinish->setStyleSheet(QLatin1String("border: 1px solid green;\n"
 "border-radius:10px;\n"
 ""));
         errorProInfoManager = new QLabel(groupBox_4);
@@ -1903,6 +1911,12 @@ public:
         stateRequest->setGeometry(QRect(410, 80, 191, 20));
         stateRequest->setStyleSheet(QString::fromUtf8("font: 75 11pt \"\351\273\221\344\275\223\";\n"
 "text-decoration: underline;"));
+        BtnRequestFinish = new QPushButton(groupBox_23);
+        BtnRequestFinish->setObjectName(QStringLiteral("BtnRequestFinish"));
+        BtnRequestFinish->setGeometry(QRect(570, 10, 61, 23));
+        BtnRequestFinish->setStyleSheet(QLatin1String("border: 1px solid green;\n"
+"border-radius:10px;\n"
+""));
         proNameRequestcombox = new QComboBox(groupBox_7);
         proNameRequestcombox->setObjectName(QStringLiteral("proNameRequestcombox"));
         proNameRequestcombox->setGeometry(QRect(82, 44, 291, 22));
@@ -2859,7 +2873,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(4);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -3078,6 +3092,7 @@ public:
         );
         BtnSetProRealStart->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256\345\256\236\351\231\205\345\274\200\345\247\213\346\227\266\351\227\264", 0));
         BtnSetProRealEnd->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256\345\256\236\351\231\205\347\273\223\346\235\237\346\227\266\351\227\264", 0));
+        BtnproFinish->setText(QApplication::translate("MainWindow", "\351\241\271\347\233\256\345\256\214\346\210\220", 0));
         errorProInfoManager->setText(QString());
         groupBox_5->setTitle(QApplication::translate("MainWindow", "\351\241\271\347\233\256\344\272\272\345\221\230\347\256\241\347\220\206", 0));
         BtnProStaffManagerSelection->setText(QApplication::translate("MainWindow", "\346\237\245\350\257\242", 0));
@@ -3140,6 +3155,7 @@ public:
         proNameRequest->setText(QString());
         TypeRequest->setText(QString());
         stateRequest->setText(QString());
+        BtnRequestFinish->setText(QApplication::translate("MainWindow", "\351\234\200\346\261\202\345\256\214\346\210\220", 0));
         label_210->setText(QApplication::translate("MainWindow", "\351\241\271  \347\233\256\357\274\232", 0));
         BtnAddProRequest->setText(QApplication::translate("MainWindow", "\344\270\272\351\241\271\347\233\256\345\242\236\345\212\240\346\226\260\347\232\204\351\234\200\346\261\202", 0));
         prorequestInfo->setText(QString());

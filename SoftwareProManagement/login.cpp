@@ -132,8 +132,11 @@ void login::SlotUserLogin()
     }
 }
 
+
 void login::SlotRelogin()
 {
+    this->lineEditAccount->clear();
+    this->lineEditPassword->clear();
     disconnect(mainWin,SIGNAL(SigRelogin()),this,SLOT(SlotRelogin()));
     mainWin->hide();
     delete mainWin;
